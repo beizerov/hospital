@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Login</title>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    </head>
+    <body>
+
+        <div class="login_form">
+            <img th:src="@{/images/logo.jpg}" class="logo img" width="300" height="300" alt="Logo"/>
+            
+            <form th:action="@{/login}" method="POST">
+                <h2 id="welcome" th:text="Welcome"></h2>
+                    <br/>
+                <input type="email" id="email" name="email" th:placeholder="Email">
+                    <br/>
+                 <input type="password" th:placeholder="Password" required
+                       id="password" name="password"/> 
+                <h3 id="error" th:if="${param.error}" style="font-size: 20; color: #FF1C19;">
+                    Invalid email or password!
+                </h3>
+                <button name="Submit" value="Login" type="Submit"th:text="Login"></button>
+            </form>
+
+        </div>
+    </body>
+</html>
