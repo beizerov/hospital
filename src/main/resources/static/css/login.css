@@ -35,14 +35,11 @@ body {
     align-items: center;
 }
 
-.login-wrapper {
-    max-width: 500px;
-    width: 100%;
+.logo {
+    width: 300px;
+    height: 300px;
 }
 
-.logo {
-    text-align: center;
-}
 .logo img {
     max-width: 200px;
     width: 100%;
@@ -50,7 +47,6 @@ body {
 }
 
 form {
-    margin-top: -17px;
     background: #8affb4;
     padding: 2em 1em;
     font-family: helvetica, sans-serif;
@@ -58,12 +54,7 @@ form {
     -moz-border-radius: 5px;
     border-radius: 5px;
 }
-form label {
-    color: #fff;
-    margin: 0 3% .25em;
-    display: block;
-    font-family: helvetica, sans-serif;
-}
+
 form input {
     width: 94%;
     padding: .5em .25em;
@@ -80,12 +71,15 @@ form input {
     -moz-border-radius: 5px;
     border-radius: 5px;
 }
+
 form input.password {
     padding-right: 4rem;
 }
+
 form input:focus {
     border: 2px solid #1fd100;
 }
+
 form button {
     width: 94%;
     margin: 2em 3% 0;
@@ -106,6 +100,7 @@ form button {
     transition: all 0.25s;
     cursor: pointer;
 }
+
 form button:focus, form button:hover {
     background: #56a974;
 }
@@ -117,10 +112,11 @@ form button:focus, form button:hover {
     z-index: 5;
     display: none;
 }
+
 .hide-show span {
-    background: #1fd100;
+    background: #4ad8d8;
     font-size: 1em;
-    padding: .5em;
+    padding: .3em;
     float: right;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -129,12 +125,16 @@ form button:focus, form button:hover {
 }
 
 #error {
-    margin-top: auto;
-    margin-left: 9px;
+    display: none;
+    color: red;
+    font-size: 3em;
+    margin-left: 30%;
     position: absolute;
-
 }
 
 #welcome {
+    font-size: 5em;
+    font-family: cursive;
+    font-style: italic;
     margin-left: 9px;
 }

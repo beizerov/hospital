@@ -6,23 +6,35 @@
         <meta charset="UTF-8">
         <title>Login</title>
         <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}"/>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script th:src="@{/js/jquery-3.3.1.slim.min.js}"></script>
+        <script th:src="@{/js/login.js}"></script>
     </head>
     <body>
-
+        <h3 id="error">Invalid email or password!</h3>
+        
         <div class="login_form">
-            <img th:src="@{/images/logo.jpg}" class="logo img" width="300" height="300" alt="Logo"/>
-            
+            <img th:src="@{/images/logo.jpg}" class="logo" alt="Logo"/>
+            <script th:if="${param.error}" th:inline="javascript">
+            //<![CDATA[
+                let modify = document.getElementById('error');
+                
+                modify.style.display = "inline-block";
+                
+                setTimeout(function() {
+                    modify.style.display = "none";
+                }, 3000);      
+            //]]>   
+            </script>
             <form th:action="@{/login}" method="POST">
                 <h2 id="welcome" th:text="Welcome"></h2>
                     <br/>
                 <input type="email" id="email" name="email" th:placeholder="Email">
                     <br/>
-                 <input type="password" th:placeholder="Password" required
-                       id="password" name="password"/> 
-                <h3 id="error" th:if="${param.error}" style="font-size: 20; color: #FF1C19;">
-                    Invalid email or password!
-                </h3>
+                <input type="password" th:placeholder="Password" required
+                       id="password" name="password"/>
+                    <div class="hide-show">
+                        <span>Show</span>
+                    </div>
                 <button name="Submit" value="Login" type="Submit"th:text="Login"></button>
             </form>
 
