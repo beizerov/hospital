@@ -110,7 +110,6 @@ form button:focus, form button:hover {
     margin: -3.62em 3% 0 1.5%;
     position: relative;
     z-index: 5;
-    display: none;
 }
 
 .hide-show span {

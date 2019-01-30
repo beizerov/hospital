@@ -6,8 +6,6 @@
         <meta charset="UTF-8">
         <title>Login</title>
         <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}"/>
-        <script th:src="@{/js/jquery-3.3.1.slim.min.js}"></script>
-        <script th:src="@{/js/login.js}"></script>
     </head>
     <body>
         <h3 id="error">Invalid email or password!</h3>
@@ -39,5 +37,8 @@
             </form>
 
         </div>
+        
+        <script th:src="@{/js/jquery-3.3.1.slim.min.js}"></script>
+        <script th:src="@{/js/showHidePasswordButton.js}"></script>
     </body>
 </html>
