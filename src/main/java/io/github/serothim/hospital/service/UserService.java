@@ -23,21 +23,55 @@
  */
 package io.github.serothim.hospital.service;
 
+import io.github.serothim.hospital.domain.Role;
 import io.github.serothim.hospital.domain.User;
+import io.github.serothim.hospital.repository.RoleRepository;
+import io.github.serothim.hospital.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import java.util.Arrays;
+import java.util.HashSet;
 
 /**
- * Service interface for {@link io.github.serothim.hospital.domain.User}
  *
  * @author Alexei Beizerov
  * @version 1.0
  */
-interface UserService {
+@Service("userService")
+public class UserService {
 
-    public User findUserByEmail(String email);
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public void saveUser(User user);
+    @Autowired
+    public UserService(UserRepository userRepository,
+            RoleRepository roleRepository,
+            BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
 
-    public void removeUser(User user);
+    public User findUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
 
-    public void editUser(User user);
+    public void saveUser(User user, String role) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setActive(1);
+        Role userRole = roleRepository.findByRole(role);
+        user.setRoles(new HashSet<>(Arrays.asList(userRole)));
+        userRepository.save(user);
+    }
+
+    public void removeUser(User user) {
+        userRepository.delete(user);
+    }
+
+    public void editUser(User user) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
