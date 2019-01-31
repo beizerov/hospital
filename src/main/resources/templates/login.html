@@ -13,7 +13,7 @@
         <div class="login_form">
             <img th:src="@{/images/logo.jpg}" class="logo" alt="Logo"/>
             <script th:if="${param.error}" th:inline="javascript">
-            //<![CDATA[
+
                 let modify = document.getElementById('error');
                 
                 modify.style.display = "inline-block";
@@ -21,7 +21,7 @@
                 setTimeout(function() {
                     modify.style.display = "none";
                 }, 3000);      
-            //]]>   
+
             </script>
             <form th:action="@{/login}" method="POST">
                 <h2 id="welcome" th:text="Welcome"></h2>
