@@ -76,15 +76,16 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .antMatchers("/login").permitAll()
                     .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
                     .authenticated()
-                    .and()
-                .formLogin()
+                .and()
+                	.formLogin()
                     .loginPage("/login").failureUrl("/login?error=true")
                     .defaultSuccessUrl("/admin/home")
                     .usernameParameter("email")
                     .passwordParameter("password")
                 .and().logout()
                     .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                    .logoutSuccessUrl("/").and().exceptionHandling()
+                    .logoutSuccessUrl("/")
+                .and().exceptionHandling()
                     .accessDeniedPage("/access-denied");
     }
 

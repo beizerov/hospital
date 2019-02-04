@@ -23,10 +23,13 @@
  */
 package io.github.serothim.hospital.controller;
 
+import org.springframework.stereotype.Controller;
+
 /**
  *
  * @author Alexei Beizerov
  */
+@Controller
 public class ReceptionistController {
     
 }

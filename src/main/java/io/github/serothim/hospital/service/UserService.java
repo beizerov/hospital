@@ -74,4 +74,8 @@ public class UserService {
     public void editUser(User user) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    public Iterable<User> getAllUsers() {
+    	return userRepository.findAll();
+    }
 }
