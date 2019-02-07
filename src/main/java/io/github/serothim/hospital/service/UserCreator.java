@@ -21,48 +21,53 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.github.serothim.hospital.controller;
+/**
+ * 
+ */
+package io.github.serothim.hospital.service;
+
+import java.util.Arrays;
+import java.util.HashSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 
+import io.github.serothim.hospital.domain.Role;
 import io.github.serothim.hospital.domain.User;
-import io.github.serothim.hospital.service.UserFinder;
-import io.github.serothim.hospital.service.UserGetter;
+import io.github.serothim.hospital.repository.RoleRepository;
+import io.github.serothim.hospital.repository.UserRepository;
 
 /**
- *
  * @author Alexei Beizerov
+ *
  */
-@Controller
-public class AdminController {
+@Service("userCreator")
+public class UserCreator {
 
+	private final UserRepository userRepository;
+	private final RoleRepository roleRepository;
+	private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+	/**
+	 * @param userRepository
+	 * @param roleRepository
+	 * @param bCryptPasswordEncoder
+	 */
 	@Autowired
-	private UserFinder userFinder;
+	public UserCreator(UserRepository userRepository, RoleRepository roleRepository,
+			BCryptPasswordEncoder bCryptPasswordEncoder) {
+		super();
+		this.userRepository = userRepository;
+		this.roleRepository = roleRepository;
+		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+	}
 
-	@Autowired
-	private UserGetter userGetter;
-
-	@RequestMapping(value = "/admin/home", method = RequestMethod.GET)
-	public ModelAndView home() {
-		ModelAndView modelAndView = new ModelAndView();
-
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
-		User user = userFinder.findByEmail(auth.getName());
-
-		String name = user.getFirstName() + " " + user.getLastName();
-		modelAndView.addObject("userName", "Welcome " + name);
-
-		modelAndView.addObject("users", userGetter.getAllUsers());
-
-		modelAndView.setViewName("admin/home");
-
-		return modelAndView;
+	public void createUser(User user, String role) {
+		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+		user.setActive(1);
+		Role userRole = roleRepository.findByRole(role);
+		user.setRoles(new HashSet<>(Arrays.asList(userRole)));
+		userRepository.save(user);
 	}
 }

@@ -21,48 +21,36 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.github.serothim.hospital.controller;
+/**
+ * 
+ */
+package io.github.serothim.hospital.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.stereotype.Service;
 
 import io.github.serothim.hospital.domain.User;
-import io.github.serothim.hospital.service.UserFinder;
-import io.github.serothim.hospital.service.UserGetter;
+import io.github.serothim.hospital.repository.UserRepository;
 
 /**
- *
  * @author Alexei Beizerov
+ *
  */
-@Controller
-public class AdminController {
+@Service("userDeleter")
+public class UserDeleter {
 
+	private final UserRepository userRepository;
+
+	/**
+	 * @param userRepository
+	 */
 	@Autowired
-	private UserFinder userFinder;
+	public UserDeleter(UserRepository userRepository) {
+		super();
+		this.userRepository = userRepository;
+	}
 
-	@Autowired
-	private UserGetter userGetter;
-
-	@RequestMapping(value = "/admin/home", method = RequestMethod.GET)
-	public ModelAndView home() {
-		ModelAndView modelAndView = new ModelAndView();
-
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
-		User user = userFinder.findByEmail(auth.getName());
-
-		String name = user.getFirstName() + " " + user.getLastName();
-		modelAndView.addObject("userName", "Welcome " + name);
-
-		modelAndView.addObject("users", userGetter.getAllUsers());
-
-		modelAndView.setViewName("admin/home");
-
-		return modelAndView;
+	public void deleteUser(User user) {
+		userRepository.delete(user);
 	}
 }
