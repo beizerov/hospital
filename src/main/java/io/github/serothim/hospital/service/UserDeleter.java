@@ -50,7 +50,7 @@ public class UserDeleter {
 		this.userRepository = userRepository;
 	}
 
-	public void deleteUser(User user) {
+	public void delete(User user) {
 		userRepository.delete(user);
 	}
 }

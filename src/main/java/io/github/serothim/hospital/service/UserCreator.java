@@ -63,7 +63,7 @@ public class UserCreator {
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
 
-	public void createUser(User user, String role) {
+	public void create(User user, String role) {
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 		user.setActive(1);
 		Role userRole = roleRepository.findByRole(role);
