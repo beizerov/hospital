@@ -28,6 +28,7 @@ In src/main/resources/application.properties change the IP address to your
 	spring.datasource.url = jdbc:mysql://172.17.0.2:3306/hospital?useSSL=true
 	
 If you use docker IP address your container can be found using 
+
 	docker inspect hospital_mysql_8.0
 	
 In the end of output like that:
