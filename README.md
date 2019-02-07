@@ -33,7 +33,7 @@ If you use docker IP address your container can be found using
 In the end of output like that:
 
 
-	                    "Gateway": "172.17.0.1",
+	                "Gateway": "172.17.0.1",
                     "IPAddress": "172.17.0.2", <----- This IP your container hospital_mysql_8.0
                     "IPPrefixLen": 16,
                     "IPv6Gateway": "",
