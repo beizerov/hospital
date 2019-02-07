@@ -42,7 +42,7 @@ public class UserFinder {
 	private final UserRepository userRepository;
 
 	/**
-	 * @param userRepository
+	 * @param userRepository {@link io.github.serothim.hospital.repository.UserRepository}
 	 */
 	@Autowired
 	public UserFinder(UserRepository userRepository) {

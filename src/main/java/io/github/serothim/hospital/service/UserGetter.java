@@ -42,7 +42,7 @@ public class UserGetter {
 	private final UserRepository userRepository;
 
 	/**
-	 * @param userRepository
+	 * @param userRepository {@link io.github.serothim.hospital.repository.UserRepository}
 	 */
 	@Autowired
 	public UserGetter(UserRepository userRepository) {

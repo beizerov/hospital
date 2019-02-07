@@ -50,9 +50,9 @@ public class UserCreator {
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	/**
-	 * @param userRepository
-	 * @param roleRepository
-	 * @param bCryptPasswordEncoder
+	 * @param userRepository {@link io.github.serothim.hospital.repository.UserRepository}
+	 * @param roleRepository {@link io.github.serothim.hospital.repository.RoleRepository}
+	 * @param bCryptPasswordEncoder Password encoder 
 	 */
 	@Autowired
 	public UserCreator(UserRepository userRepository, RoleRepository roleRepository,
