@@ -7,7 +7,7 @@
  are no any other records in the users table.  
 
     email: admin@dmin
-    password admin
+    password: admin
     
 #### Use MySQL Server
 #####  For example, use Docker
