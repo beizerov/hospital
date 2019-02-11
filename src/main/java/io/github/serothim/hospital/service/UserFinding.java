@@ -36,8 +36,8 @@ import io.github.serothim.hospital.repository.UserRepository;
  * @author Alexei Beizerov
  *
  */
-@Service("userGetter")
-public class UserGetter {
+@Service("userFinder")
+public class UserFinding {
 
 	private final UserRepository userRepository;
 
@@ -45,11 +45,11 @@ public class UserGetter {
 	 * @param userRepository {@link io.github.serothim.hospital.repository.UserRepository}
 	 */
 	@Autowired
-	public UserGetter(UserRepository userRepository) {
+	public UserFinding(UserRepository userRepository) {
 		this.userRepository = userRepository;
 	}
 
-	public Iterable<User> getAllUsers() {
-		return userRepository.findAll();
+	public User findByEmail(String email) {
+		return userRepository.findByEmail(email);
 	}
 }

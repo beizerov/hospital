@@ -26,31 +26,48 @@
  */
 package io.github.serothim.hospital.service;
 
+import java.util.Arrays;
+import java.util.HashSet;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import io.github.serothim.hospital.domain.Role;
 import io.github.serothim.hospital.domain.User;
+import io.github.serothim.hospital.repository.RoleRepository;
 import io.github.serothim.hospital.repository.UserRepository;
 
 /**
  * @author Alexei Beizerov
  *
  */
-@Service("userDeleter")
-public class UserDeleter {
+@Service("userCreator")
+public class UserSaving {
 
 	private final UserRepository userRepository;
+	private final RoleRepository roleRepository;
+	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	/**
 	 * @param userRepository {@link io.github.serothim.hospital.repository.UserRepository}
+	 * @param roleRepository {@link io.github.serothim.hospital.repository.RoleRepository}
+	 * @param bCryptPasswordEncoder Password encoder 
 	 */
 	@Autowired
-	public UserDeleter(UserRepository userRepository) {
+	public UserSaving(UserRepository userRepository, RoleRepository roleRepository,
+			BCryptPasswordEncoder bCryptPasswordEncoder) {
 		super();
 		this.userRepository = userRepository;
+		this.roleRepository = roleRepository;
+		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
 
-	public void delete(User user) {
-		userRepository.delete(user);
+	public void save(User user, String role) {
+		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+		user.setActive(1);
+		Role userRole = roleRepository.findByRole(role);
+		user.setRoles(new HashSet<>(Arrays.asList(userRole)));
+		userRepository.save(user);
 	}
 }

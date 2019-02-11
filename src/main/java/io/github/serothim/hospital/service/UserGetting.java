@@ -26,48 +26,30 @@
  */
 package io.github.serothim.hospital.service;
 
-import java.util.Arrays;
-import java.util.HashSet;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import io.github.serothim.hospital.domain.Role;
 import io.github.serothim.hospital.domain.User;
-import io.github.serothim.hospital.repository.RoleRepository;
 import io.github.serothim.hospital.repository.UserRepository;
 
 /**
  * @author Alexei Beizerov
  *
  */
-@Service("userCreator")
-public class UserCreator {
+@Service("userGetter")
+public class UserGetting {
 
 	private final UserRepository userRepository;
-	private final RoleRepository roleRepository;
-	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	/**
 	 * @param userRepository {@link io.github.serothim.hospital.repository.UserRepository}
-	 * @param roleRepository {@link io.github.serothim.hospital.repository.RoleRepository}
-	 * @param bCryptPasswordEncoder Password encoder 
 	 */
 	@Autowired
-	public UserCreator(UserRepository userRepository, RoleRepository roleRepository,
-			BCryptPasswordEncoder bCryptPasswordEncoder) {
-		super();
+	public UserGetting(UserRepository userRepository) {
 		this.userRepository = userRepository;
-		this.roleRepository = roleRepository;
-		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
 
-	public void create(User user, String role) {
-		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-		user.setActive(1);
-		Role userRole = roleRepository.findByRole(role);
-		user.setRoles(new HashSet<>(Arrays.asList(userRole)));
-		userRepository.save(user);
+	public Iterable<User> getAllUsers() {
+		return userRepository.findAll();
 	}
 }

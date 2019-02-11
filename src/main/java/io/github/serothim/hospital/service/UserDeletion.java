@@ -36,8 +36,8 @@ import io.github.serothim.hospital.repository.UserRepository;
  * @author Alexei Beizerov
  *
  */
-@Service("userFinder")
-public class UserFinder {
+@Service("userDeleter")
+public class UserDeletion {
 
 	private final UserRepository userRepository;
 
@@ -45,11 +45,12 @@ public class UserFinder {
 	 * @param userRepository {@link io.github.serothim.hospital.repository.UserRepository}
 	 */
 	@Autowired
-	public UserFinder(UserRepository userRepository) {
+	public UserDeletion(UserRepository userRepository) {
+		super();
 		this.userRepository = userRepository;
 	}
 
-	public User findByEmail(String email) {
-		return userRepository.findByEmail(email);
+	public void delete(User user) {
+		userRepository.delete(user);
 	}
 }
