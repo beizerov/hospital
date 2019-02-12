@@ -1,6 +1,8 @@
 # HOSPITAL
 
 
+##### USE JAVA VERSION 1.8+
+
 
 #### Use MySQL Server
 #####  For example, use Docker
