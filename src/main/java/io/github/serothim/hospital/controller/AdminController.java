@@ -78,7 +78,7 @@ public class AdminController {
         ModelAndView modelAndView = new ModelAndView();
         User user = new User();
         modelAndView.addObject("user", user);
-        modelAndView.setViewName("addUser");
+        modelAndView.setViewName("admin/addUser");
         return modelAndView;
     }
 
@@ -97,7 +97,7 @@ public class AdminController {
             userSaving.save(user, "ADMIN");
             modelAndView.addObject("successMessage", "User has been registered successfully");
             modelAndView.addObject("user", new User());
-            modelAndView.setViewName("addUser");
+            modelAndView.setViewName("admin/addUser");
         }
         return modelAndView;
     }
