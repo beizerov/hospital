@@ -1,14 +1,7 @@
 # HOSPITAL
 
 
- Adding an  administrator account by default,
- which you can later delete or change.  
- Account by default created automatically if there 
- are no any other records in the users table.  
 
-    email: admin@dmin
-    password: admin
-    
 #### Use MySQL Server
 #####  For example, use Docker
 	docker run --name hospital_mysql_8.0 -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=hospital -d mysql:8.0
@@ -46,3 +39,15 @@ In the end of output like that:
             }
         }
     }
+
+    
+    
+
+ Adding an  administrator account by default,
+ which you can later delete or change.  
+ Account by default created automatically if there 
+ are no any other records in the users table.  
+
+    email: admin@dmin
+    password: admin
+    
