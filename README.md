@@ -1,7 +1,7 @@
 # HOSPITAL
 
 
-##### USE JAVA VERSION 1.8+
+##### JAVA VERSION 1.8
 
 
 #### Use MySQL Server
