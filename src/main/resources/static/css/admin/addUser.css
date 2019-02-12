@@ -1,0 +1,26 @@
+@charset "UTF-8";
+
+#go-to-admin-home-btn {
+	
+	color: #000000;
+	/* background-color: #00f513; */
+	border: none;
+	padding: 1em 2em;
+	font-size: 1.25em;
+	clear: both;
+	color: #000;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    outline: none;
+    -webkit-transition: all 0.25s;
+    -moz-transition: all 0.25s;
+    -ms-transition: all 0.25s;
+    -o-transition: all 0.25s;
+    transition: all 0.25s;
+    cursor: pointer;
+}
+
+#go-to-admin-home-btn button:focus, button:hover {
+	background: #56a974;
+}

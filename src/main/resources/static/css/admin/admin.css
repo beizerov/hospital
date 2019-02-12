@@ -1,0 +1,64 @@
+@charset "UTF-8";
+
+
+html, body {
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+
+#admin-background {
+	background: url("/images/for-admin-pages.png") no-repeat center center
+		fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	height: 100vh;
+}
+
+#nav-btn {
+	position: -webkit-sticky; /* Safari */
+	position: sticky;
+	top: 0;
+	background-color: black;
+}
+
+.form-btn {
+	display: inline-flex;
+}
+
+.admin-btn {
+	color: #000000;
+	background-color: #4979e4;
+	border: none;
+	padding: 1em 2em;
+	font-size: 1.25em;
+	clear: both;
+	color: #000;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	outline: none;
+	-webkit-transition: all 0.25s;
+	-moz-transition: all 0.25s;
+	-ms-transition: all 0.25s;
+	-o-transition: all 0.25s;
+	transition: all 0.25s;
+	cursor: pointer;
+}
+
+#greeting {
+	display: inline-flex;
+	margin-right: 5%;
+	font-size: 2em;
+	color: orange;
+}
+
+button:focus#add-new-user-btn, button:hover#add-new-user-btn {
+	background: #56a974;
+}
+
+button:focus#logout-btn, button:hover#logout-btn {
+	background: #d80606;
+}

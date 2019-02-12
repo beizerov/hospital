@@ -4,52 +4,56 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <head>
-<meta charset="UTF-8">
-<title>Home</title>
-<link rel="stylesheet" type="text/css" th:href="@{/css/adminHome.css}" />
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<meta charset="UTF-8">
+	<title>Home</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/admin/admin.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/admin/home.css}" />
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<div class="container">
 
-		<form th:action="@{/logout}" method="get">
-			<button class="btn btn-md btn-danger btn-block" name="logout"
+	<div id="nav-btn">
+		<div id="greeting"><span th:utext="${userName}"></span></div>
+
+		<form class="form-btn" th:action="@{/admin/addUser}" method="get">
+			<button class="admin-btn" id="add-new-user-btn"
+				type="Submit">Add new user</button>
+		</form>
+	
+		<form class="form-btn" th:action="@{/logout}" method="get">
+			<button class="admin-btn" id="logout-btn" name="logout"
 				type="Submit">Logout</button>
 		</form>
-
-		<div>
-			<a th:href="@{/admin/addUser}">Add new user</a>
-		</div>
-		
-
-		<div class="panel-heading">
-			<span th:utext="${userName}"></span>
-		</div>
-		<div>
-			<table>
-				<tr>
-					<th>Id</th>
-					<th>Active</th>
-					<th>Email</th>
-					<th>First name</th>
-					<th>Last name</th>
-					<th>Role</th>
-				</tr>
-				<tr th:each="user : ${users}">
-					<td th:text="${user.id}"></td>
-					<td th:text="${user.active}"></td>
-					<td th:text="${user.email}"></td>
-					<td th:text="${user.firstName}"></td>
-					<td th:text="${user.lastName}"></td>
-					<td th:object="${user.roles.toArray()}"><span
-						th:text="*{[0].role}"></span></td>
-				</tr>
-			</table>
+	</div>
+	
+	<div id="admin-background">
+		<div class="container" id="table-wrapper">
+			<div id="table-scroll">
+				<table>
+					<tr>
+						<th class="text">Id</th>
+						<th class="text">Active</th>
+						<th class="text">Email</th>
+						<th class="text">First name</th>
+						<th class="text">Last name</th>
+						<th class="text">Role</th>
+					</tr>
+					<tr th:each="user : ${users}">
+						<td th:text="${user.id}"></td>
+						<td th:text="${user.active}"></td>
+						<td th:text="${user.email}"></td>
+						<td th:text="${user.firstName}"></td>
+						<td th:text="${user.lastName}"></td>
+						<td th:object="${user.roles.toArray()}"><span
+							th:text="*{[0].role}"></span></td>
+					</tr>
+				</table>
+			</div>
 		</div>
 	</div>
 </body>

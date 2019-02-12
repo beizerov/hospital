@@ -12,11 +12,11 @@
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/addUser.css}"/>
 </head>
 <body>
-	<form th:action="@{/}" method="get">
-		<button class="btn btn-md btn-warning btn-block" type="Submit">Go
-			To Login Page</button>
+	<form th:action="@{/admin/home}" method="get">
+		<button id="go-to-admin-home-btn" type="Submit">Home</button>
 	</form>
 
 	<div class="container">
