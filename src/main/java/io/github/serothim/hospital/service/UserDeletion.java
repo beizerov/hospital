@@ -33,7 +33,7 @@ import io.github.serothim.hospital.repository.UserRepository;
  * @author Alexei Beizerov
  *
  */
-@Service("userDeleter")
+@Service("userDeletion")
 public class UserDeletion {
 
 	private final UserRepository userRepository;
