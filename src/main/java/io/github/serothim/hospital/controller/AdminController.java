@@ -35,9 +35,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import io.github.serothim.hospital.domain.User;
+import io.github.serothim.hospital.repository.UserRepository;
 import io.github.serothim.hospital.service.UserSaving;
 import io.github.serothim.hospital.service.UserFinding;
-import io.github.serothim.hospital.service.UserGetting;
+import io.github.serothim.hospital.service.Getting;
 
 /**
  *
@@ -50,7 +51,7 @@ public class AdminController {
 	private UserFinding userFinding;
 
 	@Autowired
-	private UserGetting userGetting;
+	private Getting<UserRepository, User> getting;
 	
 	@Autowired
 	private UserSaving userSaving;
@@ -66,7 +67,7 @@ public class AdminController {
 		String name = user.getFirstName() + " " + user.getLastName();
 		modelAndView.addObject("userName", "Welcome " + name);
 
-		modelAndView.addObject("users", userGetting.getAllUsers());
+		modelAndView.addObject("users", getting.getAll());
 
 		modelAndView.setViewName("admin/home");
 

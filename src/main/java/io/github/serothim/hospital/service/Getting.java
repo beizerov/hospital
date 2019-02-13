@@ -27,30 +27,32 @@
 package io.github.serothim.hospital.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
-import io.github.serothim.hospital.domain.User;
-import io.github.serothim.hospital.repository.UserRepository;
-
 /**
+ * <h1>Getting all entities of T type from repository.</h1> 
+ * 
+ * @param R type is type of repository  
+ * @param T type is entity type
+ * 
  * @author Alexei Beizerov
- *
+ * @version 1.0
  */
-@Service("userDeleter")
-public class UserDeletion {
+@Service("getting")
+public class Getting<R extends JpaRepository<T, Long>, T> {
 
-	private final UserRepository userRepository;
+	private final R repository;
 
 	/**
-	 * @param userRepository {@link io.github.serothim.hospital.repository.UserRepository}
+	 * @param One of repositories which extends JpaRepository<T, Long>
 	 */
 	@Autowired
-	public UserDeletion(UserRepository userRepository) {
-		super();
-		this.userRepository = userRepository;
+	public Getting(R repository) {
+		this.repository = repository;
 	}
 
-	public void delete(User user) {
-		userRepository.delete(user);
+	public Iterable<T> getAll() {
+		return repository.findAll();
 	}
 }
