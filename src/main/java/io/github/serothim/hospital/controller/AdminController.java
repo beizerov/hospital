@@ -35,10 +35,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import io.github.serothim.hospital.domain.User;
-import io.github.serothim.hospital.repository.UserRepository;
 import io.github.serothim.hospital.service.UserSaving;
+import io.github.serothim.hospital.service.RoleGetting;
 import io.github.serothim.hospital.service.UserFinding;
-import io.github.serothim.hospital.service.Getting;
+import io.github.serothim.hospital.service.UserGetting;
 
 /**
  *
@@ -51,7 +51,10 @@ public class AdminController {
 	private UserFinding userFinding;
 
 	@Autowired
-	private Getting<UserRepository, User> getting;
+	private UserGetting userGetting;
+	
+	@Autowired
+	private RoleGetting roleGetting;
 	
 	@Autowired
 	private UserSaving userSaving;
@@ -67,7 +70,7 @@ public class AdminController {
 		String name = user.getFirstName() + " " + user.getLastName();
 		modelAndView.addObject("userName", "Welcome " + name);
 
-		modelAndView.addObject("users", getting.getAll());
+		modelAndView.addObject("users", userGetting.getAllUsers());
 
 		modelAndView.setViewName("admin/home");
 
@@ -83,23 +86,23 @@ public class AdminController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/admin/addUser", method = RequestMethod.POST)
-    public ModelAndView createNewUser(@Valid User user, BindingResult bindingResult) {
-        ModelAndView modelAndView = new ModelAndView();
-        User userExists = userFinding.findByEmail(user.getEmail());
-        if (userExists != null) {
-            bindingResult
-                    .rejectValue("email", "error.user",
-                            "There is already a user registered with the email provided");
-        }
-        if (bindingResult.hasErrors()) {
-            modelAndView.setViewName("addUser");
-        } else {
-            userSaving.save(user, "ADMIN");
-            modelAndView.addObject("successMessage", "User has been registered successfully");
-            modelAndView.addObject("user", new User());
-            modelAndView.setViewName("admin/addUser");
-        }
-        return modelAndView;
-    }
+	@RequestMapping(value = "/admin/addUser", method = RequestMethod.POST)
+	public ModelAndView addNewUser(@Valid User user, BindingResult bindingResult) {
+		ModelAndView modelAndView = new ModelAndView();
+		User userExists = userFinding.findByEmail(user.getEmail());
+		if (userExists != null) {
+			bindingResult.rejectValue("email", "error.user",
+					"There is already a user registered with the email provided");
+		}
+		if (bindingResult.hasErrors()) {
+			modelAndView.setViewName("addUser");
+		} else {
+			userSaving.save(user, "ADMIN");
+			modelAndView.addObject("successMessage", "User has been registered successfully");
+			modelAndView.addObject("user", new User());
+			modelAndView.addObject("roles", roleGetting.getAllRoles());
+			modelAndView.setViewName("admin/addUser");
+		}
+		return modelAndView;
+	}
 }

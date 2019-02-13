@@ -21,38 +21,32 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-/**
- * 
- */
 package io.github.serothim.hospital.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
-/**
- * <h1>Getting all entities of T type from repository.</h1> 
- * 
- * @param R type is type of repository  
- * @param T type is entity type
- * 
- * @author Alexei Beizerov
- * @version 1.0
- */
-@Service("getting")
-public class Getting<R extends JpaRepository<T, Long>, T> {
+import io.github.serothim.hospital.domain.User;
+import io.github.serothim.hospital.repository.UserRepository;
 
-	private final R repository;
+/**
+ * @author Alexei Beizerov
+ *
+ */
+@Service("userDeleter")
+public class UserDeletion {
+
+	private final UserRepository userRepository;
 
 	/**
-	 * @param One of repositories which extends JpaRepository<T, Long>
+	 * @param userRepository {@link io.github.serothim.hospital.repository.UserRepository}
 	 */
 	@Autowired
-	public Getting(R repository) {
-		this.repository = repository;
+	public UserDeletion(UserRepository userRepository) {
+		this.userRepository = userRepository;
 	}
 
-	public Iterable<T> getAll() {
-		return repository.findAll();
+	public void delete(User user) {
+		userRepository.delete(user);
 	}
 }

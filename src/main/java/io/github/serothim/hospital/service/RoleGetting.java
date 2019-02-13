@@ -21,39 +21,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-/**
- * 
- */
 package io.github.serothim.hospital.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
-/**
- * <h1>Deletion entity from repository.</h1> 
- * 
- * @param R type is type of repository  
- * @param T type is entity type
- * 
- * @author Alexei Beizerov
- * @version 1.0
- */
-@Service("deletion")
-public class Deletion<R extends JpaRepository<T, Long>, T> {
+import io.github.serothim.hospital.domain.Role;
+import io.github.serothim.hospital.repository.RoleRepository;
 
-	private final R repository;
+/**
+ * @author Alexei Beizerov
+ *
+ */
+@Service("roleGetting")
+public class RoleGetting {
+
+	private final RoleRepository roleRepository;
 
 	/**
-	 * @param One of repositories which extends JpaRepository<T, Long>
+	 * @param roleRepository {@link io.github.serothim.hospital.repository.RoleRepository}
 	 */
-	@Autowired
-	public Deletion(R repository) {
-		super();
-		this.repository = repository;
+	public RoleGetting(RoleRepository roleRepository) {
+		this.roleRepository = roleRepository;
 	}
 
-	public void delete(T entity) {
-		repository.delete(entity);
+	public Iterable<Role> getAllRoles() {
+		return roleRepository.findAll();
 	}
 }
