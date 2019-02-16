@@ -16,11 +16,6 @@ not to use the root account( the root account is not for this purpose ;-) )
 	CREATE USER 'hospital_admin'@'%' IDENTIFIED BY 'admin';
 	GRANT ALL PRIVILEGES ON hospital.* TO 'hospital_admin'@'%'
 		WITH GRANT OPTION;
-
-
-In src/main/resources/application.properties change the IP address to your
-
-	spring.datasource.url = jdbc:mysql://172.17.0.2:3306/hospital?useSSL=true
 	
 If you use docker IP address your container can be found using 
 
@@ -42,9 +37,17 @@ In the end of output like that:
         }
     }
 
-    
+
+#### Edit your run configuration:
+##### Add environment variables:
+	DATABASE_NAME = Your database name
+	DB_PASSWORD = Your password for the database
+	DB_SERVER_IP_ADDRESS =  Ip address your database server
+	DB_USERNAME = Your username for the database
     
 
+### Run application.
+    
  Adding an  administrator account by default,
  which you can later delete or change.  
  Account by default created automatically if there 
