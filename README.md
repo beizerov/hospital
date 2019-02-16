@@ -41,9 +41,9 @@ In the end of output like that:
 #### Edit your run configuration:
 ##### Add environment variables:
 	DATABASE_NAME = Your database name
-	DB_PASSWORD = Your password for the database
-	DB_SERVER_IP_ADDRESS =  Ip address your database server
-	DB_USERNAME = Your username for the database
+	DB_PASSWORD = Your database password
+	DB_SERVER_IP_ADDRESS =  IP address your database server
+	DB_USERNAME = Your database username
     
 
 ### Run application.
