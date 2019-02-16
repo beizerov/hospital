@@ -2,10 +2,10 @@
 
 
 ##### JAVA VERSION 1.8
-#### MySQL database
+##### MySQL database
 
 
-#####  For a locally example with a using Docker
+#####  For a locally example with a using Docker:
 	docker run --name hospital_mysql_8.0 -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=hospital -d mysql:8.0
 
 
@@ -17,7 +17,7 @@ not to use the root account( the root account is not for this purpose ;-) )
 	GRANT ALL PRIVILEGES ON hospital.* TO 'hospital_admin'@'%'
 		WITH GRANT OPTION;
 	
-If you are using Docker, the IP address of your container can be found using
+If you are using Docker, the IP address of your container can be found using:
 
 	docker inspect hospital_mysql_8.0
 	
@@ -48,7 +48,7 @@ In the end of output like that:
 
 ### Run application.
     
- Adding an  administrator account by default,
+ Adding an administrator account by default,
  which you can later delete or change.  
  Account by default created automatically if there 
  are no any other records in the users table.  
