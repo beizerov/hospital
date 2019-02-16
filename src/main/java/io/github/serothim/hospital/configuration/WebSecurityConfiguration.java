@@ -70,8 +70,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.
-                authorizeRequests()
+        http
+                .authorizeRequests()
                     .antMatchers("/").permitAll()
                     .antMatchers("/login").permitAll()
                     .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
@@ -87,6 +87,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .logoutSuccessUrl("/")
                 .and().exceptionHandling()
                     .accessDeniedPage("/access-denied");
+        
+        http.headers()
+        		.contentSecurityPolicy("script-src 'self';"
+        				+ "report-uri /csp-report-endpoint/");
+        
     }
 
     @Override
