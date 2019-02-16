@@ -2,10 +2,10 @@
 
 
 ##### JAVA VERSION 1.8
+#### MySQL database
 
 
-#### Use MySQL Server
-#####  For example, use Docker
+#####  For a locally example with an using Docker
 	docker run --name hospital_mysql_8.0 -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=hospital -d mysql:8.0
 
 
@@ -17,7 +17,7 @@ not to use the root account( the root account is not for this purpose ;-) )
 	GRANT ALL PRIVILEGES ON hospital.* TO 'hospital_admin'@'%'
 		WITH GRANT OPTION;
 	
-If you use docker IP address your container can be found using 
+If you are using Docker, the IP address of your container can be found using
 
 	docker inspect hospital_mysql_8.0
 	
