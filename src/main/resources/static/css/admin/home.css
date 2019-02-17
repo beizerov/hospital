@@ -27,3 +27,17 @@ table, th, td {
 	width: 35%;
 	border: 1px solid red;
 }
+
+/* /* Style buttons */
+input#delete-btn {
+	background-image: url("/images/green-recycle-bin.png");
+	width: 40px;
+	height 50px;
+}
+
+Darker background on mouse-over
+input#delete-btn:hover, input#delete-btn:focus{
+  background-image: url("/images/red-recycle-bin.png");
+}
+ */
+

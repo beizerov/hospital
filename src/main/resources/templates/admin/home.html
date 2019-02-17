@@ -47,6 +47,12 @@
 						<td th:text="${user.lastName}"></td>
 						<td th:object="${user.roles.toArray()}"><span
 							th:text="*{[0].role}"></span></td>
+						<td>
+							<input id="delete-btn" type="image" alt="Delete user" 
+							th:src="@{/images/green-recycle-bin.png}"
+							th:onmouseover="this.src='/images/red-recycle-bin.png'"   
+							th:onmouseout="this.src='/images/green-recycle-bin.png'">
+						</td>
 					</tr>
 				</table>
 			</div>
