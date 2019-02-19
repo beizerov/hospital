@@ -18,14 +18,3 @@ document.addEventListener('DOMContentLoaded', () => {
 			this.src = '/images/green-recycle-bin.png';
 		});
 });
-
-/*document.addEventListener('DOMContentLoaded', () => {
-	const forms = document.getElementsByClassName('form-delete-btn');
-	for (const form of forms)
-		form.addEventListener('submit', (event) => {
-			event.preventDefault();
-			console.log('We do get here when both a submit button' 
-						+ 'is clicked and the image ' + form.childNodes[4].value);
-		});
-});
-*/

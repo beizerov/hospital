@@ -83,8 +83,6 @@ public class AdminController {
 
 	@GetMapping(value = "/admin/home")
 	public ModelAndView home() {
-
-		userFinding.findByEmail("serothim@gmail.com").getRoles().forEach(System.err::println);
 		
 		return getModelAndViewForAdminHome();
 	}

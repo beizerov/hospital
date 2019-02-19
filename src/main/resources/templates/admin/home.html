@@ -47,8 +47,8 @@
 						<td th:text="${user.email}"></td>
 						<td th:text="${user.firstName}"></td>
 						<td th:text="${user.lastName}"></td>
-						<td th:each="role : ${user.roles}"><span
-							th:text="${role.role}"></span></td>
+						<td><span th:each="role, state : ${user.roles}"
+							th:text="${role.role} + ${(state.count != state.size) ? ', ' : ''}"></span></td>
 						<td class="td-del-btn">
 							<form class="form-delete-btn" th:action="@{/admin/home}" method="post">
 								<input class="delete-btn" type="image" alt="Delete user"
