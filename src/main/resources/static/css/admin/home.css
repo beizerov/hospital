@@ -6,12 +6,6 @@ th, td {
 	font-family: monospace;
 }
 
-#table-scroll {
-	height: 150px;
-	overflow: auto;
-	margin-top: 20px;
-}
-
 #table-wrapper table {
 	width: 100%;
 }
@@ -32,5 +26,3 @@ th, td {
 .td-del-btn {
 	border: 0;
 }
-
-

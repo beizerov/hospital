@@ -30,13 +30,15 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import io.github.serothim.hospital.domain.User;
 import io.github.serothim.hospital.service.UserSaving;
 import io.github.serothim.hospital.service.RoleGetting;
+import io.github.serothim.hospital.service.UserDeletion;
 import io.github.serothim.hospital.service.UserFinding;
 import io.github.serothim.hospital.service.UserGetting;
 
@@ -52,41 +54,58 @@ public class AdminController {
 
 	@Autowired
 	private UserGetting userGetting;
-	
+
 	@Autowired
 	private RoleGetting roleGetting;
-	
+
 	@Autowired
 	private UserSaving userSaving;
 
-	@RequestMapping(value = "/admin/home", method = RequestMethod.GET)
-	public ModelAndView home() {
-		ModelAndView modelAndView = new ModelAndView();
+	@Autowired
+	private UserDeletion userDeletion;
 
+	private String whoiam() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
 		User user = userFinding.findByEmail(auth.getName());
-
-		String name = user.getFirstName() + " " + user.getLastName();
-		modelAndView.addObject("userName", "Welcome " + name);
-
-		modelAndView.addObject("users", userGetting.getAllUsers());
-
-		modelAndView.setViewName("admin/home");
-
-		return modelAndView;
+		
+		return user.getFirstName() + " " + user.getLastName();
 	}
 	
-    @RequestMapping(value = "/admin/addUser", method = RequestMethod.GET)
-    public ModelAndView addUser() {
-        ModelAndView modelAndView = new ModelAndView();
-        User user = new User();
-        modelAndView.addObject("user", user);
-        modelAndView.setViewName("admin/addUser");
-        return modelAndView;
-    }
+	private ModelAndView getModelAndViewForAdminHome() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("userName", "Welcome " + whoiam());
+		modelAndView.addObject("users", userGetting.getAllUsers());
+		modelAndView.setViewName("admin/home");
+		
+		return modelAndView;
+	}
 
-	@RequestMapping(value = "/admin/addUser", method = RequestMethod.POST)
+	@GetMapping(value = "/admin/home")
+	public ModelAndView home() {
+
+		userFinding.findByEmail("serothim@gmail.com").getRoles().forEach(System.err::println);
+		
+		return getModelAndViewForAdminHome();
+	}
+
+	@PostMapping(value = "/admin/home")
+	public ModelAndView deleteUser(@RequestParam(name = "email") String email) {
+		
+		userDeletion.delete(userFinding.findByEmail(email)); 
+
+		return getModelAndViewForAdminHome();
+	}
+
+	@GetMapping(value = "/admin/addUser")
+	public ModelAndView addUser() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("user", new User());
+		modelAndView.setViewName("admin/addUser");
+		return modelAndView;
+	}
+
+	@PostMapping(value = "/admin/addUser")
 	public ModelAndView addNewUser(@Valid User user, BindingResult bindingResult) {
 		ModelAndView modelAndView = new ModelAndView();
 		User userExists = userFinding.findByEmail(user.getEmail());
@@ -95,7 +114,7 @@ public class AdminController {
 					"There is already a user registered with the email provided");
 		}
 		if (bindingResult.hasErrors()) {
-			modelAndView.setViewName("addUser");
+			modelAndView.setViewName("admin/addUser");
 		} else {
 			userSaving.save(user, "ADMIN");
 			modelAndView.addObject("successMessage", "User has been registered successfully");

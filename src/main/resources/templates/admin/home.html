@@ -29,8 +29,8 @@
 	
 	<div id="admin-background">
 		<div class="container" id="table-wrapper">
-			<div id="table-scroll">
-				<table>
+			<table>
+				<thead>
 					<tr>
 						<th class="text">Id</th>
 						<th class="text">Active</th>
@@ -39,21 +39,28 @@
 						<th class="text">Last name</th>
 						<th class="text">Role</th>
 					</tr>
+				</thead>
+				<tbody>
 					<tr th:each="user : ${users}">
 						<td th:text="${user.id}"></td>
 						<td th:text="${user.active}"></td>
 						<td th:text="${user.email}"></td>
 						<td th:text="${user.firstName}"></td>
 						<td th:text="${user.lastName}"></td>
-						<td th:object="${user.roles.toArray()}"><span
-							th:text="*{[0].role}"></span></td>
+						<td th:each="role : ${user.roles}"><span
+							th:text="${role.role}"></span></td>
 						<td class="td-del-btn">
-							<input class="delete-btn" type="image" alt="Delete user" 
-							th:src="@{/images/green-recycle-bin.png}" width="50px" height="30px">
+							<form class="form-delete-btn" th:action="@{/admin/home}" method="post">
+								<input class="delete-btn" type="image" alt="Delete user"
+									th:src="@{/images/green-recycle-bin.png}" width="50px"
+									height="30px"> 
+								<input th:name="email" type="hidden"
+									th:value="${user.email}"></input>
+							</form>
 						</td>
 					</tr>
-				</table>
-			</div>
+				</tbody>
+			</table>
 		</div>
 	</div>
 	
