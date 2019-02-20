@@ -1,6 +1,6 @@
 # HOSPITAL
 
-[Task](https://github.com/serothim/hospital/Task.md)
+[Task](https://github.com/serothim/hospital/TASK.md)
 
 
 ##### JAVA VERSION 1.8
