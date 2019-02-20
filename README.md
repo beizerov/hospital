@@ -1,5 +1,7 @@
 # HOSPITAL
 
+[Task](https://github.com/serothim/hospital/Task.md)
+
 
 ##### JAVA VERSION 1.8
 ##### MySQL database
