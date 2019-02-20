@@ -1,6 +1,5 @@
 /**
  * Adds a event listeners for a user deletion buttons.
- * 
  */
 
 document.addEventListener('DOMContentLoaded', () => {

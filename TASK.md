@@ -1,3 +1,5 @@
+[<- Go back](https://github.com/serothim/hospital)
+
 ## Тема: Информационная система для больницы
 
 
@@ -35,3 +37,5 @@
    * технология Spring для разработки пользовательского интерфейса
    * технология Hibernate для работы с данными
    * СУБД MySQL 
+   
+[<- Go back](https://github.com/serothim/hospital)
