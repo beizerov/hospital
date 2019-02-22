@@ -50,12 +50,22 @@
 						<td><span th:each="role, state : ${user.roles}"
 							th:text="${role.role} + ${(state.count != state.size) ? ', ' : ''}"></span></td>
 						<td class="td-del-btn">
-							<form class="form-delete-btn" th:action="@{/admin/home}" method="post">
+							<form class="user-btn-form" th:action="@{/admin/home}" method="post">
+								<input class="edit-btn" type="image" alt="Edit user"
+									th:src="@{/images/pencil-blue.png}" width="50px" height="30px">
+								 <input th:name="email" type="hidden" 
+								 		th:value="${user.email}"></input>
+								 <input th:name="action" type="hidden" 
+								 		th:value="EDIT"></input>		
+							</form>
+
+							<form id="form-dlt" class="user-btn-form" th:action="@{/admin/home}" method="post">
 								<input class="delete-btn" type="image" alt="Delete user"
-									th:src="@{/images/green-recycle-bin.png}" width="50px"
-									height="30px"> 
+									th:src="@{/images/green-recycle-bin.png}" width="50px" height="30px"> 
 								<input th:name="email" type="hidden"
 									th:value="${user.email}"></input>
+								<input th:name="action" type="hidden"
+									th:value="DELETE"></input>
 							</form>
 						</td>
 					</tr>
@@ -64,6 +74,6 @@
 		</div>
 	</div>
 	
-	<script th:src="@{/js/addsEventListenersForUserDeletionButtons.js}"></script>
+	<script th:src="@{/js/addsEventListenersForUserButtons.js}"></script>
 </body>
 </html>

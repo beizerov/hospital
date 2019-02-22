@@ -26,3 +26,11 @@ th, td {
 .td-del-btn {
 	border: 0;
 }
+
+.user-btn-form {
+	display: inline;
+}
+
+#form-dlt {
+	margin-left: -21px;
+}

@@ -88,13 +88,21 @@ public class AdminController {
 	}
 
 	@PostMapping(value = "/admin/home")
-	public ModelAndView deleteUser(@RequestParam(name = "email") String email) {
+	public ModelAndView deleteOrEditUser(@RequestParam(name = "email") String email,
+										 @RequestParam(name = "action") String action) {
 		
-		userDeletion.delete(userFinding.findByEmail(email)); 
-
+		switch (action) {
+		case "EDIT":
+			System.err.println("ACTION: " + action + "\nUSER WITH EMAIL: " + email);
+			break;
+		case "DELETE":
+			userDeletion.delete(userFinding.findByEmail(email));
+			break;
+		}
+		
 		return getModelAndViewForAdminHome();
 	}
-
+	
 	@GetMapping(value = "/admin/addUser")
 	public ModelAndView addUser() {
 		ModelAndView modelAndView = new ModelAndView();
