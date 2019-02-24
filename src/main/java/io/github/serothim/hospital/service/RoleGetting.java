@@ -38,7 +38,8 @@ public class RoleGetting {
 	private final RoleRepository roleRepository;
 
 	/**
-	 * @param roleRepository {@link io.github.serothim.hospital.repository.RoleRepository}
+	 * @param roleRepository {@link 
+	 * io.github.serothim.hospital.repository.RoleRepository}
 	 */
 	public RoleGetting(RoleRepository roleRepository) {
 		this.roleRepository = roleRepository;
@@ -46,5 +47,9 @@ public class RoleGetting {
 
 	public Iterable<Role> getAllRoles() {
 		return roleRepository.findAll();
+	}
+	
+	public Role getRoleByName(String roleName) {
+		return roleRepository.findByRole(roleName);
 	}
 }

@@ -42,7 +42,8 @@ public class UserFinding {
 	private final UserRepository userRepository;
 
 	/**
-	 * @param userRepository {@link io.github.serothim.hospital.repository.UserRepository}
+	 * @param userRepository {@link
+	 *  io.github.serothim.hospital.repository.UserRepository}
 	 */
 	@Autowired
 	public UserFinding(UserRepository userRepository) {

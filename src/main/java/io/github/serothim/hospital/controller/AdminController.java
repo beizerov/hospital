@@ -23,6 +23,11 @@
  */
 package io.github.serothim.hospital.controller;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +40,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import io.github.serothim.hospital.domain.Role;
 import io.github.serothim.hospital.domain.User;
 import io.github.serothim.hospital.service.UserSaving;
 import io.github.serothim.hospital.service.RoleGetting;
@@ -65,67 +71,113 @@ public class AdminController {
 	private UserDeletion userDeletion;
 
 	private String whoiam() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Authentication auth = SecurityContextHolder
+								.getContext()
+								.getAuthentication();
 
 		User user = userFinding.findByEmail(auth.getName());
-		
+
 		return user.getFirstName() + " " + user.getLastName();
 	}
-	
+
 	private ModelAndView getModelAndViewForAdminHome() {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("userName", "Welcome " + whoiam());
 		modelAndView.addObject("users", userGetting.getAllUsers());
 		modelAndView.setViewName("admin/home");
-		
+
 		return modelAndView;
+	}
+
+	private void setUserRoles(User user, List<String> roleNameList) {
+		List<Role> roleList = new ArrayList<>();
+
+		for (String name : roleNameList)
+			roleList.add(roleGetting.getRoleByName(name));
+
+		roleNameList.forEach((roleName) -> {
+			roleList.add(roleGetting.getRoleByName(roleName));
+		});
+
+		Set<Role> roles = new HashSet<>(roleList);
+
+		user.setRoles(roles);
 	}
 
 	@GetMapping(value = "/admin/home")
 	public ModelAndView home() {
-		
+
 		return getModelAndViewForAdminHome();
 	}
 
 	@PostMapping(value = "/admin/home")
-	public ModelAndView deleteOrEditUser(@RequestParam(name = "email") String email,
-										 @RequestParam(name = "action") String action) {
-		
+	public ModelAndView deleteOrEditUser(
+			@RequestParam(name = "email") String email,
+			@RequestParam(name = "action") String action
+	) {
+
+		ModelAndView modelAndView = null;
+
 		switch (action) {
 		case "EDIT":
-			System.err.println("ACTION: " + action + "\nUSER WITH EMAIL: " + email);
+			modelAndView = new ModelAndView();
+
+			modelAndView.addObject("user", new User());
+			modelAndView.addObject("roles", roleGetting.getAllRoles());
+			modelAndView.setViewName("/admin/editUser");
+
+			System.err.println("ACTION: " 
+								+ action + 
+								"\nUSER WITH EMAIL: "
+								+ email
+			);
 			break;
 		case "DELETE":
 			userDeletion.delete(userFinding.findByEmail(email));
+
+			modelAndView = getModelAndViewForAdminHome();
+
 			break;
 		}
-		
-		return getModelAndViewForAdminHome();
+
+		return modelAndView;
 	}
-	
+
 	@GetMapping(value = "/admin/addUser")
 	public ModelAndView addUser() {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("user", new User());
+		modelAndView.addObject("selectedRoles", new ArrayList<String>());
 		modelAndView.setViewName("admin/addUser");
 		return modelAndView;
 	}
 
 	@PostMapping(value = "/admin/addUser")
-	public ModelAndView addNewUser(@Valid User user, BindingResult bindingResult) {
+	public ModelAndView addNewUser(
+			@Valid User user, 
+			BindingResult bindingResult
+	) {
+
 		ModelAndView modelAndView = new ModelAndView();
 		User userExists = userFinding.findByEmail(user.getEmail());
 		if (userExists != null) {
-			bindingResult.rejectValue("email", "error.user",
-					"There is already a user registered with the email provided");
+			bindingResult.rejectValue("email", 
+									  "error.user",
+									  "There is already a user registered" 
+									  + " with the email provided"
+			);
 		}
 		if (bindingResult.hasErrors()) {
 			modelAndView.setViewName("admin/addUser");
 		} else {
-			userSaving.save(user, "ADMIN");
-			modelAndView.addObject("successMessage", "User has been registered successfully");
+
+			setUserRoles(user, new ArrayList<>());
+
+			userSaving.save(user);
+			modelAndView.addObject("successMessage", 
+								   "User has been registered successfully"
+			);
 			modelAndView.addObject("user", new User());
-			modelAndView.addObject("roles", roleGetting.getAllRoles());
 			modelAndView.setViewName("admin/addUser");
 		}
 		return modelAndView;

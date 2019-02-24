@@ -39,7 +39,8 @@ public class UserDeletion {
 	private final UserRepository userRepository;
 
 	/**
-	 * @param userRepository {@link io.github.serothim.hospital.repository.UserRepository}
+	 * @param userRepository {@link 
+	 * io.github.serothim.hospital.repository.UserRepository}
 	 */
 	@Autowired
 	public UserDeletion(UserRepository userRepository) {

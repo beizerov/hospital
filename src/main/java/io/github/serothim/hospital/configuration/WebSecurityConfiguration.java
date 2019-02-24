@@ -86,18 +86,23 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                     .logoutSuccessUrl("/")
                 .and().exceptionHandling()
-                    .accessDeniedPage("/access-denied");
-        
-        http.headers()
-        		.contentSecurityPolicy("script-src 'self';"
+                    .accessDeniedPage("/access-denied")
+                .and()
+        			.headers()
+        			.contentSecurityPolicy("script-src 'self';"
         				+ "report-uri /csp-report-endpoint/");
-        
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**");
+                .antMatchers(
+                		"/resources/**", 
+                		"/static/**", 
+                		"/css/**", 
+                		"/js/**", 
+                		"/images/**"
+                		);
     }
 }
