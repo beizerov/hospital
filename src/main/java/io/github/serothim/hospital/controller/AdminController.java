@@ -122,7 +122,7 @@ public class AdminController {
 		case "EDIT":
 			modelAndView = new ModelAndView();
 
-			modelAndView.addObject("user", new User());
+			modelAndView.addObject("user", userGetting.getUserByEmail(email));
 			modelAndView.addObject("roles", roleGetting.getAllRoles());
 			modelAndView.setViewName("/admin/editUser");
 
@@ -131,6 +131,7 @@ public class AdminController {
 								"\nUSER WITH EMAIL: "
 								+ email
 			);
+			
 			break;
 		case "DELETE":
 			userDeletion.delete(userFinding.findByEmail(email));
@@ -180,6 +181,40 @@ public class AdminController {
 			modelAndView.addObject("user", new User());
 			modelAndView.setViewName("admin/addUser");
 		}
+		
+		return modelAndView;
+	}
+	
+	@PostMapping(value = "/admin/editUser")
+	public ModelAndView editUser(
+			@Valid User user, 
+			BindingResult bindingResult
+	) {
+
+		ModelAndView modelAndView = new ModelAndView();
+		User userExists = userFinding.findByEmail(user.getEmail());
+		if (userExists != null && user.getId() == userExists.getId()) {
+
+			setUserRoles(user, new ArrayList<>());
+
+			userSaving.save(userExists);
+			modelAndView.addObject("successMessage", 
+								   "User has been changed successfully"
+			);
+			modelAndView.addObject("user", new User());
+			modelAndView.setViewName("admin/addUser");
+		}
+		if (bindingResult.hasErrors()) {
+			modelAndView.setViewName("admin/editUser");
+		} else {
+			bindingResult.rejectValue("email", 
+									  "error.user",
+									  "You are trying to change another user!"
+									  + "Or there is no user with"
+									  + " this email address!"
+			);
+		}
+
 		return modelAndView;
 	}
 }

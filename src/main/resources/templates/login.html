@@ -20,16 +20,24 @@
                 
                 setTimeout(function() {
                     modify.style.display = "none";
-                }, 3000);      
+                    location.href = "/";
+                }, 1500);      
 
             </script>
             <form th:action="@{/login}" method="POST">
                 <h2 id="welcome" th:text="Welcome"></h2>
                     <br/>
-                <input type="email" id="email" name="email" th:placeholder="Email">
+                <input type="email" 
+                	   id="email" 
+                	   name="email" 
+                	   th:placeholder="Email">
                     <br/>
-                <input type="password" th:placeholder="Password" required
-                       id="password" name="password"/>
+                <input type="password"
+                	   th:placeholder="Password"
+                       id="password" 
+                       name="password" 
+                       pattern=".{5,}" 
+                       required title="5 characters minimum"/>
                     <div class="hide-show">
                         <span>Show</span>
                     </div>

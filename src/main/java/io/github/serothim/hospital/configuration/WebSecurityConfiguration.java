@@ -89,7 +89,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .accessDeniedPage("/access-denied")
                 .and()
         			.headers()
-        			.contentSecurityPolicy("script-src 'self';"
+        			.contentSecurityPolicy("script-src 'self' "
+        					+ "'sha256-E0oqoKnTXgCP6gqoBbz2XkulG4YlMCRaA"
+        					+ "CZ3jMIbkwI=';"
         				+ "report-uri /csp-report-endpoint/");
     }
 

@@ -50,4 +50,8 @@ public class UserGetting {
 	public Iterable<User> getAllUsers() {
 		return userRepository.findAll();
 	}
+	
+	public User getUserByEmail(String email) {
+		return userRepository.findByEmail(email);
+	}
 }
