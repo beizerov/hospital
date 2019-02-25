@@ -124,7 +124,7 @@ public class AdminController {
 
 			modelAndView.addObject("user", userGetting.getUserByEmail(email));
 			modelAndView.addObject("roles", roleGetting.getAllRoles());
-			modelAndView.setViewName("/admin/editUser");
+			modelAndView.setViewName("admin/editUser");
 
 			System.err.println("ACTION: " 
 								+ action + 
