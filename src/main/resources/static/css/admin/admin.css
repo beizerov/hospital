@@ -7,7 +7,7 @@ html, body {
 	padding: 0px;
 }
 
-#admin-background {
+.admin-background {
 	background: url("/images/for-admin-pages.png") no-repeat center center
 		fixed;
 	-webkit-background-size: cover;
@@ -17,7 +17,7 @@ html, body {
 	height: 100vh;
 }
 
-#nav-btn {
+.nav-btn {
 	position: -webkit-sticky; /* Safari */
 	position: sticky;
 	top: 0;
@@ -56,9 +56,19 @@ html, body {
 }
 
 button:focus#add-new-user-btn, button:hover#add-new-user-btn {
-	background: #56a974;
+	background: #07cc04;
 }
 
 button:focus#logout-btn, button:hover#logout-btn {
 	background: #d80606;
+}
+
+button:focus#go-to-admin-home-btn, button:hover#go-to-admin-home-btn {
+	background: #07cc04;
+}
+
+.validation-message {
+    font-style: normal;
+    font-size: 12px;
+    color: #FF1C19;
 }
