@@ -31,60 +31,62 @@
 						class="form-horizontal"
 						role="form">
 						
-						<h2>User Edit Form</h2>
+						<h2 th:text="|Edit user: *{email}|"></h2>
 						
 						<input type="hidden" th:field="*{id}" th:value="*{id}">
 						
 						<div class="form-group">
 							<div class="col-sm-9">
-								<label th:if="${#fields.hasErrors('firstName')}"
-									th:errors="*{firstName}" 
-									class="validation-message">
-								</label> 
-										<input type="text" 
-											th:field="*{firstName}" 
-											placeholder="First Name"
-											class="form-control" />
-							</div>
-						</div>
-	
-						<div class="form-group">
-							<div class="col-sm-9">
-								<label th:if="${#fields.hasErrors('lastName')}"
-									th:errors="*{lastName}" 
-									class="validation-message">
-								</label> 
-									<input
-										type="text" 
-										th:field="*{lastName}" 
-										placeholder="Last Name"
-										class="form-control" />
+								<input type="hidden" 
+									   th:field="*{email}" 
+									   placeholder="Email"
+									   class="form-control" /> 
 							</div>
 						</div>
 						
 						<div class="form-group">
 							<div class="col-sm-9">
 								<input type="text" 
-									   th:field="*{email}" 
-									   placeholder="Email"
-									   class="form-control" /> 
-								<label th:if="${#fields.hasErrors('email')}" 
-									th:errors="*{email}"
-									class="validation-message">
-								</label>
+									th:field="*{firstName}" 
+									placeholder="First Name"
+									class="form-control"
+									required 
+									pattern="(^[A-Z][a-z]{1,12}$)" 
+									title="Start typing your name with a capital letter. 
+										Minimum 2 maximum 13 Latin characters."
+								/>
 							</div>
 						</div>
-						
+	
 						<div class="form-group">
 							<div class="col-sm-9">
-								<input type="password"
-									   th:field="*{password}"
-									   placeholder="Password" 
-									   class="form-control" />
-								<label th:if="${#fields.hasErrors('password')}"
-									   th:errors="*{password}"
-									   class="validation-message">
-								</label>
+								<input
+									type="text" 
+									th:field="*{lastName}" 
+									placeholder="Last Name"
+									class="form-control"
+									required 
+									pattern="(^[A-Z][a-z]{1,12}$)" 
+									title="Surname start typing with a capital letter. 
+										Minimum 2 maximum 13 Latin characters."
+								/>
+							</div>
+						</div>
+												
+						<div class="form-group">
+							<div class="col-sm-9">
+								<input type="password" 
+									th:field="*{password}"
+									placeholder="Password" 
+									class="form-control"
+									name="password" 
+                       				pattern=".{5,}" 
+                       				
+                       				title="5 characters minimum" 
+                       			/>
+                       		<p id="lbl-pass">If you do not want to change the password, 
+														do not enter anything.
+							</p>
 							</div>
 						</div>
 		
@@ -111,9 +113,22 @@
 						</div>
 	
 						<h2>
-							<span class="text-success"
-								  th:utext="${successMessage}">
+							<span id="e-u-success-msg"
+								  th:text="${successMessage}">
 							</span>
+							
+				            <script th:if="${successMessage != null}" th:inline="javascript">
+				
+				                let modify = document.getElementById('e-u-success-msg');
+
+				                modify.style.display = "inline-block";
+				                
+				                setTimeout(function() {
+				                    modify.style.display = "none";
+				                    location.href = "home";
+				                }, 1500);      
+				
+				            </script>
 						</h2>
 	
 					</form>

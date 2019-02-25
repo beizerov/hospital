@@ -14,7 +14,7 @@
 <body>
 
 	<div class="nav-btn">
-		<div id="greeting"><span th:utext="${userName}"></span></div>
+		<div id="greeting"><span th:text="${userName}"></span></div>
 
 		<form class="form-btn" th:action="@{/admin/addUser}" method="get">
 			<button class="admin-btn" id="add-new-user-btn"

@@ -37,32 +37,38 @@
 						
 						<div class="form-group">
 							<div class="col-sm-9">
-								<label th:if="${#fields.hasErrors('firstName')}"
-									th:errors="*{firstName}" 
-									class="validation-message">
-								</label>
-								<input type="text"
+								<input type="text" 
 									th:field="*{firstName}" 
 									placeholder="First Name"
-									class="form-control" />
+									class="form-control"
+									required 
+									pattern="(^[A-Z][a-z]{1,12}$)" 
+									title="Start typing your name with a capital letter. 
+										Minimum 2 maximum 13 Latin characters."
+								/>
 							</div>
 						</div>
 
 						<div class="form-group">
 							<div class="col-sm-9">
-								<label th:if="${#fields.hasErrors('lastName')}"
-									th:errors="*{lastName}"
-									class="validation-message">
-								</label>
-								<input type="text" 
+								<input
+									type="text" 
 									th:field="*{lastName}" 
 									placeholder="Last Name"
-									class="form-control" />
+									class="form-control"
+									required 
+									pattern="(^[A-Z][a-z]{1,12}$)" 
+									title="Surname start typing with a capital letter. 
+										Minimum 2 maximum 13 Latin characters."
+								/>
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col-sm-9">
-								<input type="text" 
+								<input type="email" 
+									name="email"
+									required 
+									pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
 									th:field="*{email}" 
 									placeholder="Email"
 									class="form-control" />
@@ -77,11 +83,10 @@
 								<input type="password" 
 									th:field="*{password}"
 									placeholder="Password" 
-									class="form-control" />
-								<label th:if="${#fields.hasErrors('password')}" 
-									th:errors="*{password}"
-									class="validation-message">
-								</label>
+									class="form-control"
+									name="password" 
+                       				pattern=".{5,}" 
+                       				required title="5 characters minimum" />
 							</div>
 						</div>
 
@@ -108,7 +113,21 @@
 						</div>						
 
 						<h2>
-							<span class="text-success" th:utext="${successMessage}"></span>
+							<span id="a-u-success-msg"
+								  th:text="${successMessage}">
+							</span>
+							
+				            <script th:if="${successMessage != null}" th:inline="javascript">
+				
+				                let modify = document.getElementById('a-u-success-msg');
+
+				                modify.style.display = "inline-block";
+				                
+				                setTimeout(function() {
+				                    modify.style.display = "none";
+				                }, 1500);      
+				
+				            </script>
 						</h2>
 
 					</form>

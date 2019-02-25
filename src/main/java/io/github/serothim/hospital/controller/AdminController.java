@@ -126,12 +126,6 @@ public class AdminController {
 			modelAndView.addObject("roles", roleGetting.getAllRoles());
 			modelAndView.setViewName("admin/editUser");
 
-			System.err.println("ACTION: " 
-								+ action + 
-								"\nUSER WITH EMAIL: "
-								+ email
-			);
-			
 			break;
 		case "DELETE":
 			userDeletion.delete(userFinding.findByEmail(email));
@@ -195,26 +189,24 @@ public class AdminController {
 		User userExists = userFinding.findByEmail(user.getEmail());
 		if (userExists != null && user.getId() == userExists.getId()) {
 
+			userExists.setFirstName(user.getFirstName());
+			userExists.setLastName(user.getLastName());
+			userExists.setPassword(
+					user.getPassword().isEmpty() ? userExists.getPassword() 
+							: user.getPassword()
+			);
 			setUserRoles(user, new ArrayList<>());
 
 			userSaving.save(userExists);
 			modelAndView.addObject("successMessage", 
 								   "User has been changed successfully"
 			);
-			modelAndView.addObject("user", new User());
-			modelAndView.setViewName("admin/addUser");
+			modelAndView.addObject("user", user);
+			modelAndView.setViewName("admin/editUser");
 		}
 		if (bindingResult.hasErrors()) {
 			modelAndView.setViewName("admin/editUser");
-		} else {
-			bindingResult.rejectValue("email", 
-									  "error.user",
-									  "You are trying to change another user!"
-									  + "Or there is no user with"
-									  + " this email address!"
-			);
-		}
-
+		} 
 		return modelAndView;
 	}
 }

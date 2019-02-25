@@ -91,7 +91,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         			.headers()
         			.contentSecurityPolicy("script-src 'self' "
         					+ "'sha256-E0oqoKnTXgCP6gqoBbz2XkulG4YlMCRaA"
-        					+ "CZ3jMIbkwI=';"
+        					+ "CZ3jMIbkwI=' "
+        					+ "'sha256-5Bvcqlt5p7yWh4QghGQudhFHts5uioPTo"
+        					+ "kLhb4BbDug=' "
+        					+ "'sha256-gBFnNcS/VthEpwRpNPIkqQpq9Yi/CrlXd"
+        					+ "7kEi+/sWuc=';"
         				+ "report-uri /csp-report-endpoint/");
     }
 

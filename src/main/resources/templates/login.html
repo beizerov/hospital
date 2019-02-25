@@ -12,6 +12,7 @@
         
         <div class="login_form">
             <img th:src="@{/images/logo.jpg}" class="logo" alt="Logo"/>
+            
             <script th:if="${param.error}" th:inline="javascript">
 
                 let modify = document.getElementById('error');
@@ -24,6 +25,7 @@
                 }, 1500);      
 
             </script>
+            
             <form th:action="@{/login}" method="POST">
                 <h2 id="welcome" th:text="Welcome"></h2>
                     <br/>
