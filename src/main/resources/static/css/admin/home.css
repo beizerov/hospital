@@ -34,3 +34,13 @@ th, td {
 #form-dlt {
 	margin-left: -21px;
 }
+
+#td-active-btn {
+	width: 50px;
+}
+
+#imp-act-btn {
+	width: 20px;
+	height: 20px;
+	margin-left: 30%;
+}

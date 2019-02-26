@@ -61,7 +61,10 @@ public class UserSaving {
 
 	public void save(User user) {
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-		user.setActive(1);
+		userRepository.save(user);
+	}
+	
+	public void saveUserWithoutPasswordEncoding(User user) {
 		userRepository.save(user);
 	}
 }

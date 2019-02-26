@@ -43,7 +43,20 @@
 				<tbody>
 					<tr th:each="user : ${users}">
 						<td th:text="${user.id}"></td>
-						<td th:text="${user.active}"></td>
+						<td id="td-active-btn">
+							<form class="user-btn-form"
+								th:action="@{/admin/home}" 
+								method="post">
+								<input id="imp-act-btn" class="active-btn" 
+									type="image" 
+									alt="active/inactive"
+									th:src="@{(${user.active == 0}) ? '/images/inactive.png' : '/images/active.png'}">
+								 <input th:name="email" type="hidden" 
+								 		th:value="${user.email}"></input>
+								 <input th:name="action" type="hidden" 
+								 		th:value="ACTIVITY"></input>		
+							</form>
+						</td>
 						<td th:text="${user.email}"></td>
 						<td th:text="${user.firstName}"></td>
 						<td th:text="${user.lastName}"></td>

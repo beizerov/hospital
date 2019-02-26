@@ -73,12 +73,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                     .antMatchers("/").permitAll()
-                    .antMatchers("/login").permitAll()
                     .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
                     .authenticated()
                 .and()
                 	.formLogin()
-                    .loginPage("/login").failureUrl("/login?error=true")
+                    .loginPage("/").failureUrl("/?error=true")
                     .defaultSuccessUrl("/admin/home")
                     .usernameParameter("email")
                     .passwordParameter("password")

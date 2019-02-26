@@ -41,6 +41,7 @@ import io.github.serothim.hospital.service.RoleGetting;
 import io.github.serothim.hospital.service.UserDeletion;
 import io.github.serothim.hospital.service.UserFinding;
 import io.github.serothim.hospital.service.UserGetting;
+import io.github.serothim.hospital.service.UserSaving;
 
 @Controller
 public class HomeController {
@@ -56,6 +57,9 @@ public class HomeController {
 
 	@Autowired
 	private UserDeletion userDeletion;
+	
+	@Autowired
+	private UserSaving userSaving;
 
 	
 	private String whoiam() {
@@ -106,6 +110,20 @@ public class HomeController {
 		case "DELETE":
 			userDeletion.delete(userFinding.findByEmail(email));
 
+			modelAndView = getModelAndViewForAdminHome();
+
+			break;
+		case "ACTIVITY":
+			User user = userFinding.findByEmail(email);
+
+			if(user.getActive() == 1) { 
+				user.setActive(0); 
+			} else {
+				user.setActive(1);
+			}
+
+			userSaving.saveUserWithoutPasswordEncoding(user);
+			
 			modelAndView = getModelAndViewForAdminHome();
 
 			break;

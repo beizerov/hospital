@@ -76,7 +76,11 @@ public class UserEditorController {
 			roleSet.add(roleGetting.getRoleByName(role));
 			userExists.setRoles(roleSet);
 
-			userSaving.save(userExists);
+			if (user.getPassword().isEmpty()) {
+				userSaving.saveUserWithoutPasswordEncoding(userExists);
+			} else {
+				userSaving.save(userExists);
+			}
 			modelAndView.addObject("successMessage", 
 								   "User has been changed successfully"
 			);
