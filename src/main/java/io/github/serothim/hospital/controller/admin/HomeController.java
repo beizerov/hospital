@@ -21,40 +21,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.github.serothim.hospital.controller;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.validation.Valid;
+package io.github.serothim.hospital.controller.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import io.github.serothim.hospital.domain.Role;
 import io.github.serothim.hospital.domain.User;
-import io.github.serothim.hospital.service.UserSaving;
 import io.github.serothim.hospital.service.RoleGetting;
 import io.github.serothim.hospital.service.UserDeletion;
 import io.github.serothim.hospital.service.UserFinding;
 import io.github.serothim.hospital.service.UserGetting;
 
-/**
- *
- * @author Alexei Beizerov
- */
 @Controller
-public class AdminController {
-
+public class HomeController {
+	
 	@Autowired
 	private UserFinding userFinding;
 
@@ -65,11 +51,9 @@ public class AdminController {
 	private RoleGetting roleGetting;
 
 	@Autowired
-	private UserSaving userSaving;
-
-	@Autowired
 	private UserDeletion userDeletion;
 
+	
 	private String whoiam() {
 		Authentication auth = SecurityContextHolder
 								.getContext()
@@ -79,7 +63,7 @@ public class AdminController {
 
 		return user.getFirstName() + " " + user.getLastName();
 	}
-
+	
 	private ModelAndView getModelAndViewForAdminHome() {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("userName", "Welcome " + whoiam());
@@ -87,21 +71,6 @@ public class AdminController {
 		modelAndView.setViewName("admin/home");
 
 		return modelAndView;
-	}
-
-	private void setUserRoles(User user, List<String> roleNameList) {
-		List<Role> roleList = new ArrayList<>();
-
-		for (String name : roleNameList)
-			roleList.add(roleGetting.getRoleByName(name));
-
-		roleNameList.forEach((roleName) -> {
-			roleList.add(roleGetting.getRoleByName(roleName));
-		});
-
-		Set<Role> roles = new HashSet<>(roleList);
-
-		user.setRoles(roles);
 	}
 
 	@GetMapping(value = "/admin/home")
@@ -135,78 +104,6 @@ public class AdminController {
 			break;
 		}
 
-		return modelAndView;
-	}
-
-	@GetMapping(value = "/admin/addUser")
-	public ModelAndView addUser() {
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("user", new User());
-		modelAndView.addObject("selectedRoles", new ArrayList<String>());
-		modelAndView.setViewName("admin/addUser");
-		return modelAndView;
-	}
-
-	@PostMapping(value = "/admin/addUser")
-	public ModelAndView addNewUser(
-			@Valid User user, 
-			BindingResult bindingResult
-	) {
-
-		ModelAndView modelAndView = new ModelAndView();
-		User userExists = userFinding.findByEmail(user.getEmail());
-		if (userExists != null) {
-			bindingResult.rejectValue("email", 
-									  "error.user",
-									  "There is already a user registered" 
-									  + " with the email provided"
-			);
-		}
-		if (bindingResult.hasErrors()) {
-			modelAndView.setViewName("admin/addUser");
-		} else {
-
-			setUserRoles(user, new ArrayList<>());
-
-			userSaving.save(user);
-			modelAndView.addObject("successMessage", 
-								   "User has been registered successfully"
-			);
-			modelAndView.addObject("user", new User());
-			modelAndView.setViewName("admin/addUser");
-		}
-		
-		return modelAndView;
-	}
-	
-	@PostMapping(value = "/admin/editUser")
-	public ModelAndView editUser(
-			@Valid User user, 
-			BindingResult bindingResult
-	) {
-
-		ModelAndView modelAndView = new ModelAndView();
-		User userExists = userFinding.findByEmail(user.getEmail());
-		if (userExists != null && user.getId() == userExists.getId()) {
-
-			userExists.setFirstName(user.getFirstName());
-			userExists.setLastName(user.getLastName());
-			userExists.setPassword(
-					user.getPassword().isEmpty() ? userExists.getPassword() 
-							: user.getPassword()
-			);
-			setUserRoles(user, new ArrayList<>());
-
-			userSaving.save(userExists);
-			modelAndView.addObject("successMessage", 
-								   "User has been changed successfully"
-			);
-			modelAndView.addObject("user", user);
-			modelAndView.setViewName("admin/editUser");
-		}
-		if (bindingResult.hasErrors()) {
-			modelAndView.setViewName("admin/editUser");
-		} 
 		return modelAndView;
 	}
 }

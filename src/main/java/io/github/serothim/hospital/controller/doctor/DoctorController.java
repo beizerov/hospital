@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.github.serothim.hospital.controller;
+package io.github.serothim.hospital.controller.doctor;
 
 import org.springframework.stereotype.Controller;
 
