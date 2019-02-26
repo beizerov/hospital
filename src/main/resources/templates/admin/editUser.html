@@ -89,19 +89,18 @@
 							</p>
 							</div>
 						</div>
-		
-						<div class="radio-inline">
-							<label>Roles:</label>
-						</div>
-					    <label class="radio-inline">
-					    	<input type="radio" name="ADMIN" checked>ADMIN
-					    </label>
-					    <label class="radio-inline">
-					    	<input type="radio" name="RECEPTIONIST">RECEPTIONIST
-					    </label>
-					    <label class="radio-inline">
-					    	<input type="radio" name="optradio">DOCTOR
-					    </label>	
+										    
+					    <ul>
+        					<li th:each="role : ${roles}" 
+        						class="radio-inline" >
+            						<input type="radio"
+            							th:checked="${role.role == 'ADMIN' ? true : false}" 
+            							th:name="role" 
+            							th:value="${role.role}"/>
+            					<label th:text="${role.role}"></label>
+        					</li>
+    					</ul>
+					    
 						<div class="form-group">
 							<div class="col-sm-9">
 								<button type="submit" 

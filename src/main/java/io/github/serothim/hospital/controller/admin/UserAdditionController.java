@@ -24,6 +24,9 @@
 package io.github.serothim.hospital.controller.admin;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -32,9 +35,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import io.github.serothim.hospital.domain.Role;
 import io.github.serothim.hospital.domain.User;
+import io.github.serothim.hospital.service.RoleGetting;
 import io.github.serothim.hospital.service.UserFinding;
 import io.github.serothim.hospital.service.UserSaving;
 
@@ -46,21 +52,36 @@ public class UserAdditionController {
 
 	@Autowired
 	private UserSaving userSaving;
+	
+	@Autowired
+	private RoleGetting roleGetting;
 
+	
+	private ModelAndView getModelAndViewForAddUser() {
+		ModelAndView modelAndView = new ModelAndView();
+		
+		modelAndView.addObject("user", new User());
+
+		List<Role> roles = new ArrayList<>();
+		roleGetting.getAllRoles().forEach(roles::add);
+		modelAndView.addObject("roles", roles);
+		
+		modelAndView.setViewName("admin/addUser");
+		
+		return modelAndView;
+	}
 	
 	@GetMapping(value = "/admin/addUser")
 	public ModelAndView addUser() {
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("user", new User());
-		modelAndView.addObject("selectedRoles", new ArrayList<String>());
-		modelAndView.setViewName("admin/addUser");
-		return modelAndView;
+
+		return getModelAndViewForAddUser();
 	}
 
 	@PostMapping(value = "/admin/addUser")
 	public ModelAndView addNewUser(
 			@Valid User user, 
-			BindingResult bindingResult
+			BindingResult bindingResult,
+			@RequestParam(name = "role") String role
 	) {
 
 		ModelAndView modelAndView = new ModelAndView();
@@ -75,12 +96,17 @@ public class UserAdditionController {
 		if (bindingResult.hasErrors()) {
 			modelAndView.setViewName("admin/addUser");
 		} else {
+			Set<Role> roleSet = new HashSet<>();
+			roleSet.add(roleGetting.getRoleByName(role));
+			user.setRoles(roleSet);
+			
 			userSaving.save(user);
+			
+			modelAndView = getModelAndViewForAddUser();
+			
 			modelAndView.addObject("successMessage", 
 								   "User has been registered successfully"
 			);
-			modelAndView.addObject("user", new User());
-			modelAndView.setViewName("admin/addUser");
 		}
 		
 		return modelAndView;

@@ -23,6 +23,9 @@
  */
 package io.github.serothim.hospital.controller.admin;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,6 +35,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import io.github.serothim.hospital.domain.Role;
 import io.github.serothim.hospital.domain.User;
 import io.github.serothim.hospital.service.RoleGetting;
 import io.github.serothim.hospital.service.UserDeletion;
@@ -92,7 +96,10 @@ public class HomeController {
 			modelAndView = new ModelAndView();
 
 			modelAndView.addObject("user", userGetting.getUserByEmail(email));
-			modelAndView.addObject("roles", roleGetting.getAllRoles());
+			
+			List<Role> roles = new ArrayList<>();
+			roleGetting.getAllRoles().forEach(roles::add);
+			modelAndView.addObject("roles", roles);
 			modelAndView.setViewName("admin/editUser");
 
 			break;
