@@ -127,14 +127,18 @@
 								  id="a-u-email-err-msg">
 							</span>
 								
-							<script th:if="${#fields.hasErrors('email') != null }" th:inline="javascript">
+							<script th:if="${#fields.hasErrors('email') == true}" th:inline="javascript">
 				
-				                let modify = document.getElementById('a-u-email-err-msg');
+				                let modifyErrMsg = document.getElementById('a-u-email-err-msg');
 
-				                modify.style.display = "inline-block";
-				                
+				                if (modifyErrMsg !== null) {
+				                	modifyErrMsg.style.display = "inline-block";
+				                }
+				                	
 				                setTimeout(function() {
-				                    modify.style.display = "none";
+				                	if (modifyErrMsg !== null) {
+				                		modifyErrMsg.style.display = "none";
+				                	}
 				                    location.href = "addUser";
 				                }, 1500);      
 				
