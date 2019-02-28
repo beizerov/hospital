@@ -54,7 +54,7 @@ public class UserEditorController {
 	private RoleGetting roleGetting;
 
 	
-	@PostMapping(value = "/admin/editUser")
+	@PostMapping("/admin/editUser")
 	public ModelAndView editUser(
 			@Valid User user, 
 			BindingResult bindingResult,

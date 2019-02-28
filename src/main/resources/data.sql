@@ -36,9 +36,23 @@ REPLACE INTO `roles` VALUES (3,'DOCTOR');
  * Default account created automatically if there 
  * are no any other records in the database.
  */
-REPLACE INTO `users` (`user_id`, `email`, `password`, `active`)
+REPLACE INTO `users` (
+					  `user_id`,
+					  `first_name`,
+					  `last_name`,
+					  `email`, 
+					  `password`, 
+					  `active`
+)
 SELECT * 
-FROM (SELECT 0,'admin@dmin', '$2a$10$refpi22VWy7nCsfoImqZ/O/MncSw6vZLiJGiJvsx3KR2w3fHBxZFO', 1) AS tmp
+FROM (
+	  SELECT 0, 
+	  'admin',
+	  'adminus',
+	  'admin@dmin', 
+	  '$2a$10$refpi22VWy7nCsfoImqZ/O/MncSw6vZLiJGiJvsx3KR2w3fHBxZFO',
+	  1
+) AS tmp
 WHERE NOT EXISTS (SELECT `email` FROM `users` WHERE user_id > 0 );
 
 REPLACE INTO `user_roles` (`user_id`, `role_id`) 

@@ -24,8 +24,9 @@
 package io.github.serothim.hospital.controller.admin;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -33,8 +34,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-
 import io.github.serothim.hospital.domain.Role;
 import io.github.serothim.hospital.domain.User;
 import io.github.serothim.hospital.service.RoleGetting;
@@ -72,45 +71,51 @@ public class HomeController {
 		return user.getFirstName() + " " + user.getLastName();
 	}
 	
-	private ModelAndView getModelAndViewForAdminHome() {
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("userName", "Welcome " + whoiam());
-		modelAndView.addObject("users", userGetting.getAllUsers());
-		modelAndView.setViewName("admin/home");
+	private Map<String, Object> getModelForHome() {
+		Map<String, Object> model = new HashMap<>();
+		
+		model.put("greeting", "Welcome " + whoiam());
+		model.put("users", userGetting.getAllUsers());
 
-		return modelAndView;
+		return model;
 	}
 
-	@GetMapping(value = "/admin/home")
-	public ModelAndView home() {
+	@GetMapping("/admin/home")
+	public String home(Map<String, Object> model) {
 
-		return getModelAndViewForAdminHome();
+		model.putAll(getModelForHome());
+		
+		return "admin/home";
 	}
 
-	@PostMapping(value = "/admin/home")
-	public ModelAndView deleteOrEditUser(
+	@PostMapping("/admin/home")
+	public String actOnUser(
 			@RequestParam(name = "email") String email,
-			@RequestParam(name = "action") String action
+			@RequestParam(name = "action") String action,
+			Map<String, Object> model
 	) {
-
-		ModelAndView modelAndView = null;
+		String view = null;
 
 		switch (action) {
 		case "EDIT":
-			modelAndView = new ModelAndView();
-
-			modelAndView.addObject("user", userGetting.getUserByEmail(email));
-			
 			List<Role> roles = new ArrayList<>();
+			
 			roleGetting.getAllRoles().forEach(roles::add);
-			modelAndView.addObject("roles", roles);
-			modelAndView.setViewName("admin/editUser");
+			
+			model.put(
+					"userRole", 
+					userFinding.findByEmail(email).getRoles().toArray()[0]
+			);
+			model.put("roles", roles);
+			model.put("user", userGetting.getUserByEmail(email));
+			view = "admin/editUser";
 
 			break;
 		case "DELETE":
 			userDeletion.delete(userFinding.findByEmail(email));
 
-			modelAndView = getModelAndViewForAdminHome();
+			model.putAll(getModelForHome()); 
+			view = "admin/home";
 
 			break;
 		case "ACTIVITY":
@@ -124,11 +129,12 @@ public class HomeController {
 
 			userSaving.saveUserWithoutPasswordEncoding(user);
 			
-			modelAndView = getModelAndViewForAdminHome();
-
+			model.putAll(getModelForHome());
+			view = "admin/home";
+			
 			break;
 		}
 
-		return modelAndView;
+		return view;
 	}
 }

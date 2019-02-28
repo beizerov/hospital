@@ -66,7 +66,7 @@ public class User {
     @Column(name = "active")
     private int active;
     
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.REFRESH)
     @JoinTable(
     			name = "user_roles", 
     			joinColumns = @JoinColumn(name = "user_id"), 

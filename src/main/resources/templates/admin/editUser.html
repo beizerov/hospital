@@ -94,7 +94,7 @@
         					<li th:each="role : ${roles}" 
         						class="radio-inline" >
             						<input type="radio"
-            							th:checked="${role.role == 'ADMIN' ? true : false}" 
+            							th:checked="${role.role == userRole.role ? true : false}" 
             							th:name="role" 
             							th:value="${role.role}"/>
             					<label th:text="${role.role}"></label>
