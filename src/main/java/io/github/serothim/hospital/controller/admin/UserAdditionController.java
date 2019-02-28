@@ -94,7 +94,7 @@ public class UserAdditionController {
 		if (!bindingResult.hasErrors()) {
 			model.put(
 					"successMessage", 
-					"User has been registered successfully"
+					"User has been added successfully"
 			);
 				
 			Set<Role> roleSet = new HashSet<>();
