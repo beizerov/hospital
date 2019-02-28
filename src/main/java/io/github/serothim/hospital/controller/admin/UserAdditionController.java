@@ -84,10 +84,10 @@ public class UserAdditionController {
 	) {
 		User userExists = userFinding.findByEmail(user.getEmail());
 		if (userExists != null) {
-			bindingResult.rejectValue("email", 
-									  "error.user",
-									  "There is already a user registered" 
-									  + " with the email provided"
+			bindingResult.rejectValue(
+					"email", 
+					"error.user",
+					"There is already a user registered with the email provided"
 			);	
 		}
 		
