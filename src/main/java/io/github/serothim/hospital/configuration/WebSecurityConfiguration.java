@@ -94,7 +94,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         					+ "'sha256-5Bvcqlt5p7yWh4QghGQudhFHts5uioPTo"
         					+ "kLhb4BbDug=' "
         					+ "'sha256-gBFnNcS/VthEpwRpNPIkqQpq9Yi/CrlXd"
-        					+ "7kEi+/sWuc=';"
+        					+ "7kEi+/sWuc=' "
+        					+ "'sha256-1DYMx9mh7/RWHf73/DDPcK/FGiRU02DqCJXrVAJ5UCs=';"
         				+ "report-uri /csp-report-endpoint/");
     }
 

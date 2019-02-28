@@ -71,7 +71,7 @@ public class HomeController {
 		return user.getFirstName() + " " + user.getLastName();
 	}
 	
-	private Map<String, Object> getModelForHome() {
+	private Map<String, Object> getModel() {
 		Map<String, Object> model = new HashMap<>();
 		
 		model.put("greeting", "Welcome " + whoiam());
@@ -83,15 +83,15 @@ public class HomeController {
 	@GetMapping("/admin/home")
 	public String home(Map<String, Object> model) {
 
-		model.putAll(getModelForHome());
+		model.putAll(getModel());
 		
 		return "admin/home";
 	}
 
 	@PostMapping("/admin/home")
 	public String actOnUser(
-			@RequestParam(name = "email") String email,
-			@RequestParam(name = "action") String action,
+			@RequestParam String email,
+			@RequestParam String action,
 			Map<String, Object> model
 	) {
 		String view = null;
@@ -114,7 +114,7 @@ public class HomeController {
 		case "DELETE":
 			userDeletion.delete(userFinding.findByEmail(email));
 
-			model.putAll(getModelForHome()); 
+			model.putAll(getModel()); 
 			view = "admin/home";
 
 			break;
@@ -129,7 +129,7 @@ public class HomeController {
 
 			userSaving.saveUserWithoutPasswordEncoding(user);
 			
-			model.putAll(getModelForHome());
+			model.putAll(getModel());
 			view = "admin/home";
 			
 			break;

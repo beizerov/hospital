@@ -84,3 +84,9 @@ button:focus#go-to-admin-home-btn, button:hover#go-to-admin-home-btn {
 #lbl-pass {
 	color: yellow;
 }
+
+#a-u-email-err-msg {
+	font-style: normal;
+    font-size: 0.7em;
+    color: #FF1C19;
+}

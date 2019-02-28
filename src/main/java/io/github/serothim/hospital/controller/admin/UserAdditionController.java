@@ -24,11 +24,11 @@
 package io.github.serothim.hospital.controller.admin;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
-
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,8 +36,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-
 import io.github.serothim.hospital.domain.Role;
 import io.github.serothim.hospital.domain.User;
 import io.github.serothim.hospital.service.RoleGetting;
@@ -57,58 +55,57 @@ public class UserAdditionController {
 	private RoleGetting roleGetting;
 
 	
-	private ModelAndView getModelAndViewForAddUser() {
-		ModelAndView modelAndView = new ModelAndView();
+	private Map<String, Object> getModel() {
+		Map<String, Object> model = new HashMap<>();
 		
-		modelAndView.addObject("user", new User());
+		model.put("user", new User());
 
 		List<Role> roles = new ArrayList<>();
 		roleGetting.getAllRoles().forEach(roles::add);
-		modelAndView.addObject("roles", roles);
+		model.put("roles", roles);
 		
-		modelAndView.setViewName("admin/addUser");
-		
-		return modelAndView;
+		return model;
 	}
 	
-	@GetMapping(value = "/admin/addUser")
-	public ModelAndView addUser() {
+	@GetMapping("/admin/addUser")
+	public String addUser(Map<String, Object> model) {
 
-		return getModelAndViewForAddUser();
+		model.putAll(getModel());
+		
+		return "admin/addUser";
 	}
 
-	@PostMapping(value = "/admin/addUser")
-	public ModelAndView addNewUser(
-			@Valid User user, 
+	@PostMapping("/admin/addUser")
+	public String addNewUser(
+			User user, 
 			BindingResult bindingResult,
-			@RequestParam(name = "role") String role
+			@RequestParam String role,
+			Map<String, Object> model
 	) {
-
-		ModelAndView modelAndView = new ModelAndView();
 		User userExists = userFinding.findByEmail(user.getEmail());
 		if (userExists != null) {
 			bindingResult.rejectValue("email", 
 									  "error.user",
 									  "There is already a user registered" 
 									  + " with the email provided"
-			);
+			);	
 		}
-		if (bindingResult.hasErrors()) {
-			modelAndView.setViewName("admin/addUser");
-		} else {
+		
+		if (!bindingResult.hasErrors()) {
+			model.put(
+					"successMessage", 
+					"User has been registered successfully"
+			);
+				
 			Set<Role> roleSet = new HashSet<>();
 			roleSet.add(roleGetting.getRoleByName(role));
 			user.setRoles(roleSet);
-			
+
 			userSaving.save(user);
 			
-			modelAndView = getModelAndViewForAddUser();
-			
-			modelAndView.addObject("successMessage", 
-								   "User has been registered successfully"
-			);
+			model.putAll(getModel());		
 		}
 		
-		return modelAndView;
+		return "admin/addUser";
 	}
 }
