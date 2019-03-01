@@ -4,29 +4,30 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <head>
-	<meta charset="UTF-8">
-	<title>Home</title>
-	<link rel="stylesheet" type="text/css" th:href="@{/css/admin/admin.css}" />
-	<link rel="stylesheet" type="text/css" th:href="@{/css/admin/home.css}" />
-	<link rel="stylesheet"
-		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<meta charset="UTF-8">
+<title>Home</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/admin/admin.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/admin/home.css}" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
 
 	<div class="nav-btn">
-		<div id="greeting"><span th:text="${greeting}"></span></div>
+		<div id="greeting">
+			<span th:text="${greeting}"></span>
+		</div>
 
 		<form class="form-btn" th:action="@{/admin/addUser}" method="get">
-			<button class="admin-btn" id="add-new-user-btn"
-				type="Submit">Add new user</button>
+			<button class="admin-btn" id="add-new-user-btn" type="Submit">Add
+				new user</button>
 		</form>
-	
+
 		<form class="form-btn" th:action="@{/logout}" method="get">
-			<button class="admin-btn" id="logout-btn" name="logout"
-				type="Submit">Logout</button>
+			<button class="admin-btn" id="logout-btn" name="logout" type="Submit">Logout</button>
 		</form>
 	</div>
-	
+
 	<div class="admin-background">
 		<div class="container" id="table-wrapper">
 			<table>
@@ -44,17 +45,12 @@
 					<tr th:each="user : ${users}">
 						<td th:text="${user.id}"></td>
 						<td id="td-active-btn">
-							<form class="user-btn-form"
-								th:action="@{/admin/home}" 
+							<form class="user-btn-form" th:action="@{/admin/activity}"
 								method="post">
-								<input id="imp-act-btn" class="active-btn" 
-									type="image" 
+								<input id="imp-act-btn" class="active-btn" type="image"
 									alt="active/inactive"
 									th:src="@{(${user.active == 0}) ? '/images/inactive.png' : '/images/active.png'}">
-								 <input th:name="email" type="hidden" 
-								 		th:value="${user.email}"></input>
-								 <input th:name="action" type="hidden" 
-								 		th:value="ACTIVITY"></input>		
+								<input th:name="email" type="hidden" th:value="${user.email}">
 							</form>
 						</td>
 						<td th:text="${user.email}"></td>
@@ -62,23 +58,20 @@
 						<td th:text="${user.lastName}"></td>
 						<td><span th:each="role, state : ${user.roles}"
 							th:text="${role.role} + ${(state.count != state.size) ? ', ' : ''}"></span></td>
-						<td class="td-del-btn">
-							<form class="user-btn-form" th:action="@{/admin/home}" method="post">
+						<td class="td-btn">
+							<form class="user-btn-form" th:action="@{/admin/edit}"
+								method="post">
 								<input class="edit-btn" type="image" alt="Edit user"
-									th:src="@{/images/pencil-blue.png}" width="40px" height="30px">
-								 <input th:name="email" type="hidden" 
-								 		th:value="${user.email}"></input>
-								 <input th:name="action" type="hidden" 
-								 		th:value="EDIT"></input>		
+									th:src="@{/images/pencil-blue.png}" width="50px" height="35px">
+								<input th:name="email" type="hidden" th:value="${user.email}">
 							</form>
 
-							<form id="form-dlt" class="user-btn-form" th:action="@{/admin/home}" method="post">
+							<form id="form-dlt" class="user-btn-form"
+								th:action="@{/admin/delete}" method="post">
 								<input class="delete-btn" type="image" alt="Delete user"
-									th:src="@{/images/green-recycle-bin.png}" width="50px" height="30px"> 
-								<input th:name="email" type="hidden"
+									th:src="@{/images/green-recycle-bin.png}" width="60px"
+									height="35px"> <input th:name="email" type="hidden"
 									th:value="${user.email}"></input>
-								<input th:name="action" type="hidden"
-									th:value="DELETE"></input>
 							</form>
 						</td>
 					</tr>
@@ -86,7 +79,7 @@
 			</table>
 		</div>
 	</div>
-	
+
 	<script th:src="@{/js/addsEventListenersForUserButtons.js}"></script>
 </body>
 </html>

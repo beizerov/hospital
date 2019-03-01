@@ -88,53 +88,54 @@ public class HomeController {
 		return "admin/home";
 	}
 
-	@PostMapping("/admin/home")
-	public String actOnUser(
+	@PostMapping("/admin/activity")
+	public String switchActivity(
 			@RequestParam String email,
-			@RequestParam String action,
 			Map<String, Object> model
 	) {
-		String view = null;
+		User user = userFinding.findByEmail(email);
 
-		switch (action) {
-		case "EDIT":
-			List<Role> roles = new ArrayList<>();
-			
-			roleGetting.getAllRoles().forEach(roles::add);
-			
-			model.put(
-					"userRole", 
-					userFinding.findByEmail(email).getRoles().toArray()[0]
-			);
-			model.put("roles", roles);
-			model.put("user", userGetting.getUserByEmail(email));
-			view = "admin/editUser";
-
-			break;
-		case "DELETE":
-			userDeletion.delete(userFinding.findByEmail(email));
-
-			model.putAll(getModel()); 
-			view = "admin/home";
-
-			break;
-		case "ACTIVITY":
-			User user = userFinding.findByEmail(email);
-
-			if(user.getActive() == 1) { 
-				user.setActive(0); 
-			} else {
-				user.setActive(1);
-			}
-
-			userSaving.saveUserWithoutPasswordEncoding(user);
-			
-			model.putAll(getModel());
-			view = "admin/home";
-			
-			break;
+		if(user.getActive() == 1) { 
+			user.setActive(0); 
+		} else {
+			user.setActive(1);
 		}
 
-		return view;
+		userSaving.saveUserWithoutPasswordEncoding(user);
+		
+		model.putAll(getModel());
+		
+		return "/admin/home";
+	}
+	
+	@PostMapping("/admin/edit")
+	public String editUser(
+			@RequestParam String email,
+			Map<String, Object> model
+	) {
+		List<Role> roles = new ArrayList<>();
+		
+		roleGetting.getAllRoles().forEach(roles::add);
+		
+		model.put(
+				"userRole", 
+				userFinding.findByEmail(email).getRoles().toArray()[0]
+		);
+		model.put("roles", roles);
+		model.put("user", userGetting.getUserByEmail(email));
+		
+		return "/admin/editUser";
+	}
+	
+	@PostMapping("/admin/delete")
+	public String actOnUser(
+			@RequestParam String email,
+			Map<String, Object> model
+	) {
+		userDeletion.delete(userFinding.findByEmail(email));
+
+		model.putAll(getModel()); 
+
+		return "admin/home";
 	}
 }
