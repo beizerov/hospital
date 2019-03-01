@@ -21,40 +21,37 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.github.serothim.hospital.domain;
+/**
+ * 
+ */
+package io.github.serothim.hospital.service;
 
-import lombok.Data;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
-import javax.persistence.*;
-
-import org.springframework.security.core.GrantedAuthority;
+import io.github.serothim.hospital.repository.UserRepository;
 
 /**
- *
  * @author Alexei Beizerov
+ *
  */
-@Data
-@Entity
-@Table(name = "roles")
-public class Role implements GrantedAuthority {
+@Service
+public class UserLoading implements UserDetailsService {
 
-    /**
-	 * Field using for serialization/deserialization.
-	 * Without this field, would have to use @SuppressWarnings ("serial")
-	 * or disable warnings in eclipse
+	private final UserRepository userRepository;
+	
+	/**
+	 * @param userRepository
 	 */
-	private static final long serialVersionUID = 1549318714988553844L;
-
-	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "role_id")
-    private int id;
-    
-    @Column(name = "role")
-    private String role;
+	public UserLoading(UserRepository userRepository) {
+		this.userRepository = userRepository;
+	}
 
 	@Override
-	public String getAuthority() {
-		return role;
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		return userRepository.findByEmail(email);
 	}
+
 }

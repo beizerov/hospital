@@ -24,7 +24,6 @@
 package io.github.serothim.hospital.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -34,7 +33,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import javax.sql.DataSource;
+import io.github.serothim.hospital.service.UserLoading;
 
 /**
  *
@@ -48,22 +47,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    private DataSource dataSource;
-
-    @Value("${spring.queries.users-query}")
-    private String usersQuery;
-
-    @Value("${spring.queries.roles-query}")
-    private String rolesQuery;
+    private UserLoading userLoading;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth)
             throws Exception {
-        auth.
-                jdbcAuthentication()
-                .usersByUsernameQuery(usersQuery)
-                .authoritiesByUsernameQuery(rolesQuery)
-                .dataSource(dataSource)
+        auth.userDetailsService(userLoading)
                 .passwordEncoder(bCryptPasswordEncoder);
     }
 
@@ -91,8 +80,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         			.contentSecurityPolicy("script-src 'self' "
         					+ "'sha256-E0oqoKnTXgCP6gqoBbz2XkulG4YlMCRaA"
         					+ "CZ3jMIbkwI=' "
-        					+ "'sha256-5Bvcqlt5p7yWh4QghGQudhFHts5uioPTo"
-        					+ "kLhb4BbDug=' "
+        					+ "'sha256-iJkSaGuCbu1BX4t2MvuuQLfXvWefMyTnB"
+        					+ "/OaiI91Kng=' "
         					+ "'sha256-JpXDpqiMLXNvEPj/uPg4SNXA9eS/xp3lE"
         					+ "wedizpS1cQ=' "
         					+ "'sha256-U+KoAOSZ0zEjevqVVn679I0AXcbksHI3S"

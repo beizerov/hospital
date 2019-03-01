@@ -39,6 +39,10 @@ import io.github.serothim.hospital.service.RoleGetting;
 import io.github.serothim.hospital.service.UserFinding;
 import io.github.serothim.hospital.service.UserSaving;
 
+/**
+ * @author Alexei Beizerov
+ *
+ */
 @Controller
 public class UserEditorController {
 

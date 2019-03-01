@@ -42,6 +42,10 @@ import io.github.serothim.hospital.service.UserFinding;
 import io.github.serothim.hospital.service.UserGetting;
 import io.github.serothim.hospital.service.UserSaving;
 
+/**
+ * @author Alexei Beizerov
+ *
+ */
 @Controller
 public class HomeController {
 	
@@ -128,7 +132,7 @@ public class HomeController {
 	}
 	
 	@PostMapping("/admin/delete")
-	public String actOnUser(
+	public String deleteUser(
 			@RequestParam String email,
 			Map<String, Object> model
 	) {

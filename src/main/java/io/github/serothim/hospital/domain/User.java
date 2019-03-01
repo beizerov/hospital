@@ -25,6 +25,11 @@ package io.github.serothim.hospital.domain;
 
 import lombok.Data;
 import javax.persistence.*;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
 import java.util.Set;
 
 /**
@@ -34,9 +39,16 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
 
-    @Id
+    /**
+	 * Field using for serialization/deserialization.
+	 * Without this field, would have to use @SuppressWarnings ("serial")
+	 * or disable warnings in eclipse
+	 */
+	private static final long serialVersionUID = 3891474478865915522L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
     private int id;
@@ -56,11 +68,40 @@ public class User {
     @Column(name = "active")
     private int active;
     
-    @ManyToMany(cascade = CascadeType.REFRESH)
+    @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     @JoinTable(
     			name = "user_roles", 
     			joinColumns = @JoinColumn(name = "user_id"), 
     			inverseJoinColumns = @JoinColumn(name = "role_id")
     		  )
     private Set<Role> roles;
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return roles;
+	}
+
+	@Override
+	public String getUsername() {
+		return email;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() { 
+		return (active == 1) ? true : false;
+	}
 }
