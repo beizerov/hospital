@@ -1,13 +1,7 @@
 @charset "UTF-8";
 
 
-html, body {
-	height: 100%;
-	margin: 0px;
-	padding: 0px;
-}
-
-.admin-background {
+body {
 	background: url("/images/for-admin-pages.png") no-repeat center center
 		fixed;
 	-webkit-background-size: cover;

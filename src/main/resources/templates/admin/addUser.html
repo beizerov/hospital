@@ -22,131 +22,130 @@
 				</button>
 			</form>
 	</div>
-	<div class="admin-background">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-6 col-md-offset-3">
-					<form autocomplete="off" 
-						  th:action="@{/admin/addUser}"
-						  th:object="${user}"
-						  method="post" 
-						  class="form-horizontal"
-						  role="form">
-						  
-						<h2>User Add Form</h2>
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<form autocomplete="off" 
+					  th:action="@{/admin/addUser}"
+					  th:object="${user}"
+					  method="post" 
+					  class="form-horizontal"
+					  role="form">
+					  
+					<h2>User Add Form</h2>
+					
+					<div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" 
+								th:field="*{firstName}" 
+								placeholder="First Name"
+								class="form-control"
+								required 
+								pattern="(^[A-Z][a-z]{1,12}$)" 
+								title="Start typing your name with a capital letter. 
+									Minimum 2 maximum 13 Latin characters."
+							/>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-sm-9">
+							<input
+								type="text" 
+								th:field="*{lastName}" 
+								placeholder="Last Name"
+								class="form-control"
+								required 
+								pattern="(^[A-Z][a-z]{1,12}$)" 
+								title="Surname start typing with a capital letter. 
+									Minimum 2 maximum 13 Latin characters."
+							/>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-9">
+							<input type="email" 
+								name="email"
+								required 
+								pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+								th:field="*{email}" 
+								placeholder="Email"
+								class="form-control" />
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-9">
+							<input type="password" 
+								th:field="*{password}"
+								placeholder="Password" 
+								class="form-control"
+								name="password" 
+                      				pattern=".{5,}" 
+                      				required title="5 characters minimum" />
+						</div>
+					</div>
+
+				    <ul>
+       					<li th:each="role : ${roles}" 
+       						class="radio-inline" >
+           						<input type="radio"
+           							th:checked="${role.role == 'ADMIN' ? true : false}" 
+           							th:name="role" 
+           							th:value="${role.role}"/>
+           					<label th:text="${role.role}"></label>
+       					</li>
+   					</ul>
+				    
+				   	<div class="form-group">
+						<div class="col-sm-9">
+							<button type="submit" 
+								class="btn btn-primary btn-block">
+								Register User
+							</button>
+						</div>
+					</div>						
+
+					<h2>
+						<span id="a-u-success-msg"
+							  th:text="${successMessage}">
+						</span>
 						
-						<div class="form-group">
-							<div class="col-sm-9">
-								<input type="text" 
-									th:field="*{firstName}" 
-									placeholder="First Name"
-									class="form-control"
-									required 
-									pattern="(^[A-Z][a-z]{1,12}$)" 
-									title="Start typing your name with a capital letter. 
-										Minimum 2 maximum 13 Latin characters."
-								/>
-							</div>
-						</div>
+			            <script th:if="${successMessage != null}" th:inline="javascript">
+			
+			                let modify = document.getElementById('a-u-success-msg');
 
-						<div class="form-group">
-							<div class="col-sm-9">
-								<input
-									type="text" 
-									th:field="*{lastName}" 
-									placeholder="Last Name"
-									class="form-control"
-									required 
-									pattern="(^[A-Z][a-z]{1,12}$)" 
-									title="Surname start typing with a capital letter. 
-										Minimum 2 maximum 13 Latin characters."
-								/>
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="col-sm-9">
-								<input type="email" 
-									name="email"
-									required 
-									pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-									th:field="*{email}" 
-									placeholder="Email"
-									class="form-control" />
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="col-sm-9">
-								<input type="password" 
-									th:field="*{password}"
-									placeholder="Password" 
-									class="form-control"
-									name="password" 
-                       				pattern=".{5,}" 
-                       				required title="5 characters minimum" />
-							</div>
-						</div>
-
-					    <ul>
-        					<li th:each="role : ${roles}" 
-        						class="radio-inline" >
-            						<input type="radio"
-            							th:checked="${role.role == 'ADMIN' ? true : false}" 
-            							th:name="role" 
-            							th:value="${role.role}"/>
-            					<label th:text="${role.role}"></label>
-        					</li>
-    					</ul>
-					    
-					   	<div class="form-group">
-							<div class="col-sm-9">
-								<button type="submit" 
-									class="btn btn-primary btn-block">
-									Register User
-								</button>
-							</div>
-						</div>						
-
-						<h2>
-							<span id="a-u-success-msg"
-								  th:text="${successMessage}">
-							</span>
+			                modify.style.display = "inline-block";
+			                
+			                setTimeout(function() {
+			                    modify.style.display = "none";
+			                }, 1500);      
+			
+			            </script>
+			            
+			     		<span th:errors="*{email}"
+							  id="a-u-email-err-msg">
+						</span>
 							
-				            <script th:if="${successMessage != null}" th:inline="javascript">
-				
-				                let modify = document.getElementById('a-u-success-msg');
+						<script th:if="${#fields.hasErrors('email') == true}" th:inline="javascript">
+			
+			                let modifyErrMsg = document.getElementById('a-u-email-err-msg');
 
-				                modify.style.display = "inline-block";
-				                
-				                setTimeout(function() {
-				                    modify.style.display = "none";
-				                }, 1500);      
-				
-				            </script>
-				            
-				     		<span th:errors="*{email}"
-								  id="a-u-email-err-msg">
-							</span>
-								
-							<script th:if="${#fields.hasErrors('email') == true}" th:inline="javascript">
-				
-				                let modifyErrMsg = document.getElementById('a-u-email-err-msg');
+			                if (modifyErrMsg !== null) {
+			                	modifyErrMsg.style.display = "inline-block";
+			                }
+			                	
+			                setTimeout(function() {
+			                	if (modifyErrMsg !== null) {
+			                		modifyErrMsg.style.display = "none";
+			                	}
+			                    location.href = "addUser";
+			                }, 1500);      
+			
+			            </script>
+					</h2>
 
-				                if (modifyErrMsg !== null) {
-				                	modifyErrMsg.style.display = "inline-block";
-				                }
-				                	
-				                setTimeout(function() {
-				                	if (modifyErrMsg !== null) {
-				                		modifyErrMsg.style.display = "none";
-				                	}
-				                    location.href = "addUser";
-				                }, 1500);      
-				
-				            </script>
-						</h2>
-
-					</form>
-				</div>
+				</form>
 			</div>
 		</div>
 	</div>

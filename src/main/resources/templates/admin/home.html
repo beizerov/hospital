@@ -28,56 +28,54 @@
 		</form>
 	</div>
 
-	<div class="admin-background">
-		<div class="container" id="table-wrapper">
-			<table>
-				<thead>
-					<tr>
-						<th class="text">Id</th>
-						<th class="text">Active</th>
-						<th class="text">Email</th>
-						<th class="text">First name</th>
-						<th class="text">Last name</th>
-						<th class="text">Role</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="user : ${users}">
-						<td th:text="${user.id}"></td>
-						<td id="td-active-btn">
-							<form class="user-btn-form" th:action="@{/admin/activity}"
-								method="post">
-								<input id="imp-act-btn" class="active-btn" type="image"
-									alt="active/inactive"
-									th:src="@{(${user.active == 0}) ? '/images/inactive.png' : '/images/active.png'}">
-								<input th:name="email" type="hidden" th:value="${user.email}">
-							</form>
-						</td>
-						<td th:text="${user.email}"></td>
-						<td th:text="${user.firstName}"></td>
-						<td th:text="${user.lastName}"></td>
-						<td><span th:each="role, state : ${user.roles}"
-							th:text="${role.role} + ${(state.count != state.size) ? ', ' : ''}"></span></td>
-						<td class="td-btn">
-							<form class="user-btn-form" th:action="@{/admin/edit}"
-								method="post">
-								<input class="edit-btn" type="image" alt="Edit user"
-									th:src="@{/images/pencil-blue.png}" width="50px" height="35px">
-								<input th:name="email" type="hidden" th:value="${user.email}">
-							</form>
+	<div class="container" id="table-wrapper">
+		<table>
+			<thead>
+				<tr>
+					<th class="text">Id</th>
+					<th class="text">Active</th>
+					<th class="text">Email</th>
+					<th class="text">First name</th>
+					<th class="text">Last name</th>
+					<th class="text">Role</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="user : ${users}">
+					<td th:text="${user.id}"></td>
+					<td id="td-active-btn">
+						<form class="user-btn-form" th:action="@{/admin/activity}"
+							method="post">
+							<input id="imp-act-btn" class="active-btn" type="image"
+								alt="active/inactive"
+								th:src="@{(${user.active == 0}) ? '/images/inactive.png' : '/images/active.png'}">
+							<input th:name="email" type="hidden" th:value="${user.email}">
+						</form>
+					</td>
+					<td th:text="${user.email}"></td>
+					<td th:text="${user.firstName}"></td>
+					<td th:text="${user.lastName}"></td>
+					<td><span th:each="role, state : ${user.roles}"
+						th:text="${role.role} + ${(state.count != state.size) ? ', ' : ''}"></span></td>
+					<td class="td-btn">
+						<form class="user-btn-form" th:action="@{/admin/edit}"
+							method="post">
+							<input class="edit-btn" type="image" alt="Edit user"
+								th:src="@{/images/pencil-blue.png}" width="55px" height="35px">
+							<input th:name="email" type="hidden" th:value="${user.email}">
+						</form>
 
-							<form id="form-dlt" class="user-btn-form"
-								th:action="@{/admin/delete}" method="post">
-								<input class="delete-btn" type="image" alt="Delete user"
-									th:src="@{/images/green-recycle-bin.png}" width="60px"
-									height="35px"> <input th:name="email" type="hidden"
-									th:value="${user.email}"></input>
-							</form>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+						<form id="form-dlt" class="user-btn-form"
+							th:action="@{/admin/delete}" method="post">
+							<input class="delete-btn" type="image" alt="Delete user"
+								th:src="@{/images/green-recycle-bin.png}" width="65px"
+								height="35px"> <input th:name="email" type="hidden"
+								th:value="${user.email}"></input>
+						</form>
+					</td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 
 	<script th:src="@{/js/addsEventListenersForUserButtons.js}"></script>

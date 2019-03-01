@@ -55,6 +55,6 @@ In the end of output like that:
  Account by default created automatically if there 
  are no any other records in the users table.  
 
-    email: admin@dmin
+    email: admin@dmin.com
     password: admin
     

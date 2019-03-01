@@ -49,7 +49,7 @@ FROM (
 	  SELECT 0, 
 	  'admin',
 	  'adminus',
-	  'admin@dmin', 
+	  'admin@dmin.com', 
 	  '$2a$10$refpi22VWy7nCsfoImqZ/O/MncSw6vZLiJGiJvsx3KR2w3fHBxZFO',
 	  1
 ) AS tmp

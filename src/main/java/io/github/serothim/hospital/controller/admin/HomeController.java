@@ -105,7 +105,7 @@ public class HomeController {
 		
 		model.putAll(getModel());
 		
-		return "/admin/home";
+		return "admin/home";
 	}
 	
 	@PostMapping("/admin/edit")
@@ -124,7 +124,7 @@ public class HomeController {
 		model.put("roles", roles);
 		model.put("user", userGetting.getUserByEmail(email));
 		
-		return "/admin/editUser";
+		return "admin/editUser";
 	}
 	
 	@PostMapping("/admin/delete")
