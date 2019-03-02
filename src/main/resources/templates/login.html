@@ -2,56 +2,56 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
-    <head>
-        <meta charset="UTF-8">
-        <title>Login</title>
-        <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}"/>
-    </head>
-    <body>
-        <h3 id="error">Invalid email or password!</h3>
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}"/>
+</head>
+<body>
+    <h3 id="error">Invalid email or password!</h3>
+    
+    <div class="login_form">
+        <img th:src="@{/images/logo.jpg}" class="logo" alt="Logo"/>
         
-        <div class="login_form">
-            <img th:src="@{/images/logo.jpg}" class="logo" alt="Logo"/>
+        <script th:if="${param.error}" th:inline="javascript">
+
+            let modify = document.getElementById('error');
             
-            <script th:if="${param.error}" th:inline="javascript">
-
-                let modify = document.getElementById('error');
-                
-                modify.style.display = "inline-block";
-                
-                setTimeout(function() {
-                    modify.style.display = "none";
-                    location.href = "/";
-                }, 1500);      
-
-            </script>
+            modify.style.display = "inline-block";
             
-            <form th:action="@{/}" method="post">
-                <h2 id="welcome" th:text="Welcome"></h2>
-                    <br/>
-                <input type="email" 
-                	   id="email" 
-                	   name="email"
-                	   required 
-					   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" 
-                	   th:placeholder="Email">
-                    <br/>
-                <input type="password"
-                	   th:placeholder="Password"
-                       id="password" 
-                       name="password" 
-                       pattern=".{5,}" 
-                       required title="5 characters minimum"/>
-                    <div class="hide-show">
-                        <span>Show</span>
-                    </div>
-                <button name="Submit" value="Login" type="Submit"th:text="Login">
-                </button>
-            </form>
+            setTimeout(function() {
+                modify.style.display = "none";
+                location.href = "/";
+            }, 1500);      
 
-        </div>
+        </script>
         
-        <script th:src="@{/js/jquery-3.3.1.slim.min.js}"></script>
-        <script th:src="@{/js/showHidePasswordButton.js}"></script>
-    </body>
+        <form th:action="@{/}" method="post">
+            <h2 id="welcome" th:text="Welcome"></h2>
+                <br/>
+            <input type="email" 
+            	   id="email" 
+            	   name="email"
+            	   required 
+	   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" 
+            	   th:placeholder="Email">
+                <br/>
+            <input type="password"
+            	   th:placeholder="Password"
+                   id="password" 
+                   name="password" 
+                   pattern=".{5,}" 
+                   required title="5 characters minimum"/>
+                <div class="hide-show">
+                    <span>Show</span>
+                </div>
+            <button name="Submit" value="Login" type="Submit"th:text="Login">
+            </button>
+        </form>
+
+    </div>
+    
+    <script th:src="@{/js/jquery-3.3.1.slim.min.js}"></script>
+    <script th:src="@{/js/showHidePasswordButton.js}"></script>
+</body>
 </html>

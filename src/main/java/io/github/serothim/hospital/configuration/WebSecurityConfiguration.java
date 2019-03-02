@@ -78,8 +78,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
         			.headers()
         			.contentSecurityPolicy("script-src 'self' "
-        					+ "'sha256-E0oqoKnTXgCP6gqoBbz2XkulG4YlMCRaA"
-        					+ "CZ3jMIbkwI=' "
+        					+ "'sha256-Obmw9p0O7AaxeYrMEHYb++nI2y46vwJdq"
+        					+ "YzUIoKjyg8=' "
         					+ "'sha256-iJkSaGuCbu1BX4t2MvuuQLfXvWefMyTnB"
         					+ "/OaiI91Kng=' "
         					+ "'sha256-JpXDpqiMLXNvEPj/uPg4SNXA9eS/xp3lE"
