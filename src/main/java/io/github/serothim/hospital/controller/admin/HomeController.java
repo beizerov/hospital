@@ -99,12 +99,12 @@ public class HomeController {
 	) {
 		User user = userFinding.findByEmail(email);
 
-		if(user.getActive() == 1) { 
+		if(user.isEnabled()) { 
 			user.setActive(0); 
 		} else {
 			user.setActive(1);
 		}
-
+		
 		userSaving.saveUserWithoutPasswordEncoding(user);
 		
 		model.putAll(getModel());
