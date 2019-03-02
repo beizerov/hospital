@@ -22,10 +22,7 @@
 				new user</button>
 		</form>
 
-		<form class="form-btn" th:action="@{/logout}" method="get">
-			<button class="admin-btn" id="logout-btn" name="logout" 
-			type="Submit">Logout</button>
-		</form>
+		<form th:replace="~{fragments/common::logout-button}"></form>
 	</div>
 
 	<div class="container" id="table-wrapper">

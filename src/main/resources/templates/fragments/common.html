@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	<form th:fragment="logout-button" class="form-btn" th:action="@{/logout}" method="get">
+		<button class="admin-btn" id="logout-btn" name="logout" 
+			type="Submit">Logout</button>
+	</form>
+</body>
+</html>
