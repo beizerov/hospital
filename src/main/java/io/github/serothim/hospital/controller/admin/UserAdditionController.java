@@ -24,10 +24,8 @@
 package io.github.serothim.hospital.controller.admin;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +34,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
 import io.github.serothim.hospital.domain.Role;
 import io.github.serothim.hospital.domain.User;
 import io.github.serothim.hospital.service.RoleGetting;
@@ -59,33 +59,30 @@ public class UserAdditionController {
 	private RoleGetting roleGetting;
 
 	
-	private Map<String, Object> getModel() {
-		Map<String, Object> model = new HashMap<>();
-		
-		model.put("user", new User());
+	private ModelAndView getModelAndViewForAddUser() {
+		ModelAndView modelAndView = new ModelAndView();
 
 		List<Role> roles = new ArrayList<>();
 		roleGetting.getAllRoles().forEach(roles::add);
-		model.put("roles", roles);
 		
-		return model;
+		modelAndView.addObject("roles", roles);
+		modelAndView.addObject("user", new User());
+		
+		return modelAndView;
 	}
 	
 	@GetMapping("/admin/addUser")
-	public String addUser(Map<String, Object> model) {
-
-		model.putAll(getModel());
-		
-		return "admin/addUser";
+	public ModelAndView addUser() {
+		return getModelAndViewForAddUser();
 	}
 
 	@PostMapping("/admin/addUser")
-	public String addNewUser(
+	public ModelAndView addNewUser(
 			User user, 
 			BindingResult bindingResult,
-			@RequestParam String role,
-			Map<String, Object> model
+			@RequestParam String role
 	) {
+		ModelAndView modelAndView = new ModelAndView();
 		User userExists = userFinding.findByEmail(user.getEmail());
 		if (userExists != null) {
 			bindingResult.rejectValue(
@@ -96,7 +93,8 @@ public class UserAdditionController {
 		}
 		
 		if (!bindingResult.hasErrors()) {
-			model.put(
+			modelAndView = getModelAndViewForAddUser();
+			modelAndView.addObject(
 					"successMessage", 
 					"User has been added successfully"
 			);
@@ -105,11 +103,9 @@ public class UserAdditionController {
 			roleSet.add(roleGetting.getRoleByName(role));
 			user.setRoles(roleSet);
 
-			userSaving.save(user);
-			
-			model.putAll(getModel());		
+			userSaving.save(user);	
 		}
 		
-		return "admin/addUser";
+		return modelAndView;
 	}
 }

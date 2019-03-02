@@ -24,9 +24,7 @@
 package io.github.serothim.hospital.controller.admin;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -34,6 +32,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
 import io.github.serothim.hospital.domain.Role;
 import io.github.serothim.hospital.domain.User;
 import io.github.serothim.hospital.service.RoleGetting;
@@ -75,28 +75,23 @@ public class HomeController {
 		return user.getFirstName() + " " + user.getLastName();
 	}
 	
-	private Map<String, Object> getModel() {
-		Map<String, Object> model = new HashMap<>();
+	private ModelAndView getModelAndViewForAdminHome() {
+		ModelAndView modelAndView = new ModelAndView();
 		
-		model.put("greeting", "Welcome " + whoiam());
-		model.put("users", userGetting.getAllUsers());
-
-		return model;
+		modelAndView.addObject("greeting", "Welcome " + whoiam());
+		modelAndView.addObject("users", userGetting.getAllUsers());
+		modelAndView.setViewName("admin/home");
+		
+		return modelAndView;
 	}
 
 	@GetMapping("/admin/home")
-	public String home(Map<String, Object> model) {
-
-		model.putAll(getModel());
-		
-		return "admin/home";
+	public ModelAndView home() {
+		return getModelAndViewForAdminHome();
 	}
 
 	@PostMapping("/admin/activity")
-	public String switchActivity(
-			@RequestParam String email,
-			Map<String, Object> model
-	) {
+	public ModelAndView switchActivity(@RequestParam String email) {
 		User user = userFinding.findByEmail(email);
 
 		if(user.isEnabled()) { 
@@ -107,39 +102,31 @@ public class HomeController {
 		
 		userSaving.saveUserWithoutPasswordEncoding(user);
 		
-		model.putAll(getModel());
-		
-		return "admin/home";
+		return getModelAndViewForAdminHome();
 	}
 	
 	@PostMapping("/admin/edit")
-	public String editUser(
-			@RequestParam String email,
-			Map<String, Object> model
-	) {
+	public ModelAndView editUser(@RequestParam String email) {
+		ModelAndView modelAndView = new ModelAndView();		
 		List<Role> roles = new ArrayList<>();
 		
 		roleGetting.getAllRoles().forEach(roles::add);
 		
-		model.put(
+		modelAndView.addObject(
 				"userRole", 
 				userFinding.findByEmail(email).getRoles().toArray()[0]
 		);
-		model.put("roles", roles);
-		model.put("user", userGetting.getUserByEmail(email));
+		modelAndView.addObject("roles", roles);
+		modelAndView.addObject("user", userGetting.getUserByEmail(email));
+		modelAndView.setViewName("admin/editUser");
 		
-		return "admin/editUser";
+		return modelAndView;
 	}
 	
 	@PostMapping("/admin/delete")
-	public String deleteUser(
-			@RequestParam String email,
-			Map<String, Object> model
-	) {
+	public ModelAndView deleteUser(@RequestParam String email) {
 		userDeletion.delete(userFinding.findByEmail(email));
-
-		model.putAll(getModel()); 
-
-		return "admin/home";
+ 
+		return getModelAndViewForAdminHome();
 	}
 }

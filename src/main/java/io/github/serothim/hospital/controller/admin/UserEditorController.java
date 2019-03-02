@@ -26,13 +26,14 @@ package io.github.serothim.hospital.controller.admin;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
 import io.github.serothim.hospital.domain.Role;
 import io.github.serothim.hospital.domain.User;
 import io.github.serothim.hospital.service.RoleGetting;
@@ -57,11 +58,8 @@ public class UserEditorController {
 
 	
 	@PostMapping("/admin/editUser")
-	public String editUser(
-			User user, 
-			@RequestParam String role,
-			Map<String, Object> model
-	) {
+	public ModelAndView editUser(User user, @RequestParam String role) {
+		ModelAndView modelAndView = new ModelAndView();
 		User userExists = userFinding.findByEmail(user.getEmail());
 		if (userExists != null && user.getId() == userExists.getId()) {
 
@@ -86,16 +84,19 @@ public class UserEditorController {
 			
 			roleGetting.getAllRoles().forEach(roles::add);
 			
-			model.put(
+			modelAndView.addObject(
 					"userRole", 
-					userFinding.findByEmail(userExists.getEmail())
-												.getRoles().toArray()[0]
+					userFinding.findByEmail(userExists.getEmail()).getRoles()
+					.toArray()[0]
 			);
-			model.put("roles", roles);
-			model.put("successMessage", "User has been changed successfully");
-			model.put("user", user);
+			modelAndView.addObject("roles", roles);
+			modelAndView.addObject(
+					"successMessage", 
+					"User has been changed successfully"
+			);
+			modelAndView.addObject("user", user);
 		}
 
-		return "admin/editUser";
+		return modelAndView;
 	}
 }
