@@ -26,8 +26,6 @@ package io.github.serothim.hospital.controller.admin;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,6 +39,7 @@ import io.github.serothim.hospital.service.UserDeletion;
 import io.github.serothim.hospital.service.UserFinding;
 import io.github.serothim.hospital.service.UserGetting;
 import io.github.serothim.hospital.service.UserSaving;
+import io.github.serothim.hospital.service.WhoIAm;
 
 /**
  * @author Alexei Beizerov
@@ -64,21 +63,16 @@ public class HomeController {
 	@Autowired
 	private UserSaving userSaving;
 
-	
-	private String whoiam() {
-		Authentication auth = SecurityContextHolder
-								.getContext()
-								.getAuthentication();
-
-		User user = userFinding.findByEmail(auth.getName());
-
-		return user.getFirstName() + " " + user.getLastName();
-	}
+	@Autowired
+	private WhoIAm whoIAm;
 	
 	private ModelAndView getModelAndViewForAdminHome() {
 		ModelAndView modelAndView = new ModelAndView();
 		
-		modelAndView.addObject("greeting", "Welcome " + whoiam());
+		modelAndView.addObject(
+				"greeting", 
+				"Welcome " + whoIAm.getFullNameOfAuthenticatedUser()
+		);
 		modelAndView.addObject("users", userGetting.getAllUsers());
 		modelAndView.setViewName("admin/home");
 		

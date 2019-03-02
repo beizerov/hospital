@@ -49,6 +49,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserLoading userLoading;
 
+    @Autowired
+    private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+    
     @Override
     protected void configure(AuthenticationManagerBuilder auth)
             throws Exception {
@@ -62,15 +65,20 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                     .antMatchers("/").permitAll()
+                    .antMatchers("/receptionist/**")
+                    	.hasAuthority("RECEPTIONIST").anyRequest()
+                    	.authenticated()
                     .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
                     .authenticated()
                 .and()
                 	.formLogin()
                     .loginPage("/").failureUrl("/?error=true")
-                    .defaultSuccessUrl("/admin/home")
+                    .successHandler(customAuthenticationSuccessHandler)
+                //    .defaultSuccessUrl("/admin/home")
                     .usernameParameter("email")
                     .passwordParameter("password")
-                .and().logout()
+                .and()
+                	.logout()
                     .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                     .logoutSuccessUrl("/")
                 .and().exceptionHandling()

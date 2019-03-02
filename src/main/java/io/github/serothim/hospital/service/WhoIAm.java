@@ -21,33 +21,40 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.github.serothim.hospital.controller.receptionist;
+/**
+ * 
+ */
+package io.github.serothim.hospital.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Service;
 
-import io.github.serothim.hospital.service.WhoIAm;
+import io.github.serothim.hospital.domain.User;
+import io.github.serothim.hospital.repository.UserRepository;
 
 /**
- *
  * @author Alexei Beizerov
+ *
  */
-@Controller
-public class ReceptionistController {
+@Service
+public class WhoIAm {
+
+	private final UserRepository userRepository;
+
+	/**
+	 * @param userRepository
+	 */
+	public WhoIAm(UserRepository userRepository) {
+		this.userRepository = userRepository;
+	}
 	
-	@Autowired
-	private WhoIAm whoIAm;
-	
-	@GetMapping("/receptionist/home")
-    public ModelAndView home() {
-		ModelAndView modelAndView = new ModelAndView();
-		
-		return modelAndView.addObject(
-				"greeting", 
-				"Welcome " + whoIAm.getFullNameOfAuthenticatedUser()
-		);
-    	
-    }
+	public String getFullNameOfAuthenticatedUser() {
+		Authentication auth = SecurityContextHolder.getContext()
+											.getAuthentication();
+
+		User user = userRepository.findByEmail(auth.getName());
+
+		return user.getFirstName() + " " + user.getLastName();
+	}
 }
