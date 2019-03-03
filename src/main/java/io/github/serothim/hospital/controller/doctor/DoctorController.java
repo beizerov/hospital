@@ -23,7 +23,12 @@
  */
 package io.github.serothim.hospital.controller.doctor;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import io.github.serothim.hospital.service.WhoIAm;
 
 /**
  *
@@ -31,5 +36,18 @@ import org.springframework.stereotype.Controller;
  */
 @Controller
 public class DoctorController {
-    
+	
+	@Autowired
+	private WhoIAm whoIAm;
+	
+	@GetMapping("/doctor/home")
+    public ModelAndView home() {
+		ModelAndView modelAndView = new ModelAndView();
+		
+		return modelAndView.addObject(
+				"greeting", 
+				"Welcome " + whoIAm.getFullNameOfAuthenticatedUser()
+		);
+    	
+    }
 }
