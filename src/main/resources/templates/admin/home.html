@@ -1,14 +1,9 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns:th="http://www.thymeleaf.org">
 
-<head>
-	<meta charset="UTF-8">
+<head th:replace="fragments/common :: common_header(~{::title},~{::link})">
 	<title>Home</title>
-	<link rel="stylesheet" type="text/css" th:href="@{/css/admin/admin.css}" />
 	<link rel="stylesheet" type="text/css" th:href="@{/css/admin/home.css}" />
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
 
@@ -22,7 +17,7 @@
 				new user</button>
 		</form>
 
-		<form th:replace="~{fragments/common::logout-button}"></form>
+		<form th:replace="~{fragments/common :: logout-button}"></form>
 	</div>
 
 	<div class="container" id="table-wrapper">

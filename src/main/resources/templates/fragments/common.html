@@ -1,5 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="common_header(title,links)">
+	<title th:replace="${title}">The awesome application</title>
+	<!-- Common styles and scripts -->
+	<link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/common.css}" />
+	 <!--/* Per-page placeholder for additional links */-->
+	<th:block th:replace="${links} != null ? ${links} : ~{}" />
+</head>
+
 <body>
 	<form th:fragment="logout-button" class="form-btn" th:action="@{/logout}" method="get">
 		<button class="admin-btn" id="logout-btn" name="logout" 
