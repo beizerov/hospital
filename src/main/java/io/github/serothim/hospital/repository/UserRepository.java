@@ -23,7 +23,11 @@
  */
 package io.github.serothim.hospital.repository;
 
+import io.github.serothim.hospital.domain.Role;
 import io.github.serothim.hospital.domain.User;
+
+import java.util.Set;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -35,4 +39,5 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     User findByEmail(String email);
+    Set<User> findByRoles(Role role);
 }

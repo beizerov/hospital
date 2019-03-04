@@ -21,35 +21,33 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.github.serothim.hospital.service;
+/**
+ * 
+ */
+package io.github.serothim.hospital.service.operation;
 
 import org.springframework.stereotype.Service;
 
-import io.github.serothim.hospital.domain.Role;
-import io.github.serothim.hospital.repository.RoleRepository;
+import io.github.serothim.hospital.domain.Operation;
+import io.github.serothim.hospital.repository.OperationRepository;
 
 /**
  * @author Alexei Beizerov
  *
  */
-@Service("roleGetting")
-public class RoleGetting {
-
-	private final RoleRepository roleRepository;
+@Service
+public class SavingTheOperation {
+	
+	private final OperationRepository operationRepository;
 
 	/**
-	 * @param roleRepository {@link 
-	 * io.github.serothim.hospital.repository.RoleRepository}
+	 * @param operationRepository
 	 */
-	public RoleGetting(RoleRepository roleRepository) {
-		this.roleRepository = roleRepository;
-	}
-
-	public Iterable<Role> getAllRoles() {
-		return roleRepository.findAll();
+	public SavingTheOperation(OperationRepository operationRepository) {
+		this.operationRepository = operationRepository;
 	}
 	
-	public Role getRoleByName(String roleName) {
-		return roleRepository.findByRole(roleName);
+	public void save(Operation operation) {
+		operationRepository.save(operation);
 	}
 }

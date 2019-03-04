@@ -23,9 +23,7 @@
  */
 package io.github.serothim.hospital.controller.admin;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,9 +34,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import io.github.serothim.hospital.domain.Role;
 import io.github.serothim.hospital.domain.User;
-import io.github.serothim.hospital.service.RoleGetting;
-import io.github.serothim.hospital.service.UserFinding;
-import io.github.serothim.hospital.service.UserSaving;
+import io.github.serothim.hospital.service.role.RoleGetting;
+import io.github.serothim.hospital.service.user.UserGetting;
+import io.github.serothim.hospital.service.user.UserSaving;
 
 /**
  * @author Alexei Beizerov
@@ -48,7 +46,7 @@ import io.github.serothim.hospital.service.UserSaving;
 public class UserEditorController {
 
 	@Autowired
-	private UserFinding userFinding;
+	private UserGetting userGetting;
 
 	@Autowired
 	private UserSaving userSaving;
@@ -60,7 +58,7 @@ public class UserEditorController {
 	@PostMapping("/admin/editUser")
 	public ModelAndView editUser(User user, @RequestParam String role) {
 		ModelAndView modelAndView = new ModelAndView();
-		User userExists = userFinding.findByEmail(user.getEmail());
+		User userExists = userGetting.getUserByEmail(user.getEmail());
 		if (userExists != null && user.getId() == userExists.getId()) {
 
 			userExists.setFirstName(user.getFirstName());
@@ -79,17 +77,13 @@ public class UserEditorController {
 			} else {
 				userSaving.save(userExists);
 			}
-			
-			List<Role> roles = new ArrayList<>();
-			
-			roleGetting.getAllRoles().forEach(roles::add);
-			
+					
 			modelAndView.addObject(
 					"userRole", 
-					userFinding.findByEmail(userExists.getEmail()).getRoles()
+					userGetting.getUserByEmail(userExists.getEmail()).getRoles()
 					.toArray()[0]
 			);
-			modelAndView.addObject("roles", roles);
+			modelAndView.addObject("roles", roleGetting.getAllRoles());
 			modelAndView.addObject(
 					"successMessage", 
 					"User has been changed successfully"

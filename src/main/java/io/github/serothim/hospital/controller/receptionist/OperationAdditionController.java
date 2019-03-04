@@ -24,33 +24,51 @@
 /**
  * 
  */
-package io.github.serothim.hospital.service;
+package io.github.serothim.hospital.controller.receptionist;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 
-import io.github.serothim.hospital.domain.User;
-import io.github.serothim.hospital.repository.UserRepository;
+import io.github.serothim.hospital.domain.Operation;
+import io.github.serothim.hospital.service.operation.SavingTheOperation;
+import io.github.serothim.hospital.service.user.UserGetting;
 
 /**
  * @author Alexei Beizerov
  *
  */
-@Service("userFinding")
-public class UserFinding {
-
-	private final UserRepository userRepository;
-
-	/**
-	 * @param userRepository {@link
-	 *  io.github.serothim.hospital.repository.UserRepository}
-	 */
+@Controller
+public class OperationAdditionController {
+	
 	@Autowired
-	public UserFinding(UserRepository userRepository) {
-		this.userRepository = userRepository;
-	}
+	private UserGetting userGetting;
+	
+	@Autowired
+	private SavingTheOperation savingTheOperation;
+	
+	private ModelAndView getModelAndViewForAddOperation() {
+		ModelAndView modelAndView = new ModelAndView();
 
-	public User findByEmail(String email) {
-		return userRepository.findByEmail(email);
+		modelAndView.addObject("doctors", userGetting.getUserByRole("DOCTOR"));
+		modelAndView.addObject("operation", new Operation());
+		
+		return modelAndView;
+	}
+	
+	@GetMapping("/receptionist/addOperation")
+	public ModelAndView addOperation() {
+		return getModelAndViewForAddOperation();
+	}
+	
+	@PostMapping("/receptionist/addOperation")
+	public ModelAndView addNewOperation(
+			Operation operation
+	) {
+		savingTheOperation.save(operation);
+		
+		return getModelAndViewForAddOperation();
 	}
 }

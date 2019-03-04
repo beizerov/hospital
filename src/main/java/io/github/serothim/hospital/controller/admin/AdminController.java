@@ -23,8 +23,6 @@
  */
 package io.github.serothim.hospital.controller.admin;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,25 +30,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import io.github.serothim.hospital.domain.Role;
 import io.github.serothim.hospital.domain.User;
-import io.github.serothim.hospital.service.RoleGetting;
-import io.github.serothim.hospital.service.UserDeletion;
-import io.github.serothim.hospital.service.UserFinding;
-import io.github.serothim.hospital.service.UserGetting;
-import io.github.serothim.hospital.service.UserSaving;
-import io.github.serothim.hospital.service.WhoIAm;
+import io.github.serothim.hospital.service.role.RoleGetting;
+import io.github.serothim.hospital.service.user.UserDeletion;
+import io.github.serothim.hospital.service.user.UserGetting;
+import io.github.serothim.hospital.service.user.UserSaving;
+import io.github.serothim.hospital.service.user.WhoIAm;
 
 /**
  * @author Alexei Beizerov
  *
  */
 @Controller
-public class HomeController {
+public class AdminController {
 	
-	@Autowired
-	private UserFinding userFinding;
-
 	@Autowired
 	private UserGetting userGetting;
 
@@ -86,7 +79,7 @@ public class HomeController {
 
 	@PostMapping("/admin/activity")
 	public ModelAndView switchActivity(@RequestParam String email) {
-		User user = userFinding.findByEmail(email);
+		User user = userGetting.getUserByEmail(email);
 
 		if(user.isEnabled()) { 
 			user.setActive(0); 
@@ -102,15 +95,12 @@ public class HomeController {
 	@PostMapping("/admin/edit")
 	public ModelAndView editUser(@RequestParam String email) {
 		ModelAndView modelAndView = new ModelAndView();		
-		List<Role> roles = new ArrayList<>();
-		
-		roleGetting.getAllRoles().forEach(roles::add);
 		
 		modelAndView.addObject(
 				"userRole", 
-				userFinding.findByEmail(email).getRoles().toArray()[0]
+				userGetting.getUserByEmail(email).getRoles().toArray()[0]
 		);
-		modelAndView.addObject("roles", roles);
+		modelAndView.addObject("roles", roleGetting.getAllRoles());
 		modelAndView.addObject("user", userGetting.getUserByEmail(email));
 		modelAndView.setViewName("admin/editUser");
 		
@@ -119,7 +109,7 @@ public class HomeController {
 	
 	@PostMapping("/admin/delete")
 	public ModelAndView deleteUser(@RequestParam String email) {
-		userDeletion.delete(userFinding.findByEmail(email));
+		userDeletion.delete(userGetting.getUserByEmail(email));
  
 		return getModelAndViewForAdminHome();
 	}

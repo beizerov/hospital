@@ -21,37 +21,33 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.github.serothim.hospital.service;
+/**
+ * 
+ */
+package io.github.serothim.hospital.service.operation;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import io.github.serothim.hospital.domain.User;
-import io.github.serothim.hospital.repository.UserRepository;
+import io.github.serothim.hospital.domain.Operation;
+import io.github.serothim.hospital.repository.OperationRepository;
 
 /**
  * @author Alexei Beizerov
  *
  */
-@Service("userGetting")
-public class UserGetting {
+@Service
+public class GettingTheOperation {
 
-	private final UserRepository userRepository;
+	private final OperationRepository operationRepository;
 
 	/**
-	 * @param userRepository {@link 
-	 * io.github.serothim.hospital.repository.UserRepository}
+	 * @param operationRepository
 	 */
-	@Autowired
-	public UserGetting(UserRepository userRepository) {
-		this.userRepository = userRepository;
+	public GettingTheOperation(OperationRepository operationRepository) {
+		this.operationRepository = operationRepository;
 	}
 
-	public Iterable<User> getAllUsers() {
-		return userRepository.findAll();
-	}
-	
-	public User getUserByEmail(String email) {
-		return userRepository.findByEmail(email);
+	public Operation GetOperationById(long id) {
+		return operationRepository.getOne(id);
 	}
 }

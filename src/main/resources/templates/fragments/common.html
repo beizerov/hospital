@@ -12,8 +12,23 @@
 
 <body>
 	<form th:fragment="logout-button" class="form-btn" th:action="@{/logout}" method="get">
-		<button class="admin-btn" id="logout-btn" name="logout" 
+		<button class="user-btn" id="logout-btn" name="logout" 
 			type="Submit">Logout</button>
+	</form>
+
+	<form th:fragment="admin-home-button" th:action="@{/admin/home}" method="get">
+		<button id="go-to-home-btn" class="user-btn" type="Submit">
+			Home</button>
+	</form>
+	
+	<form th:fragment="receptionist-home-button" th:action="@{/receptionist/home}" method="get">
+		<button id="go-to-home-btn" class="user-btn" type="Submit">
+			Home</button>
+	</form>
+	
+	<form th:fragment="doctor-home-button" th:action="@{/doctor/home}" method="get">
+		<button id="go-to-home-btn" class="user-btn" type="Submit">
+			Home</button>
 	</form>
 </body>
 </html>

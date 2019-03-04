@@ -21,9 +21,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.github.serothim.hospital.service;
+/**
+ * 
+ */
+package io.github.serothim.hospital.service.user;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import io.github.serothim.hospital.domain.User;
@@ -33,21 +37,24 @@ import io.github.serothim.hospital.repository.UserRepository;
  * @author Alexei Beizerov
  *
  */
-@Service("userDeletion")
-public class UserDeletion {
+@Service
+public class WhoIAm {
 
 	private final UserRepository userRepository;
 
 	/**
-	 * @param userRepository {@link 
-	 * io.github.serothim.hospital.repository.UserRepository}
+	 * @param userRepository
 	 */
-	@Autowired
-	public UserDeletion(UserRepository userRepository) {
+	public WhoIAm(UserRepository userRepository) {
 		this.userRepository = userRepository;
 	}
+	
+	public String getFullNameOfAuthenticatedUser() {
+		Authentication auth = SecurityContextHolder.getContext()
+											.getAuthentication();
 
-	public void delete(User user) {
-		userRepository.delete(user);
+		User user = userRepository.findByEmail(auth.getName());
+
+		return user.getFirstName() + " " + user.getLastName();
 	}
 }

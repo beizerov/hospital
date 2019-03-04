@@ -21,33 +21,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.github.serothim.hospital.controller.doctor;
+/**
+ * 
+ */
+package io.github.serothim.hospital.repository;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import io.github.serothim.hospital.service.user.WhoIAm;
+import io.github.serothim.hospital.domain.Operation;
 
 /**
- *
  * @author Alexei Beizerov
+ *
  */
-@Controller
-public class DoctorController {
-	
-	@Autowired
-	private WhoIAm whoIAm;
-	
-	@GetMapping("/doctor/home")
-    public ModelAndView home() {
-		ModelAndView modelAndView = new ModelAndView();
-		
-		return modelAndView.addObject(
-				"greeting", 
-				"Welcome " + whoIAm.getFullNameOfAuthenticatedUser()
-		);
-    	
-    }
+public interface OperationRepository extends JpaRepository<Operation, Long> {
 }

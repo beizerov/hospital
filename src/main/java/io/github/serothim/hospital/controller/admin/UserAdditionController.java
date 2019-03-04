@@ -23,9 +23,7 @@
  */
 package io.github.serothim.hospital.controller.admin;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,9 +36,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import io.github.serothim.hospital.domain.Role;
 import io.github.serothim.hospital.domain.User;
-import io.github.serothim.hospital.service.RoleGetting;
-import io.github.serothim.hospital.service.UserFinding;
-import io.github.serothim.hospital.service.UserSaving;
+import io.github.serothim.hospital.service.role.RoleGetting;
+import io.github.serothim.hospital.service.user.UserGetting;
+import io.github.serothim.hospital.service.user.UserSaving;
 
 /**
  * @author Alexei Beizerov
@@ -50,8 +48,8 @@ import io.github.serothim.hospital.service.UserSaving;
 public class UserAdditionController {
 	
 	@Autowired
-	private UserFinding userFinding;
-
+	private UserGetting userGetting;
+	
 	@Autowired
 	private UserSaving userSaving;
 	
@@ -62,10 +60,7 @@ public class UserAdditionController {
 	private ModelAndView getModelAndViewForAddUser() {
 		ModelAndView modelAndView = new ModelAndView();
 
-		List<Role> roles = new ArrayList<>();
-		roleGetting.getAllRoles().forEach(roles::add);
-		
-		modelAndView.addObject("roles", roles);
+		modelAndView.addObject("roles", roleGetting.getAllRoles());
 		modelAndView.addObject("user", new User());
 		
 		return modelAndView;
@@ -83,7 +78,7 @@ public class UserAdditionController {
 			@RequestParam String role
 	) {
 		ModelAndView modelAndView = new ModelAndView();
-		User userExists = userFinding.findByEmail(user.getEmail());
+		User userExists = userGetting.getUserByEmail(user.getEmail());
 		if (userExists != null) {
 			bindingResult.rejectValue(
 					"email", 

@@ -21,13 +21,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-/**
- * 
- */
-package io.github.serothim.hospital.service;
+package io.github.serothim.hospital.service.user;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import io.github.serothim.hospital.domain.User;
@@ -37,34 +32,20 @@ import io.github.serothim.hospital.repository.UserRepository;
  * @author Alexei Beizerov
  *
  */
-@Service("userSaving")
-public class UserSaving {
+@Service("userDeletion")
+public class UserDeletion {
 
 	private final UserRepository userRepository;
-	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	/**
 	 * @param userRepository {@link 
 	 * io.github.serothim.hospital.repository.UserRepository}
-	 * 
-	 * @param bCryptPasswordEncoder Password encoder 
 	 */
-	@Autowired
-	public UserSaving(
-			UserRepository userRepository,
-			BCryptPasswordEncoder bCryptPasswordEncoder
-	) {
-		super();
+	public UserDeletion(UserRepository userRepository) {
 		this.userRepository = userRepository;
-		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
 
-	public void save(User user) {
-		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-		userRepository.save(user);
-	}
-	
-	public void saveUserWithoutPasswordEncoding(User user) {
-		userRepository.save(user);
+	public void delete(User user) {
+		userRepository.delete(user);
 	}
 }

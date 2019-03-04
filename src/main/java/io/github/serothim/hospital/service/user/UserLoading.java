@@ -24,13 +24,13 @@
 /**
  * 
  */
-package io.github.serothim.hospital.service;
+package io.github.serothim.hospital.service.user;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import io.github.serothim.hospital.domain.User;
 import io.github.serothim.hospital.repository.UserRepository;
 
 /**
@@ -38,23 +38,20 @@ import io.github.serothim.hospital.repository.UserRepository;
  *
  */
 @Service
-public class WhoIAm {
+public class UserLoading implements UserDetailsService {
 
 	private final UserRepository userRepository;
-
+	
 	/**
 	 * @param userRepository
 	 */
-	public WhoIAm(UserRepository userRepository) {
+	public UserLoading(UserRepository userRepository) {
 		this.userRepository = userRepository;
 	}
-	
-	public String getFullNameOfAuthenticatedUser() {
-		Authentication auth = SecurityContextHolder.getContext()
-											.getAuthentication();
 
-		User user = userRepository.findByEmail(auth.getName());
-
-		return user.getFirstName() + " " + user.getLastName();
+	@Override
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		return userRepository.findByEmail(email);
 	}
+
 }

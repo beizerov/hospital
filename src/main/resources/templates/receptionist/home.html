@@ -10,7 +10,38 @@
 			<span th:text="${greeting}"></span>
 		</div>
 
+		<form class="form-btn" th:action="@{/receptionist/addOperation}" method="get">
+			<button class="user-btn" id="add-new-operation-btn" type="Submit">
+				Add	new operation
+			</button>
+		</form>
+		
 		<form th:replace="~{fragments/common::logout-button}"></form>
 	</div>
+	
+	<div class="container" id="table-wrapper">
+		<table>
+			<thead>
+				<tr>
+					<th class="text">Date</th>
+					<th class="text">Name</th>
+					<th class="text">Description</th>
+					<th class="text">Doctor</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="operation : ${operations}">
+					<td th:text="${operation.date}"></td>
+					<td th:text="${operation.name}"></td>
+					<td th:text="${operation.description}"></td>
+					<td th:text="|${operation.user.firstName} ${operation.user.lastName}|"></td>
+					<td><span th:each="role, state : ${user.roles}"
+						th:text="${role.role} + ${(state.count != state.size) ? ', ' : ''}"></span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+		
 </body>
 </html>

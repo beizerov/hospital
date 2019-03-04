@@ -24,34 +24,44 @@
 /**
  * 
  */
-package io.github.serothim.hospital.service;
+package io.github.serothim.hospital.service.user;
 
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import io.github.serothim.hospital.domain.User;
 import io.github.serothim.hospital.repository.UserRepository;
 
 /**
  * @author Alexei Beizerov
  *
  */
-@Service
-public class UserLoading implements UserDetailsService {
+@Service("userSaving")
+public class UserSaving {
 
 	private final UserRepository userRepository;
-	
+	private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
 	/**
-	 * @param userRepository
+	 * @param userRepository {@link 
+	 * io.github.serothim.hospital.repository.UserRepository}
+	 * 
+	 * @param bCryptPasswordEncoder Password encoder 
 	 */
-	public UserLoading(UserRepository userRepository) {
+	public UserSaving(
+			UserRepository userRepository,
+			BCryptPasswordEncoder bCryptPasswordEncoder
+	) {
 		this.userRepository = userRepository;
+		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
 
-	@Override
-	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		return userRepository.findByEmail(email);
+	public void save(User user) {
+		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+		userRepository.save(user);
 	}
-
+	
+	public void saveUserWithoutPasswordEncoding(User user) {
+		userRepository.save(user);
+	}
 }

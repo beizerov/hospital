@@ -21,33 +21,47 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.github.serothim.hospital.controller.doctor;
+package io.github.serothim.hospital.service.user;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.servlet.ModelAndView;
+import java.util.Set;
 
-import io.github.serothim.hospital.service.user.WhoIAm;
+import org.springframework.stereotype.Service;
+
+import io.github.serothim.hospital.domain.User;
+import io.github.serothim.hospital.repository.RoleRepository;
+import io.github.serothim.hospital.repository.UserRepository;
 
 /**
- *
  * @author Alexei Beizerov
+ *
  */
-@Controller
-public class DoctorController {
+@Service("userGetting")
+public class UserGetting {
+
+	private final UserRepository userRepository;
+	private final RoleRepository roleRepository;
+
+	/**
+	 * @param userRepository {@link 
+	 * io.github.serothim.hospital.repository.UserRepository}
+	 */
+	public UserGetting(
+			UserRepository userRepository, 
+			RoleRepository roleRepository
+	) {
+		this.userRepository = userRepository;
+		this.roleRepository = roleRepository;
+	}
+
+	public Iterable<User> getAllUsers() {
+		return userRepository.findAll();
+	}
 	
-	@Autowired
-	private WhoIAm whoIAm;
+	public User getUserByEmail(String email) {
+		return userRepository.findByEmail(email);
+	}
 	
-	@GetMapping("/doctor/home")
-    public ModelAndView home() {
-		ModelAndView modelAndView = new ModelAndView();
-		
-		return modelAndView.addObject(
-				"greeting", 
-				"Welcome " + whoIAm.getFullNameOfAuthenticatedUser()
-		);
-    	
-    }
+	public Set<User> getUserByRole(String roleName) {
+		return userRepository.findByRoles(roleRepository.findByRole(roleName));
+	}
 }

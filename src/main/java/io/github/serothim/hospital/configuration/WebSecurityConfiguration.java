@@ -33,7 +33,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import io.github.serothim.hospital.service.UserLoading;
+import io.github.serothim.hospital.service.user.UserLoading;
 
 /**
  *
@@ -65,9 +65,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                     .antMatchers("/").permitAll()
-                    .antMatchers("/receptionist/**")
-                    	.hasAuthority("RECEPTIONIST").anyRequest()
-                    	.authenticated()
+                    .antMatchers("/receptionist/**").hasAuthority("RECEPTIONIST")
+                    .antMatchers("/doctor/**").hasAuthority("DOCTOR")
                     .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
                     .authenticated()
                 .and()

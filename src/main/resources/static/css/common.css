@@ -2,7 +2,7 @@
 
 
 body {
-	background: url("/images/for-admin-pages.png") no-repeat center center
+	background: url("/images/background-pages.png") no-repeat center center
 		fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
@@ -22,7 +22,7 @@ body {
 	display: inline-flex;
 }
 
-.admin-btn {
+.user-btn {
 	color: #000000;
 	background-color: #4979e4;
 	border: none;
@@ -53,11 +53,15 @@ button:focus#add-new-user-btn, button:hover#add-new-user-btn {
 	background: #07cc04;
 }
 
+button:focus#add-new-operation-btn, button:hover#add-new-operation-btn {
+	background: #07cc04;
+}
+
 button:focus#logout-btn, button:hover#logout-btn {
 	background: #d80606;
 }
 
-button:focus#go-to-admin-home-btn, button:hover#go-to-admin-home-btn {
+button:focus#go-to-home-btn, button:hover#go-to-home-btn {
 	background: #07cc04;
 }
 

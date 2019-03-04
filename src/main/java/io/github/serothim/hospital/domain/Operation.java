@@ -26,7 +26,7 @@
  */
 package io.github.serothim.hospital.domain;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -54,11 +54,11 @@ public class Operation {
 	@Column(name = "operation_id")
 	private int id;
 	
-	@Column(name = "date")
-	private Date date;
+	@Column(name = "timestamp")
+	private Timestamp timestamp;
 	
 	@Column(name = "operation_name")
-	private String operationName;
+	private String name;
 	
 	@Column(name = "description")
 	private String description;
@@ -69,5 +69,5 @@ public class Operation {
 			joinColumns = @JoinColumn(name = "operation_id"),
 			inverseJoinColumns = @JoinColumn(name = "user_id")
 	)
-	private User user;
+	private User doctor;
 }

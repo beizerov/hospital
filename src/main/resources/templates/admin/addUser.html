@@ -2,17 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="fragments/common :: common_header(~{::title},~{::link})">
-	<title>Add new user</title>
+	<title>Add User</title>
 </head>
 <body>
 	<div class="nav-btn">
-			<form th:action="@{/admin/home}" method="get">
-				<button id="go-to-admin-home-btn" 
-					class="admin-btn" 
-					type="Submit">
-					Home
-				</button>
-			</form>
+		<form th:replace="~{fragments/common :: admin-home-button}"></form>
 	</div>
 	
 	<div class="container">
