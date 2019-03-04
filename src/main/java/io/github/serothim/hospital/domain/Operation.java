@@ -21,45 +21,48 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+/**
+ * 
+ */
 package io.github.serothim.hospital.domain;
-
-import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.springframework.security.core.GrantedAuthority;
+import lombok.Data;
 
 /**
- *
  * @author Alexei Beizerov
+ *
  */
 @Data
 @Entity
-@Table(name = "roles")
-public class Role implements GrantedAuthority {
-
-    /**
-	 * Field using for serialization/deserialization.
-	 * Without this field, would have to use @SuppressWarnings ("serial")
-	 * or disable warnings in eclipse
-	 */
-	private static final long serialVersionUID = 1549318714988553844L;
-
+@Table(name = "operations")
+public class Operation {
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "role_id")
-    private int id;
-    
-    @Column(name = "role")
-    private String role;
-
-	@Override
-	public String getAuthority() {
-		return role;
-	}
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "operation_id")
+	private int id;
+	
+	@Column(name = "operation_name")
+	private String operationName;
+	
+	@Column(name = "description")
+	private String description;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinTable( 
+			name = "doctor_operations", 
+			joinColumns = @JoinColumn(name = "operation_id"),
+			inverseJoinColumns = @JoinColumn(name = "user_id")
+	)
+	private User user;
 }
