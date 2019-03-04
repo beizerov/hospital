@@ -26,6 +26,8 @@
  */
 package io.github.serothim.hospital.domain;
 
+import java.sql.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -51,6 +53,9 @@ public class Operation {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "operation_id")
 	private int id;
+	
+	@Column(name = "date")
+	private Date date;
 	
 	@Column(name = "operation_name")
 	private String operationName;
