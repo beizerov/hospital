@@ -28,6 +28,7 @@ package io.github.serothim.hospital.domain;
 
 import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -49,6 +50,7 @@ import lombok.Data;
 @Entity
 @Table(name = "operations")
 public class Operation {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "operation_id")
@@ -63,11 +65,11 @@ public class Operation {
 	@Column(name = "description")
 	private String description;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
 	@JoinTable( 
 			name = "doctor_operations", 
-			joinColumns = @JoinColumn(name = "operation_id"),
-			inverseJoinColumns = @JoinColumn(name = "user_id")
+			joinColumns = @JoinColumn(name = "user_id"),
+			inverseJoinColumns = @JoinColumn(name = "operation_id")
 	)
 	private User doctor;
 }

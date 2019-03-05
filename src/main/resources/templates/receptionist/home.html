@@ -3,6 +3,7 @@
 
 <head th:replace="fragments/common :: common_header(~{::title},~{::link})">
 	<title>Home</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/home.css}" />
 </head>
 <body>
 	<div class="nav-btn">
@@ -31,13 +32,10 @@
 			</thead>
 			<tbody>
 				<tr th:each="operation : ${operations}">
-					<td th:text="${operation.date}"></td>
-					<td th:text="${operation.name}"></td>
-					<td th:text="${operation.description}"></td>
-					<td th:text="|${operation.user.firstName} ${operation.user.lastName}|"></td>
-					<td><span th:each="role, state : ${user.roles}"
-						th:text="${role.role} + ${(state.count != state.size) ? ', ' : ''}"></span>
-					</td>
+					<td th:text="${operation?.timestamp}"></td>
+					<td th:text="${operation?.name}"></td>
+					<td th:text="${operation?.description}"></td>
+					<td th:text="|${operation?.doctor?.firstName} ${operation?.doctor?.lastName}|"></td>
 				</tr>
 			</tbody>
 		</table>

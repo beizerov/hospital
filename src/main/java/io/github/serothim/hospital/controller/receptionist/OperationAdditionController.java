@@ -30,6 +30,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import io.github.serothim.hospital.domain.Operation;
@@ -65,10 +66,13 @@ public class OperationAdditionController {
 	
 	@PostMapping("/receptionist/addOperation")
 	public ModelAndView addNewOperation(
-			Operation operation
+			Operation operation,
+			@RequestParam String email
 	) {
-		savingTheOperation.save(operation);
+		operation.setDoctor(userGetting.getUserByEmail(email));
 		
+		savingTheOperation.save(operation);
+
 		return getModelAndViewForAddOperation();
 	}
 }

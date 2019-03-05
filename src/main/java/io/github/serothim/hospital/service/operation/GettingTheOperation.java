@@ -50,4 +50,8 @@ public class GettingTheOperation {
 	public Operation GetOperationById(long id) {
 		return operationRepository.getOne(id);
 	}
+	
+	public Iterable<Operation> getAllOperations() {
+		return operationRepository.findAll();
+	}
 }

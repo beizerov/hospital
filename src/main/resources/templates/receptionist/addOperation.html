@@ -17,7 +17,8 @@
 					  th:object="${operation}"
 					  method="post" 
 					  class="form-horizontal"
-					  role="form">
+					  role="form"
+					  id="new-operation-form">
 					  
 					<h2>Operation Add Form</h2>
 					
@@ -50,11 +51,10 @@
 					
 					<div id="doc-label" class="form-group">
 						<label>Doctor: </label>
-						<select>
+						<select th:name="email">
 	           				<option th:each="doctor : ${doctors}"
 	           						th:text="|${doctor.firstName} ${doctor.lastName}|"
-	           						th:value="${doctor}"
-	           						th:field="*{doctor}">
+	           						th:value="${doctor.email}">
 	           				</option>
 	   					</select>
 					</div>
@@ -70,7 +70,8 @@
 				    
 				   	<div class="form-group">
 						<div class="col-sm-9">
-							<button type="submit" 
+							<button type="submit" form="new-operation-form"
+							
 								class="btn btn-primary btn-block">
 								Register Operation
 							</button>
