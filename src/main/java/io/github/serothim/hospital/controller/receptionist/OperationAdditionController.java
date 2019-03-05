@@ -53,7 +53,7 @@ public class OperationAdditionController {
 	private ModelAndView getModelAndViewForAddOperation() {
 		ModelAndView modelAndView = new ModelAndView();
 
-		modelAndView.addObject("doctors", userGetting.getUserByRole("DOCTOR"));
+		modelAndView.addObject("doctors", userGetting.getUsersByRole("DOCTOR"));
 		modelAndView.addObject("operation", new Operation());
 		
 		return modelAndView;

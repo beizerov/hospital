@@ -26,13 +26,17 @@
  */
 package io.github.serothim.hospital.repository;
 
+import java.util.Set;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import io.github.serothim.hospital.domain.Operation;
+import io.github.serothim.hospital.domain.User;
 
 /**
  * @author Alexei Beizerov
  *
  */
 public interface OperationRepository extends JpaRepository<Operation, Long> {
+	Set<Operation> findByDoctor(User doctor);
 }

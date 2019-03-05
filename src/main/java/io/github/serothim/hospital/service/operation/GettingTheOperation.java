@@ -26,10 +26,13 @@
  */
 package io.github.serothim.hospital.service.operation;
 
+import java.util.Set;
+
 import org.springframework.stereotype.Service;
 
 import io.github.serothim.hospital.domain.Operation;
 import io.github.serothim.hospital.repository.OperationRepository;
+import io.github.serothim.hospital.repository.UserRepository;
 
 /**
  * @author Alexei Beizerov
@@ -39,12 +42,17 @@ import io.github.serothim.hospital.repository.OperationRepository;
 public class GettingTheOperation {
 
 	private final OperationRepository operationRepository;
+	private final UserRepository userRepository;
 
 	/**
 	 * @param operationRepository
 	 */
-	public GettingTheOperation(OperationRepository operationRepository) {
+	public GettingTheOperation(
+			OperationRepository operationRepository,
+			UserRepository userRepository
+	) {
 		this.operationRepository = operationRepository;
+		this.userRepository = userRepository;
 	}
 
 	public Operation GetOperationById(long id) {
@@ -53,5 +61,11 @@ public class GettingTheOperation {
 	
 	public Iterable<Operation> getAllOperations() {
 		return operationRepository.findAll();
+	}
+	
+	public Set<Operation> getOperationsByDoctor(String doctorEmail) {
+		return operationRepository.findByDoctor(
+				userRepository.findByEmail(doctorEmail)
+		);
 	}
 }

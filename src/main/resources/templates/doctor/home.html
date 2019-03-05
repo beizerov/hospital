@@ -3,6 +3,7 @@
 
 <head th:replace="fragments/common :: common_header(~{::title},~{::link})">
 	<title>Home</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/home.css}" />
 </head>
 <body>
 	<div class="nav-btn">
@@ -11,6 +12,25 @@
 		</div>
 
 		<form th:replace="~{fragments/common::logout-button}"></form>
+	</div>
+	
+		<div class="container" id="table-wrapper">
+		<table>
+			<thead>
+				<tr>
+					<th class="text">Date</th>
+					<th class="text">Name</th>
+					<th class="text">Description</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="operation : ${operations}">
+					<td th:text="${operation?.timestamp}"></td>
+					<td th:text="${operation?.name}"></td>
+					<td th:text="${operation?.description}"></td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 </body>
 </html>

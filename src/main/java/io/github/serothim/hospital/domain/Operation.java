@@ -68,8 +68,8 @@ public class Operation {
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
 	@JoinTable( 
 			name = "doctor_operations", 
-			joinColumns = @JoinColumn(name = "user_id"),
-			inverseJoinColumns = @JoinColumn(name = "operation_id")
+			joinColumns = @JoinColumn(name = "operation_id"),
+			inverseJoinColumns = @JoinColumn(name = "user_id")
 	)
 	private User doctor;
 }

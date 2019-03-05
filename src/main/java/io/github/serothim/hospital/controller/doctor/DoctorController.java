@@ -28,6 +28,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import io.github.serothim.hospital.service.operation.GettingTheOperation;
 import io.github.serothim.hospital.service.user.WhoIAm;
 
 /**
@@ -37,17 +38,32 @@ import io.github.serothim.hospital.service.user.WhoIAm;
 @Controller
 public class DoctorController {
 	
+	
+	@Autowired
+	private GettingTheOperation gettingTheOperation;
+	
 	@Autowired
 	private WhoIAm whoIAm;
 	
-	@GetMapping("/doctor/home")
-    public ModelAndView home() {
+	
+	private ModelAndView getModelAndViewForDoctorHome() {
 		ModelAndView modelAndView = new ModelAndView();
 		
-		return modelAndView.addObject(
+		modelAndView.addObject(
 				"greeting", 
 				"Welcome " + whoIAm.getFullNameOfAuthenticatedUser()
 		);
-    	
+		modelAndView.addObject(
+				"operations", 
+				gettingTheOperation.getOperationsByDoctor(whoIAm.getUserEmail())
+		);
+		modelAndView.setViewName("doctor/home");
+		
+		return modelAndView;
+	}
+	
+	@GetMapping("/doctor/home")
+    public ModelAndView home() {
+		return getModelAndViewForDoctorHome();
     }
 }

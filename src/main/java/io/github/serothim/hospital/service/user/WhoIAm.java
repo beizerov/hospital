@@ -49,12 +49,20 @@ public class WhoIAm {
 		this.userRepository = userRepository;
 	}
 	
-	public String getFullNameOfAuthenticatedUser() {
+	private User getUser() {
 		Authentication auth = SecurityContextHolder.getContext()
-											.getAuthentication();
-
-		User user = userRepository.findByEmail(auth.getName());
-
+				.getAuthentication();
+		
+		return userRepository.findByEmail(auth.getName());
+	}
+	
+	public String getFullNameOfAuthenticatedUser() {
+		User user = getUser();
+		
 		return user.getFirstName() + " " + user.getLastName();
+	}
+	
+	public String getUserEmail() {
+		return getUser().getEmail();
 	}
 }

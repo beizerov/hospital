@@ -61,7 +61,7 @@ public class UserGetting {
 		return userRepository.findByEmail(email);
 	}
 	
-	public Set<User> getUserByRole(String roleName) {
+	public Set<User> getUsersByRole(String roleName) {
 		return userRepository.findByRoles(roleRepository.findByRole(roleName));
 	}
 }
