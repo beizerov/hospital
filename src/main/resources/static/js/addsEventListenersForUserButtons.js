@@ -31,6 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	const buttons = document.getElementsByClassName('edit-btn');
 	for (const button of buttons)
 		button.addEventListener('mouseout', function() {
-			this.src = '/images/pencil-blue.png';
+			this.src = '/images/pencil-yellow.png';
 		});
 });

@@ -1,17 +1,25 @@
 @charset "UTF-8";
 
 th, td {
-	border: 1px solid black;
 	font-size: 1.3em;
 	font-family: monospace;
+
 }
 
 #table-wrapper table {
 	width: 100%;
 }
 
-#table-wrapper table * {
-	color: black;
+.opacity-background-for-td {
+	background-color: black;
+	opacity: 0.7;
+	color: #a5ff00;
+}
+
+.opacity-background-for-th {
+	background-color: black;
+	opacity: 0.7;
+	color: red;
 }
 
 #table-wrapper table thead th .text {
@@ -20,11 +28,6 @@ th, td {
 	z-index: 2;
 	height: 20px;
 	width: 35%;
-	border: 1px solid red;
-}
-
-.td-btn {
-	border: 0;
 }
 
 .user-btn-form {

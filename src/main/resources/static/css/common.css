@@ -2,7 +2,7 @@
 
 
 body {
-	background: url("/images/background-pages.png") no-repeat center center
+	background: url("/images/background-pages.jpg") no-repeat
 		fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
@@ -12,6 +12,7 @@ body {
 }
 
 .nav-btn {
+	opacity: 0.7;
 	position: -webkit-sticky; /* Safari */
 	position: sticky;
 	top: 0;
@@ -46,7 +47,7 @@ body {
 	display: inline-flex;
 	margin-right: 5%;
 	font-size: 2em;
-	color: orange;
+	color: #1b4cab;
 }
 
 button:focus#add-new-user-btn, button:hover#add-new-user-btn {
@@ -80,11 +81,23 @@ button:focus#go-to-home-btn, button:hover#go-to-home-btn {
 }
 
 #lbl-pass {
-	color: yellow;
+	margin-top: 0.5em;
+	color: #fb8011;
 }
 
 #a-u-email-err-msg {
 	font-style: normal;
     font-size: 0.7em;
     color: #FF1C19;
+}
+
+.user-form-header {
+	color: white;
+}
+
+.opacity-background {
+	background-color: blue;
+	border-radius: 25px;
+	opacity: 0.7;
+	color: white;
 }

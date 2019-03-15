@@ -24,17 +24,16 @@
 		<table>
 			<thead>
 				<tr>
-					<th class="text">Id</th>
-					<th class="text">Active</th>
-					<th class="text">Email</th>
-					<th class="text">First name</th>
-					<th class="text">Last name</th>
-					<th class="text">Role</th>
+					<th class="text opacity-background-for-th" width="100px]">Active</th>
+					<th class="text opacity-background-for-th">Email</th>
+					<th class="text opacity-background-for-th">First name</th>
+					<th class="text opacity-background-for-th">Last name</th>
+					<th class="text opacity-background-for-th">Role</th>
+					<th class="text opacity-background-for-th">Actions</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr th:each="user : ${users}">
-					<td th:text="${user.id}"></td>
 					<td id="td-active-btn">
 						<form class="user-btn-form" th:action="@{/admin/activity}"
 							method="post">
@@ -44,16 +43,16 @@
 							<input th:name="email" type="hidden" th:value="${user.email}">
 						</form>
 					</td>
-					<td th:text="${user.email}"></td>
-					<td th:text="${user.firstName}"></td>
-					<td th:text="${user.lastName}"></td>
-					<td><span th:each="role, state : ${user.roles}"
+					<td class="opacity-background-for-td" th:text="${user.email}"></td>
+					<td class="opacity-background-for-td" th:text="${user.firstName}"></td>
+					<td class="opacity-background-for-td" th:text="${user.lastName}"></td>
+					<td class="opacity-background-for-td"><span th:each="role, state : ${user.roles}"
 						th:text="${role.role} + ${(state.count != state.size) ? ', ' : ''}"></span></td>
-					<td class="td-btn">
+					<td>
 						<form class="user-btn-form" th:action="@{/admin/edit}"
 							method="post">
 							<input class="edit-btn" type="image" alt="Edit user"
-								th:src="@{/images/pencil-blue.png}" width="55px" height="35px">
+								th:src="@{/images/pencil-yellow.png}" width="55px" height="35px">
 							<input th:name="email" type="hidden" th:value="${user.email}">
 						</form>
 

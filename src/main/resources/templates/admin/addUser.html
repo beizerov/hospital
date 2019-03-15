@@ -19,7 +19,7 @@
 					  class="form-horizontal"
 					  role="form">
 					  
-					<h2>User Add Form</h2>
+					<h2 class="user-form-header">User Add Form</h2>
 					
 					<div class="form-group">
 						<div class="col-sm-9">
@@ -74,7 +74,7 @@
 
 				    <ul>
        					<li th:each="role : ${roles}" 
-       						class="radio-inline" >
+       						class="radio-inline opacity-background" >
            						<input type="radio"
            							th:checked="${role.role == 'ADMIN' ? true : false}" 
            							th:name="role" 
@@ -93,7 +93,7 @@
 					</div>						
 
 					<h2>
-						<span id="a-u-success-msg"
+						<span class="opacity-background" id="a-u-success-msg"
 							  th:text="${successMessage}">
 						</span>
 						
@@ -109,7 +109,7 @@
 			
 			            </script>
 			            
-			     		<span th:errors="*{email}"
+			     		<span class="opacity-background" th:errors="*{email}"
 							  id="a-u-email-err-msg">
 						</span>
 							

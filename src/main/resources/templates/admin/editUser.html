@@ -19,7 +19,7 @@
 					class="form-horizontal"
 					role="form">
 					
-					<h2 th:text="|Edit user: *{email}|"></h2>
+					<h2  class="user-form-header" th:text="|Edit user: *{email}|"></h2>
 					
 					<input type="hidden" th:field="*{id}" th:value="*{id}">
 					
@@ -72,7 +72,7 @@
                       				
                       				title="5 characters minimum" 
                       			/>
-                      		<p id="lbl-pass">If you do not want to change the password, 
+                      		<p class="opacity-background" id="lbl-pass">If you do not want to change the password, 
 													do not enter anything.
 						</p>
 						</div>
@@ -80,7 +80,7 @@
 									    
 				    <ul>
        					<li th:each="role : ${roles}" 
-       						class="radio-inline" >
+       						class="radio-inline opacity-background" >
            						<input type="radio"
            							th:checked="${role.role == userRole.role ? true : false}" 
            							th:name="role" 
@@ -99,7 +99,7 @@
 					</div>
 
 					<h2>
-						<span id="e-u-success-msg"
+						<span class="opacity-background" id="e-u-success-msg"
 							  th:text="${successMessage}">
 						</span>
 						
