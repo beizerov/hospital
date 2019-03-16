@@ -97,7 +97,7 @@
 							  th:text="${successMessage}">
 						</span>
 						
-			            <script th:if="${successMessage != null}" th:inline="javascript">
+						<script th:if="${successMessage != null}" th:inline="javascript">
 			
 			                let modify = document.getElementById('a-u-success-msg');
 
@@ -109,8 +109,8 @@
 			
 			            </script>
 			            
-			     		<span class="opacity-background" th:errors="*{email}"
-							  id="a-u-email-err-msg">
+			            <span class="opacity-background" th:errors="*{email}"
+							id="a-u-email-err-msg">
 						</span>
 							
 						<script th:if="${#fields.hasErrors('email') == true}" th:inline="javascript">
@@ -128,7 +128,7 @@
 			                    location.href = "addUser";
 			                }, 1500);      
 			
-			            </script>
+			        	</script>
 					</h2>
 
 				</form>

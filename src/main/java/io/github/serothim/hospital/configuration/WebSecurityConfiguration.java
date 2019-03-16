@@ -83,16 +83,23 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .accessDeniedPage("/access-denied")
                 .and()
         			.headers()
-        			.contentSecurityPolicy("script-src 'self' "
+        			.contentSecurityPolicy("script-src 'self' " 
+        					
+        					// For js code on login page
         					+ "'sha256-Obmw9p0O7AaxeYrMEHYb++nI2y46vwJdq"
         					+ "YzUIoKjyg8=' "
-        					+ "'sha256-iJkSaGuCbu1BX4t2MvuuQLfXvWefMyTnB"
-        					+ "/OaiI91Kng=' "
+        					// For js code on addUser page for success message
         					+ "'sha256-JpXDpqiMLXNvEPj/uPg4SNXA9eS/xp3lE"
         					+ "wedizpS1cQ=' "
-        					+ "'sha256-U+KoAOSZ0zEjevqVVn679I0AXcbksHI3S"
-        					+ "CDYiakQdWY=';"
-        				+ "report-uri /csp-report-endpoint/");
+        					// For js code on addUser page
+        					// for message aboutThere a user already registered
+        					+ "'sha256-yWjqoryhr4kfYoslc/PIHm2ATSYXKHveP"
+        					+ "O1LvG5HM1c=' "
+        					// For js code on editUser page for success message
+        					+ "'sha256-wnOf2gCYGnkuOxPMUBGdBO87d+lIfYgpNw"
+        					+ "CSco7CVek=';"
+        					
+        					+ "report-uri /csp-report-endpoint/");
     }
 
     @Override
