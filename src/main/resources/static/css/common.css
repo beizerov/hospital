@@ -102,3 +102,10 @@ button:focus#go-to-home-btn, button:hover#go-to-home-btn {
 	opacity: 0.7;
 	color: white;
 }
+
+.opacity-background-for-msg {
+	background-color: blue;
+	border-radius: 45px;
+	opacity: 0.7;
+	color: white;
+}

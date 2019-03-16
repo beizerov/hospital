@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments/common :: common_header(~{::title},~{::link})">
-	<title>Home</title>
-	<link rel="stylesheet" type="text/css" th:href="@{/css/home.css}" />
+<head
+	th:replace="fragments/common :: common_header(~{::title},~{::link})">
+<title>Home</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/home.css}" />
 </head>
 <body>
 	<div class="nav-btn">
@@ -11,15 +12,15 @@
 			<span th:text="${greeting}"></span>
 		</div>
 
-		<form class="form-btn" th:action="@{/receptionist/addOperation}" method="get">
+		<form class="form-btn" th:action="@{/receptionist/addOperation}"
+			method="get">
 			<button class="user-btn" id="add-new-operation-btn" type="Submit">
-				Add	new operation
-			</button>
+				Add new operation</button>
 		</form>
-		
+
 		<form th:replace="~{fragments/common::logout-button}"></form>
 	</div>
-	
+
 	<div class="container" id="table-wrapper">
 		<table>
 			<thead>
@@ -35,11 +36,12 @@
 					<td th:text="${operation?.timestamp}"></td>
 					<td th:text="${operation?.name}"></td>
 					<td th:text="${operation?.description}"></td>
-					<td th:text="|${operation?.doctor?.firstName} ${operation?.doctor?.lastName}|"></td>
+					<td
+						th:text="|${operation?.doctor?.firstName} ${operation?.doctor?.lastName}|"></td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
-		
+
 </body>
 </html>

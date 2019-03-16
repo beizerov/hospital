@@ -86,18 +86,18 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         			.contentSecurityPolicy("script-src 'self' " 
         					
         					// For js code on login page
-        					+ "'sha256-Obmw9p0O7AaxeYrMEHYb++nI2y46vwJdq"
-        					+ "YzUIoKjyg8=' "
+        					+ "'sha256-oycdMXbeFD5cVW39QrHu4kCOhcL6FOKn6"
+        					+ "MFw6sZXUps=' "
         					// For js code on addUser page for success message
-        					+ "'sha256-JpXDpqiMLXNvEPj/uPg4SNXA9eS/xp3lE"
-        					+ "wedizpS1cQ=' "
+        					+ "'sha256-VMJY2D0SHkV5hsAosuyooiS+yvN6AbZrx"
+        					+ "l9GPF7z9QM=' "
         					// For js code on addUser page
         					// for message aboutThere a user already registered
-        					+ "'sha256-yWjqoryhr4kfYoslc/PIHm2ATSYXKHveP"
-        					+ "O1LvG5HM1c=' "
+        					+ "'sha256-A5rT/3e2HmL+jyzk7ZqJptuK4CKnuwYPC"
+        					+ "iTxI0SFFUA=' "
         					// For js code on editUser page for success message
-        					+ "'sha256-wnOf2gCYGnkuOxPMUBGdBO87d+lIfYgpNw"
-        					+ "CSco7CVek=';"
+        					+ "'sha256-xBOERXZeaHkDnEjcABGQmLEYFUlu+0P7q"
+        					+ "z41+cgGfFM=';"
         					
         					+ "report-uri /csp-report-endpoint/");
     }

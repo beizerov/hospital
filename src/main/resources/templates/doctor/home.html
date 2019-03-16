@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments/common :: common_header(~{::title},~{::link})">
-	<title>Home</title>
-	<link rel="stylesheet" type="text/css" th:href="@{/css/home.css}" />
+<head
+	th:replace="fragments/common :: common_header(~{::title},~{::link})">
+<title>Home</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/home.css}" />
 </head>
 <body>
 	<div class="nav-btn">
@@ -13,8 +14,8 @@
 
 		<form th:replace="~{fragments/common::logout-button}"></form>
 	</div>
-	
-		<div class="container" id="table-wrapper">
+
+	<div class="container" id="table-wrapper">
 		<table>
 			<thead>
 				<tr>
