@@ -22,17 +22,17 @@
 
 	<div class="container" id="table-wrapper">
 		<table>
-			<thead>
+			<thead class="opacity-background-for-th">
 				<tr>
-					<th class="text opacity-background-for-th" width="100px]">Active</th>
-					<th class="text opacity-background-for-th">Email</th>
-					<th class="text opacity-background-for-th">First name</th>
-					<th class="text opacity-background-for-th">Last name</th>
-					<th class="text opacity-background-for-th">Role</th>
-					<th class="text opacity-background-for-th">Actions</th>
+					<th class="text" width="100px]">Active</th>
+					<th class="text">Email</th>
+					<th class="text">First name</th>
+					<th class="text">Last name</th>
+					<th class="text">Role</th>
+					<th class="text">Actions</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody class="opacity-background-for-td">
 				<tr th:each="user : ${users}">
 					<td id="td-active-btn">
 						<form class="user-btn-form" th:action="@{/admin/activity}"
@@ -43,16 +43,16 @@
 							<input th:name="email" type="hidden" th:value="${user.email}">
 						</form>
 					</td>
-					<td class="opacity-background-for-td" th:text="${user.email}"></td>
-					<td class="opacity-background-for-td" th:text="${user.firstName}"></td>
-					<td class="opacity-background-for-td" th:text="${user.lastName}"></td>
-					<td class="opacity-background-for-td"><span th:each="role, state : ${user.roles}"
+					<td th:text="${user.email}"></td>
+					<td th:text="${user.firstName}"></td>
+					<td th:text="${user.lastName}"></td>
+					<td><span th:each="role, state : ${user.roles}"
 						th:text="${role.role} + ${(state.count != state.size) ? ', ' : ''}"></span></td>
 					<td>
 						<form class="user-btn-form" th:action="@{/admin/edit}"
 							method="post">
 							<input class="edit-btn" type="image" alt="Edit user"
-								th:src="@{/images/pencil-yellow.png}" width="55px" height="35px">
+								th:src="@{/images/pencil-blue.png}" width="55px" height="35px">
 							<input th:name="email" type="hidden" th:value="${user.email}">
 						</form>
 

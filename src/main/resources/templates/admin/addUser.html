@@ -72,9 +72,9 @@
 						</div>
 					</div>
 
-				    <ul>
+				    <ul class="opacity-background">
        					<li th:each="role : ${roles}" 
-       						class="radio-inline opacity-background" >
+       						class="radio-inline" >
            						<input type="radio"
            							th:checked="${role.role == 'ADMIN' ? true : false}" 
            							th:name="role" 
