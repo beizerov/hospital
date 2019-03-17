@@ -32,10 +32,10 @@
 
 ### Технологии: 
 
-   * язык программирования Java
+   * Java
    * Maven
-   * технология Spring для разработки пользовательского интерфейса
-   * технология Hibernate для работы с данными
-   * СУБД MySQL 
+   * Spring
+   * Hibernate
+   * MySQL 
    
 [<- Go back](https://github.com/serothim/hospital)
