@@ -91,8 +91,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         					// For js code on addUser page for success message
         					+ "'sha256-VMJY2D0SHkV5hsAosuyooiS+yvN6AbZrx"
         					+ "l9GPF7z9QM=' "
-        					// For js code on addUser page
-        					// for message aboutThere a user already registered
+        					// For the js code on the addUser page, 
+        					// which reports that the user with this 
+        					// email address is already registered
         					+ "'sha256-A5rT/3e2HmL+jyzk7ZqJptuK4CKnuwYPC"
         					+ "iTxI0SFFUA=' "
         					// For js code on editUser page for success message
