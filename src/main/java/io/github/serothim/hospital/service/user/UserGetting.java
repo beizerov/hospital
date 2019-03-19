@@ -35,7 +35,7 @@ import io.github.serothim.hospital.repository.UserRepository;
  * @author Alexei Beizerov
  *
  */
-@Service("userGetting")
+@Service
 public class UserGetting {
 
 	private final UserRepository userRepository;

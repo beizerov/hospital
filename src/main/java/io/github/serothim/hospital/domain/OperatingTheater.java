@@ -21,31 +21,49 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.github.serothim.hospital.service.user;
+/**
+ * 
+ */
+package io.github.serothim.hospital.domain;
 
-import org.springframework.stereotype.Service;
+import java.util.Set;
 
-import io.github.serothim.hospital.domain.User;
-import io.github.serothim.hospital.repository.UserRepository;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
+import lombok.Data;
 
 /**
  * @author Alexei Beizerov
  *
  */
-@Service
-public class UserDeletion {
-
-	private final UserRepository userRepository;
-
-	/**
-	 * @param userRepository {@link 
-	 * io.github.serothim.hospital.repository.UserRepository}
-	 */
-	public UserDeletion(UserRepository userRepository) {
-		this.userRepository = userRepository;
-	}
-
-	public void delete(User user) {
-		userRepository.delete(user);
-	}
+@Data
+@Entity
+@Table(name = "operating_theaters")
+public class OperatingTheater {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "operating_theater_id")
+	private int id;
+	
+	@Column(name = "operating_theater_name")
+	private String name;
+	
+    @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @JoinTable(
+    			name = "operating_theaters_operations", 
+    			joinColumns = @JoinColumn(name = "operating_theater_id"), 
+    			inverseJoinColumns = @JoinColumn(name = "operation_id")
+    		  )
+    private Set<Operation> operations;
 }

@@ -21,31 +21,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.github.serothim.hospital.service.user;
+/**
+ * 
+ */
+package io.github.serothim.hospital.repository;
 
-import org.springframework.stereotype.Service;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import io.github.serothim.hospital.domain.User;
-import io.github.serothim.hospital.repository.UserRepository;
+import io.github.serothim.hospital.domain.OperatingTheater;
 
 /**
  * @author Alexei Beizerov
  *
  */
-@Service
-public class UserDeletion {
-
-	private final UserRepository userRepository;
-
-	/**
-	 * @param userRepository {@link 
-	 * io.github.serothim.hospital.repository.UserRepository}
-	 */
-	public UserDeletion(UserRepository userRepository) {
-		this.userRepository = userRepository;
-	}
-
-	public void delete(User user) {
-		userRepository.delete(user);
-	}
+@Repository
+public interface OperatingTheaterRepository extends 
+	JpaRepository<OperatingTheater, Long> {
+	
+	OperatingTheater findByName(String name);
 }

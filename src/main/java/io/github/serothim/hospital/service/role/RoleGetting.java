@@ -32,7 +32,7 @@ import io.github.serothim.hospital.repository.RoleRepository;
  * @author Alexei Beizerov
  *
  */
-@Service("roleGetting")
+@Service
 public class RoleGetting {
 
 	private final RoleRepository roleRepository;

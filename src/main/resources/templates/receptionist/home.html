@@ -12,6 +12,12 @@
 			<span th:text="${greeting}"></span>
 		</div>
 
+		<form class="form-btn"
+			th:action="@{/receptionist/addOperatingTheater}" method="get">
+			<button class="user-btn" id="add-new-operation-btn" type="Submit">
+				Add new operating theater</button>
+		</form>
+
 		<form class="form-btn" th:action="@{/receptionist/addOperation}"
 			method="get">
 			<button class="user-btn" id="add-new-operation-btn" type="Submit">

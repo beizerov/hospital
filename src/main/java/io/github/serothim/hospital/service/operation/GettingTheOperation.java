@@ -55,7 +55,7 @@ public class GettingTheOperation {
 		this.userRepository = userRepository;
 	}
 
-	public Operation GetOperationById(long id) {
+	public Operation getOperationById(long id) {
 		return operationRepository.getOne(id);
 	}
 	
