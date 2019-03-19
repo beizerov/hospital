@@ -96,7 +96,15 @@ button:focus#go-to-home-btn, button:hover#go-to-home-btn {
 }
 
 .opacity-background {
-	width: 29.1em;
+	width: 73%;
+	background-color: blue;
+	border-radius: 45px;
+	opacity: 0.7;
+	color: white;
+}
+
+.opacity-background-lbl {
+	width: 100%;
 	background-color: blue;
 	border-radius: 45px;
 	opacity: 0.7;
