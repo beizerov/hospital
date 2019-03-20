@@ -7,11 +7,7 @@
 <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}" />
 </head>
 <body>
-	<div class="nav-btn">
-		<div id="greeting">
-			<span th:text="${greeting}"></span>
-		</div>
-
+	<div th:replace="fragments/common :: navigation_panel(~{::.form-btn})">
 		<form class="form-btn"
 			th:action="@{/receptionist/addOperatingTheater}" method="get">
 			<button class="user-btn" id="add-new-operation-btn" type="Submit">
@@ -24,7 +20,7 @@
 				Add new operation</button>
 		</form>
 
-		<form th:replace="~{fragments/common::logout-button}"></form>
+		<form  class="form-btn" th:replace="~{fragments/common::logout-button}"></form>
 	</div>
 
 	<div class="container" id="table-wrapper">
@@ -39,7 +35,7 @@
 			</thead>
 			<tbody>
 				<tr th:each="operation : ${operations}">
-					<td th:text="${operation?.timestamp}"></td>
+					<td th:text="${#dates.format(operation?.timestamp, 'dd/MMM/yyyy HH:mm')}"></td>
 					<td th:text="${operation?.name}"></td>
 					<td th:text="${operation?.description}"></td>
 					<td

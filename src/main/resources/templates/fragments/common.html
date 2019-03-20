@@ -12,6 +12,21 @@
 </head>
 
 <body>
+	
+	<div class="nav-btn" th:fragment="navigation_panel(forms)">
+		<!-- Common styles and scripts -->
+		<div id="user-and-date">
+		<p>
+			<span id="greeting" th:text="${greeting}"></span><br>
+			<span id="date" th:text="|Current date: ${#temporals.format(#temporals.createNow(), 'dd/MMM/yyyy')}|"></span>
+		<p>
+		</div>
+		
+		<!--/* Per-page placeholder for additional forms */-->
+		<th:block th:replace="${forms} != null ? ${forms} : ~{}" />
+	</div>
+
+
 	<form th:fragment="logout-button" class="form-btn"
 		th:action="@{/logout}" method="get">
 		<button class="user-btn" id="logout-btn" name="logout" type="Submit">Logout</button>

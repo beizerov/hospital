@@ -43,11 +43,21 @@ body {
 	cursor: pointer;
 }
 
-#greeting {
+
+#user-and-date {
+	margin-bottom: -1.3%;
 	display: inline-flex;
-	margin-right: 5%;
-	font-size: 2em;
+	margin-right: 3%;
+}
+
+#greeting {
+	font-size: 1.7em;
 	color: #1b4cab;
+}
+
+#date {
+	font-size: 1em;
+	color: yellow;
 }
 
 button:focus#add-new-user-btn, button:hover#add-new-user-btn {
