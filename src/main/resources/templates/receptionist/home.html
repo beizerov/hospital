@@ -20,26 +20,29 @@
 				Add new operation</button>
 		</form>
 
-		<form  class="form-btn" th:replace="~{fragments/common::logout-button}"></form>
+		<form class="form-btn" th:replace="~{fragments/common::logout-button}"></form>
 	</div>
 
 	<div class="container" id="table-wrapper">
 		<table>
-			<thead>
+			<thead class="opacity-background-for-thead">
 				<tr>
 					<th class="text">Date</th>
 					<th class="text">Name</th>
 					<th class="text">Description</th>
 					<th class="text">Doctor</th>
+					<th class="text">Operating Theater</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody class="opacity-background-for-tbody">
 				<tr th:each="operation : ${operations}">
-					<td th:text="${#dates.format(operation?.timestamp, 'dd/MMM/yyyy HH:mm')}"></td>
+					<td
+						th:text="${#dates.format(operation?.timestamp, 'dd/MMM/yyyy HH:mm')}"></td>
 					<td th:text="${operation?.name}"></td>
 					<td th:text="${operation?.description}"></td>
 					<td
 						th:text="|${operation?.doctor?.firstName} ${operation?.doctor?.lastName}|"></td>
+					<td th:text="${operation?.operatingTheater?.name}"></td>
 				</tr>
 			</tbody>
 		</table>

@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import io.github.serothim.hospital.domain.Operation;
+import io.github.serothim.hospital.service.operatingtheater.GettingTheOperatingTheater;
 import io.github.serothim.hospital.service.operation.SavingTheOperation;
 import io.github.serothim.hospital.service.user.UserGetting;
 
@@ -50,11 +51,18 @@ public class OperationAdditionController {
 	@Autowired
 	private SavingTheOperation savingTheOperation;
 	
+	@Autowired
+	private GettingTheOperatingTheater gettingTheOperatingTheater;
+	
 	private ModelAndView getModelAndViewForAddOperation() {
 		ModelAndView modelAndView = new ModelAndView();
 
 		modelAndView.addObject("doctors", userGetting.getUsersByRole("DOCTOR"));
 		modelAndView.addObject("operation", new Operation());
+		modelAndView.addObject(
+				"operatingTheaters", 
+				gettingTheOperatingTheater.getAllOperatingTheater()
+		);
 		
 		return modelAndView;
 	}
@@ -67,10 +75,15 @@ public class OperationAdditionController {
 	@PostMapping("/receptionist/addOperation")
 	public ModelAndView addNewOperation(
 			Operation operation,
-			@RequestParam String email
+			@RequestParam String email,
+			@RequestParam long id
+										 
 	) {
 		operation.setDoctor(userGetting.getUserByEmail(email));
 		
+		operation.setOperatingTheater(
+		gettingTheOperatingTheater.getOperatingTheaterById(id));
+		 
 		savingTheOperation.save(operation);
 
 		return getModelAndViewForAddOperation();

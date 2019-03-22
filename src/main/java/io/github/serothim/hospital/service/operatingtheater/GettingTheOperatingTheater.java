@@ -43,7 +43,9 @@ public class GettingTheOperatingTheater {
 	/**
 	 * @param operatingTheaterRepository
 	 */
-	public GettingTheOperatingTheater(OperatingTheaterRepository operatingTheaterRepository) {
+	public GettingTheOperatingTheater(
+			OperatingTheaterRepository operatingTheaterRepository
+	) {
 		this.operatingTheaterRepository = operatingTheaterRepository;
 	}
 	
@@ -53,5 +55,9 @@ public class GettingTheOperatingTheater {
 	
 	public OperatingTheater getOperatingTheaterByName(String name) {
 		return operatingTheaterRepository.findByName(name);
+	}
+	
+	public OperatingTheater getOperatingTheaterById(long id) {
+		return operatingTheaterRepository.getOne(id);
 	}
 }

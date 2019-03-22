@@ -72,4 +72,7 @@ public class Operation {
 			inverseJoinColumns = @JoinColumn(name = "user_id")
 	)
 	private User doctor;
+	
+	@ManyToOne
+	private OperatingTheater operatingTheater;
 }

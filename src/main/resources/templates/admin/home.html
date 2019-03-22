@@ -19,7 +19,7 @@
 
 	<div class="container" id="table-wrapper">
 		<table>
-			<thead class="opacity-background-for-th">
+			<thead class="opacity-background-for-thead">
 				<tr>
 					<th class="text" width="100px]">Active</th>
 					<th class="text">Email</th>
@@ -29,7 +29,7 @@
 					<th class="text">Actions</th>
 				</tr>
 			</thead>
-			<tbody class="opacity-background-for-td">
+			<tbody class="opacity-background-for-tbody">
 				<tr th:each="user : ${users}">
 					<td id="td-active-btn">
 						<form class="user-btn-form" th:action="@{/admin/activity}"

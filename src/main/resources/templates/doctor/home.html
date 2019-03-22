@@ -13,14 +13,14 @@
 
 	<div class="container" id="table-wrapper">
 		<table>
-			<thead>
+			<thead class="opacity-background-for-thead">
 				<tr>
 					<th class="text">Date</th>
 					<th class="text">Name</th>
 					<th class="text">Description</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody class="opacity-background-for-tbody">
 				<tr th:each="operation : ${operations}">
 					<td th:text="${operation?.timestamp}"></td>
 					<td th:text="${operation?.name}"></td>

@@ -42,8 +42,16 @@
 					<div id="doc-label" class="form-group">
 						<label>Doctor: </label> <select th:name="email">
 							<option th:each="doctor : ${doctors}"
-								th:text="|${doctor.firstName} ${doctor.lastName}|"
-								th:value="${doctor.email}"></option>
+								th:text="|${doctor?.firstName} ${doctor.lastName}|"
+								th:value="${doctor?.email}"></option>
+						</select>
+					</div>
+					
+					<div id="ot-label" class="form-group">
+						<label>Operating Theater: </label> <select th:name="id">
+							<option th:each="operatingTheater : ${operatingTheaters}"
+								th:text="${operatingTheater?.name}"
+								th:value="${operatingTheater?.id}"></option>
 						</select>
 					</div>
 

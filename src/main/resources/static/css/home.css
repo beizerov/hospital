@@ -10,13 +10,13 @@ th, td {
 	width: 100%;
 }
 
-.opacity-background-for-td {
+.opacity-background-for-tbody {
 	background-color: black;
 	opacity: 0.7;
 	color: #a5ff00;
 }
 
-.opacity-background-for-th {
+.opacity-background-for-thead {
 	background-color: black;
 	opacity: 0.8;
 	color: red;

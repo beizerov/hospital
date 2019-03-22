@@ -37,7 +37,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -54,16 +54,16 @@ public class OperatingTheater {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "operating_theater_id")
-	private int id;
+	private long id;
 	
 	@Column(name = "operating_theater_name")
 	private String name;
 	
-    @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     @JoinTable(
-    			name = "operating_theaters_operations", 
+    			name = "operating_theater_operations", 
     			joinColumns = @JoinColumn(name = "operating_theater_id"), 
     			inverseJoinColumns = @JoinColumn(name = "operation_id")
-    		  )
+    )
     private Set<Operation> operations;
 }
