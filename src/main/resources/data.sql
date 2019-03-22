@@ -55,7 +55,7 @@ FROM (
 ) AS tmp
 WHERE NOT EXISTS (SELECT `email` FROM `users` WHERE user_id > 0 );
 
-REPLACE INTO `user_roles` (`user_id`, `role_id`) 
+REPLACE INTO `users_roles` (`user_id`, `role_id`) 
 SELECT * 
 FROM (SELECT 0, 1) AS tmp
 WHERE EXISTS (SELECT 'user_id' FROM `users` WHERE user_id = 0);

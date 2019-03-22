@@ -67,12 +67,17 @@ public class Operation {
 	
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
 	@JoinTable( 
-			name = "doctor_operations", 
+			name = "doctors_operations", 
 			joinColumns = @JoinColumn(name = "operation_id"),
 			inverseJoinColumns = @JoinColumn(name = "user_id")
 	)
 	private User doctor;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @JoinTable(
+			name = "operating_theaters_operations", 
+			joinColumns = @JoinColumn(name = "operation_id"), 
+			inverseJoinColumns = @JoinColumn(name = "operating_theater_id")
+    )
 	private OperatingTheater operatingTheater;
 }

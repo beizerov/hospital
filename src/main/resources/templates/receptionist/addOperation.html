@@ -23,10 +23,7 @@
 					<div class="form-group">
 						<div class="col-sm-9">
 							<input type="text" th:field="*{name}"
-								placeholder="Operation Name" class="form-control" required
-								pattern="(^[A-Z][a-z]{1,24}$)"
-								title="Start typing your name with a capital letter. 
-									Minimum 2 maximum 25 Latin characters." />
+								placeholder="Operation Name" class="form-control" required />
 						</div>
 					</div>
 
@@ -46,7 +43,7 @@
 								th:value="${doctor?.email}"></option>
 						</select>
 					</div>
-					
+
 					<div id="ot-label" class="form-group">
 						<label>Operating Theater: </label> <select th:name="id">
 							<option th:each="operatingTheater : ${operatingTheaters}"

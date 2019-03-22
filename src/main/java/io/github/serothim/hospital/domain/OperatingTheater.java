@@ -28,15 +28,12 @@ package io.github.serothim.hospital.domain;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -59,11 +56,7 @@ public class OperatingTheater {
 	@Column(name = "operating_theater_name")
 	private String name;
 	
-    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
-    @JoinTable(
-    			name = "operating_theater_operations", 
-    			joinColumns = @JoinColumn(name = "operating_theater_id"), 
-    			inverseJoinColumns = @JoinColumn(name = "operation_id")
-    )
+    @OneToMany
+    @JoinColumn(name = "operation_id")
     private Set<Operation> operations;
 }
