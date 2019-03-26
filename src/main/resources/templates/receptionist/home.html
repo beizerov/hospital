@@ -39,7 +39,7 @@
 					<td
 						th:text="${#temporals.format(operation?.localDateTime, 'dd/MMM/yyyy HH:mm')}"></td>
 					<td th:text="${operation?.name}"></td>
-					<td th:text="${operation?.description}"></td>
+					<td id="description-operation" th:text="${operation?.description}"></td>
 					<td id="doc-name"
 						th:text="|${operation?.doctor?.firstName} ${operation?.doctor?.lastName}|"></td>
 					<td th:text="${operation?.operatingTheater?.name}"></td>
