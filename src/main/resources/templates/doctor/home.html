@@ -18,13 +18,15 @@
 					<th class="text">Date</th>
 					<th class="text">Name</th>
 					<th class="text">Description</th>
+					<th class="text">Operating Theater</th>
 				</tr>
 			</thead>
 			<tbody class="opacity-background-for-tbody">
 				<tr th:each="operation : ${operations}">
-					<td th:text="${operation?.timestamp}"></td>
+					<td th:text="${#dates.format(operation?.timestamp, 'dd/MMM/yyyy HH:mm')}"></td>
 					<td th:text="${operation?.name}"></td>
 					<td th:text="${operation?.description}"></td>
+					<td th:text="${operation?.operatingTheater?.name}"></td>
 				</tr>
 			</tbody>
 		</table>
