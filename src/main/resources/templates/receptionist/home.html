@@ -37,7 +37,7 @@
 			<tbody class="opacity-background-for-tbody">
 				<tr th:each="operation : ${operations}">
 					<td
-						th:text="${#dates.format(operation?.timestamp, 'dd/MMM/yyyy HH:mm')}"></td>
+						th:text="${#temporals.format(operation?.localDateTime, 'dd/MMM/yyyy HH:mm')}"></td>
 					<td th:text="${operation?.name}"></td>
 					<td th:text="${operation?.description}"></td>
 					<td

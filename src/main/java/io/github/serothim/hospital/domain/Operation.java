@@ -26,7 +26,7 @@
  */
 package io.github.serothim.hospital.domain;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -39,6 +39,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 
@@ -56,8 +58,9 @@ public class Operation {
 	@Column(name = "operation_id")
 	private int id;
 	
-	@Column(name = "timestamp")
-	private Timestamp timestamp;
+	@Column(name = "local_date_time")
+	@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
+	private LocalDateTime localDateTime;
 	
 	@Column(name = "operation_name")
 	private String name;
