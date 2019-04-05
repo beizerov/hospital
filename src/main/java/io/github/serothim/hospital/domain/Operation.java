@@ -77,7 +77,7 @@ public class Operation {
 	private User doctor;
 	
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
-    @JoinTable(
+	@JoinTable(
 			name = "operating_theaters_operations", 
 			joinColumns = @JoinColumn(name = "operation_id"), 
 			inverseJoinColumns = @JoinColumn(name = "operating_theater_id")
