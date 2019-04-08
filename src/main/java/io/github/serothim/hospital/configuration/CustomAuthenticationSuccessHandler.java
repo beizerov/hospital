@@ -54,10 +54,6 @@ public class CustomAuthenticationSuccessHandler
 	
 	private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 	
-	private enum Role {
-		ADMIN, RECEPTIONIST, DOCTOR;
-	}
-
 	/* 
 	 * @see org.springframework.security.web.authentication.
 	 * AuthenticationSuccessHandler#onAuthenticationSuccess(javax.servlet.
@@ -91,33 +87,21 @@ public class CustomAuthenticationSuccessHandler
 	}
 	
     protected String determineTargetUrl(Authentication authentication) {
-    	Role role = null;
-
         Collection<? extends GrantedAuthority> authorities
          = authentication.getAuthorities();
-        for (GrantedAuthority grantedAuthority : authorities) { 	
-            if (grantedAuthority.getAuthority().equals("ADMIN")) {
-                role = Role.ADMIN;
-                break;
-            } else if (grantedAuthority.getAuthority().equals("RECEPTIONIST")) {
-            	role = Role.RECEPTIONIST;
-                break;
-            } else if (grantedAuthority.getAuthority().equals("DOCTOR")) {
-            	role = Role.DOCTOR;
-                break;
-            } 
+        
+        for (GrantedAuthority grantedAuthority : authorities) { 		
+        	switch (grantedAuthority.getAuthority()) {
+    		case "ADMIN":
+    			return "/admin/home";
+    		case "DOCTOR":
+    			return "/doctor/home";
+    		case "RECEPTIONIST":
+    			return "/receptionist/home";
+        	}
         }
-
-    	switch (role) {
-		case ADMIN:
-			return "/admin/home";
-		case DOCTOR:
-			return "/doctor/home";
-		case RECEPTIONIST:
-			return "/receptionist/home";
-		default:
-			throw new IllegalStateException();
-    	}
+        
+        throw new IllegalStateException();
     }
     
     protected void clearAuthenticationAttributes(HttpServletRequest request) {
