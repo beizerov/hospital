@@ -52,13 +52,6 @@ import java.util.Set;
 @Table(name = "users")
 public class User implements UserDetails {
 
-    /**
-	 * Field using for serialization/deserialization.
-	 * Without this field, would have to use @SuppressWarnings ("serial")
-	 * or disable warnings in eclipse
-	 */
-	private static final long serialVersionUID = 3891474478865915522L;
-
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")

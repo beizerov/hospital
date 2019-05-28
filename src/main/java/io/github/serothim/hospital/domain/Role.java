@@ -43,13 +43,6 @@ import org.springframework.security.core.GrantedAuthority;
 @Table(name = "roles")
 public class Role implements GrantedAuthority {
 
-    /**
-	 * Field using for serialization/deserialization.
-	 * Without this field, would have to use @SuppressWarnings ("serial")
-	 * or disable warnings in eclipse
-	 */
-	private static final long serialVersionUID = 1549318714988553844L;
-
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "role_id")
