@@ -83,7 +83,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .accessDeniedPage("/access-denied")
                 .and()
         			.headers()
-        			.contentSecurityPolicy("script-src 'self' " 
+        			.contentSecurityPolicy(
+        					"script-src 'self' " 
         					
         					// For js code on login page
         					+ "'sha256-oycdMXbeFD5cVW39QrHu4kCOhcL6FOKn6"
@@ -100,7 +101,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         					+ "'sha256-xBOERXZeaHkDnEjcABGQmLEYFUlu+0P7q"
         					+ "z41+cgGfFM=';"
         					
-        					+ "report-uri /csp-report-endpoint/");
+        					+ "report-uri /csp-report-endpoint/"
+        			);
     }
 
     @Override
