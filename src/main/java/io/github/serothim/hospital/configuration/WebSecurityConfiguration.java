@@ -24,6 +24,7 @@
 package io.github.serothim.hospital.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -51,6 +52,18 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+    
+    @Value("${spring.csp.hash.login-page}")
+    private String hashForLoginPage;
+    
+    @Value("${spring.csp.hash.adduser-page-success-message}")
+    private String hashForAddUserPageSuccessMessage;
+    
+    @Value("${spring.csp.hash.adduser-page-email-already-registered}")
+    private String hashForAddUserPageEmailAlreadyRegistered;   
+    
+    @Value("${spring.csp.hash.edituser-page-success-message}")
+    private String hashForEditUserPageSuccessMessage;
     
     @Override
     protected void configure(AuthenticationManagerBuilder auth)
@@ -85,22 +98,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         			.headers()
         			.contentSecurityPolicy(
         					"script-src 'self' " 
-        					
-        					// For js code on login page
-        					+ "'sha256-oycdMXbeFD5cVW39QrHu4kCOhcL6FOKn6"
-        					+ "MFw6sZXUps=' "
-        					// For js code on addUser page for success message
-        					+ "'sha256-VMJY2D0SHkV5hsAosuyooiS+yvN6AbZrx"
-        					+ "l9GPF7z9QM=' "
-        					// For the js code on the addUser page, 
-        					// which reports that the user with this 
-        					// email address is already registered
-        					+ "'sha256-A5rT/3e2HmL+jyzk7ZqJptuK4CKnuwYPC"
-        					+ "iTxI0SFFUA=' "
-        					// For js code on editUser page for success message
-        					+ "'sha256-xBOERXZeaHkDnEjcABGQmLEYFUlu+0P7q"
-        					+ "z41+cgGfFM=';"
-        					
+        					+ hashForLoginPage + " "
+        					+ hashForAddUserPageSuccessMessage + " "
+        					+ hashForAddUserPageEmailAlreadyRegistered + " "
+        					+ hashForEditUserPageSuccessMessage + ";"
         					+ "report-uri /csp-report-endpoint/"
         			);
     }
