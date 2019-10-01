@@ -77,14 +77,13 @@
 							th:text="${successMessage}"> </span>
 
 						<script th:if="${successMessage != null}" th:inline="javascript">
-							let modify = document
-									.getElementById('e-u-success-msg');
-
-							modify.style.display = "inline-block";
-
+							const modify = document.getElementById('e-u-success-msg');
+	
+							modify.style.display = 'inline-block';
+	
 							setTimeout(function() {
-								modify.style.display = "none";
-								location.href = "home";
+							  modify.style.display = 'none';
+							  location.href = 'home';
 							}, 1500);
 						</script>
 					</h2>

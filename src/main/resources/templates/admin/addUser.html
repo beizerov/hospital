@@ -71,13 +71,12 @@
 							th:text="${successMessage}"> </span>
 
 						<script th:if="${successMessage != null}" th:inline="javascript">
-							let modify = document
-									.getElementById('a-u-success-msg');
-
-							modify.style.display = "inline-block";
-
+							const modify = document.getElementById('a-u-success-msg');
+	
+							modify.style.display = 'inline-block';
+	
 							setTimeout(function() {
-								modify.style.display = "none";
+							  modify.style.display = 'none';
 							}, 1500);
 						</script>
 
@@ -86,18 +85,17 @@
 
 						<script th:if="${#fields.hasErrors('email') == true}"
 							th:inline="javascript">
-							let modifyErrMsg = document
-									.getElementById('a-u-email-err-msg');
-
+							const modifyErrMsg = document.getElementById('a-u-email-err-msg');
+	
 							if (modifyErrMsg !== null) {
-								modifyErrMsg.style.display = "inline-block";
+							  modifyErrMsg.style.display = 'inline-block';
 							}
-
+		
 							setTimeout(function() {
-								if (modifyErrMsg !== null) {
-									modifyErrMsg.style.display = "none";
-								}
-								location.href = "addUser";
+							  if (modifyErrMsg !== null) {
+							    modifyErrMsg.style.display = 'none';
+							  }
+							  location.href = 'addUser';
 							}, 1500);
 						</script>
 					</h2>

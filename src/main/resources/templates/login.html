@@ -13,13 +13,13 @@
 		<img th:src="@{/images/logo.jpg}" class="logo" alt="Logo" />
 
 		<script th:if="${param.error}" th:inline="javascript">
-			let modify = document.getElementById('error');
-
-			modify.style.display = "inline-block";
-
+			const modify = document.getElementById('error');
+	
+			modify.style.display = 'inline-block';
+	
 			setTimeout(function() {
-				modify.style.display = "none";
-				location.href = "/";
+			  modify.style.display = 'none';
+			  location.href = '/';
 			}, 1500);
 		</script>
 
