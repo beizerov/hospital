@@ -12,7 +12,7 @@
 
 
 Use your favorite development tool for MySQL database, create a user, such as for example hospital_admin,
-not to use the root account( the root account is not for this purpose ;-) )
+not to use the root account( the root account is not for this purpose ;-)
 
 
 	CREATE USER 'hospital_admin'@'%' IDENTIFIED BY 'admin';
