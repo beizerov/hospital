@@ -7,7 +7,7 @@
 ##### MySQL database
 
 
-#####  For a locally example with a using Docker:
+##### For a locally example with a using Docker:
 	docker run --name hospital_mysql_8.0 -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=hospital -d mysql:8.0
 
 
