@@ -1,0 +1,139 @@
+*, *:before, *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -webkit-box-sizing:border-box;
+}
+
+body, html, .login_form {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+body {
+    background: #8affb4;
+}
+
+.login_form {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-flex: center;
+    -moz-box-flex: center;
+    -webkit-flex: center;
+    -ms-flex: center;
+    flex: center;
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    justify-content: center;
+    -webkit-box-pack: center;
+    -moz-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.logo {
+    width: 300px;
+    height: 300px;
+}
+
+.logo img {
+    max-width: 200px;
+    width: 100%;
+    margin: 1em auto 2em;
+}
+
+form {
+    background: #8affb4;
+    padding: 2em 1em;
+    font-family: helvetica, sans-serif;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+form input {
+    width: 94%;
+    padding: .5em .25em;
+    margin: 0 3% 1em;
+    font-size: 1.2em;
+    border: 2px solid #000;
+    outline: none;
+    -webkit-transition: all 0.25s;
+    -moz-transition: all 0.25s;
+    -ms-transition: all 0.25s;
+    -o-transition: all 0.25s;
+    transition: all 0.25s;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+form input.password {
+    padding-right: 4rem;
+}
+
+form input:focus {
+    border: 2px solid #1fd100;
+}
+
+form button {
+    width: 94%;
+    margin: 2em 3% 0;
+    border: none;
+    background: #1fd100;
+    padding: 1em 0;
+    font-size: 1.25em;
+    clear: both;
+    color: #000;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    outline: none;
+    -webkit-transition: all 0.25s;
+    -moz-transition: all 0.25s;
+    -ms-transition: all 0.25s;
+    -o-transition: all 0.25s;
+    transition: all 0.25s;
+    cursor: pointer;
+}
+
+form button:focus, form button:hover {
+    background: #56a974;
+}
+
+.hide-show {
+    width: 94%;
+    margin: -3.62em 3% 0 1.5%;
+    position: relative;
+    z-index: 5;
+}
+
+.hide-show span {
+    background: #4ad8d8;
+    font-size: 1em;
+    padding: .3em;
+    float: right;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#error {
+    display: none;
+    color: red;
+    font-size: 3em;
+    margin-left: 30%;
+    position: absolute;
+}
+
+#welcome {
+    font-size: 5em;
+    font-family: cursive;
+    font-style: italic;
+    margin-left: 9px;
+}

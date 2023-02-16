@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="common_header(title,links)">
+<title th:replace="${title}">The awesome application</title>
+<!-- Common styles and scripts -->
+<link rel="stylesheet"
+	th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/common.css}" />
+<!--/* Per-page placeholder for additional links */-->
+<th:block th:replace="${links} != null ? ${links} : ~{}" />
+</head>
+
+<body>
+	
+	<div class="nav-btn" th:fragment="navigation_panel(forms)">
+		<!-- Common styles and scripts -->
+		<div id="user-and-date">
+		<p>
+			<span id="greeting" th:text="${greeting}"></span><br>
+			<span id="date" th:text="|Current date: ${#temporals.format(#temporals.createNow(), 'dd/MMM/yyyy')}|"></span>
+		<p>
+		</div>
+		
+		<!--/* Per-page placeholder for additional forms */-->
+		<th:block th:replace="${forms} != null ? ${forms} : ~{}" />
+	</div>
+
+
+	<form th:fragment="logout-button" class="form-btn"
+		th:action="@{/logout}" method="get">
+		<button class="user-btn" id="logout-btn" name="logout" type="Submit">Logout</button>
+	</form>
+
+	<form th:fragment="admin-home-button" th:action="@{/admin/home}"
+		method="get">
+		<button id="go-to-home-btn" class="user-btn" type="Submit">
+			Home</button>
+	</form>
+
+	<form th:fragment="receptionist-home-button"
+		th:action="@{/receptionist/home}" method="get">
+		<button id="go-to-home-btn" class="user-btn" type="Submit">
+			Home</button>
+	</form>
+
+	<form th:fragment="doctor-home-button" th:action="@{/doctor/home}"
+		method="get">
+		<button id="go-to-home-btn" class="user-btn" type="Submit">
+			Home</button>
+	</form>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head
+	th:replace="fragments/common :: common_header(~{::title},~{::link})">
+<title>Home</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/home.css}" />
+</head>
+<body>
+	<div th:replace="fragments/common :: navigation_panel(~{::.form-btn})">
+		<form class="form-btn"
+			th:action="@{/receptionist/addOperatingTheater}" method="get">
+			<button class="user-btn" id="add-new-operation-btn" type="Submit">
+				Add new operating theater</button>
+		</form>
+
+		<form class="form-btn" th:action="@{/receptionist/addOperation}"
+			method="get">
+			<button class="user-btn" id="add-new-operation-btn" type="Submit">
+				Add new operation</button>
+		</form>
+
+		<form class="form-btn" th:replace="~{fragments/common::logout-button}"></form>
+	</div>
+
+	<div class="container" id="table-wrapper">
+		<table>
+			<thead class="opacity-background-for-thead">
+				<tr>
+					<th class="text">Date</th>
+					<th class="text">Name</th>
+					<th class="text">Description</th>
+					<th class="text">Doctor</th>
+					<th class="text">Operating Theater</th>
+				</tr>
+			</thead>
+			<tbody class="opacity-background-for-tbody">
+				<tr th:each="operation : ${operations}">
+					<td
+						th:text="${#temporals.format(operation?.localDateTime, 'dd/MMM/yyyy HH:mm')}"></td>
+					<td th:text="${operation?.name}"></td>
+					<td id="description-operation" th:text="${operation?.description}"></td>
+					<td id="doc-name"
+						th:text="|${operation?.doctor?.firstName} ${operation?.doctor?.lastName}|"></td>
+					<td th:text="${operation?.operatingTheater?.name}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</body>
+</html>

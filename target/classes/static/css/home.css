@@ -1,0 +1,57 @@
+@charset "UTF-8";
+
+th, td {
+	font-size: 1.3em;
+	font-family: monospace;
+
+}
+
+#table-wrapper table {
+	width: 100%;
+}
+
+.opacity-background-for-tbody {
+	background-color: black;
+	opacity: 0.7;
+	color: #a5ff00;
+}
+
+.opacity-background-for-thead {
+	background-color: black;
+	opacity: 0.8;
+	color: red;
+}
+
+#table-wrapper table thead th .text {
+	position: absolute;
+	top: -20px;
+	z-index: 2;
+	height: 20px;
+	width: 35%;
+}
+
+.user-btn-form {
+	display: inline;
+}
+
+#form-dlt {
+	margin-left: -15px;
+}
+
+#td-active-btn {
+	width: 50px;
+}
+
+#imp-act-btn {
+	width: 20px;
+	height: 20px;
+	margin-left: 30%;
+}
+
+#doc-name {
+	width: 15%;
+}
+
+#description-operation{
+	width: 21%;
+}

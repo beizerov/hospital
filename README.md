@@ -3,7 +3,7 @@
 [Task](https://github.com/serothim/hospital/blob/master/TASK.md)
 
 
-##### JAVA VERSION 12
+##### JAVA VERSION 11
 ##### MySQL database
 
 
